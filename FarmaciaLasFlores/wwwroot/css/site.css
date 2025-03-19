@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Centrar el título */
+h2 {
+    font-size: 2rem;
+    color: #4CAF50; /* Verde claro */
+}
+
+/* Botón de recuperación de contraseña */
+.btn-link {
+    color: #007bff; /* Color azul típico de enlaces */
+    text-decoration: none; /* Eliminar subrayado */
+}
+
+    .btn-link:hover {
+        color: #0056b3; /* Color al pasar el mouse */
+        text-decoration: underline;
+    }
+
+/* Estilo del alert de error */
+.alert-danger {
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
