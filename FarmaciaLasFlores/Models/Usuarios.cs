@@ -8,13 +8,20 @@ namespace FarmaciaLasFlores.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string NombreUsuario { get; set; }
+        [MaxLength(100)]
+        public string Nombre { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Posicion { get; set; }
 
         [Required]
         [EmailAddress]
-        [StringLength(100)]
-        public string gmail { get; set; }
+        public string email { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string NombreUsuario { get; set; }
 
         [Required]
         public string Password { get; set; }

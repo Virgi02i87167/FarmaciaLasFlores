@@ -6,9 +6,9 @@ namespace FarmaciaLasFlores.Controllers
     public class LoginController : Controller
     {
   
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public LoginController(AppDbContext context)
+        public LoginController(ApplicationDbContext context)
         {
             _context = context;
         }
