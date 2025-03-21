@@ -1,0 +1,60 @@
+﻿@model FarmaciaLasFlores.Models.UsuariosViewModel
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h2>Crear Usuario</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="NuevoUsuario.Nombre"></label>
+        <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoUsuario.Posicion"></label>
+        <input asp-for="NuevoUsuario.Posicion" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoUsuario.email"></label>
+        <input asp-for="NuevoUsuario.email" class="form-control" type="email" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoUsuario.NombreUsuario"></label>
+        <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoUsuario.Password">Contraseña</label>
+        <input asp-for="NuevoUsuario.Password" class="form-control" type="password" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+
+<h2>Lista de Usuarios</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th>Email</th>
+            <th>Usuario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.ListaUsuarios)
+        {
+            <tr>
+                <td>@user.Nombre</td>
+                <td>@user.Posicion</td>
+                <td>@user.email</td>
+                <td>@user.NombreUsuario</td>
+            </tr>
+        }
+    </tbody>
+</table>
