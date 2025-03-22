@@ -4,25 +4,25 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"857"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 19 Mar 2025 17:37:48 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"857"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4=\u0022"},{"Name":"Last-Modified","Value":"Fri, 21 Mar 2025 00:52:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FarmaciaLasFlores/css/site.rxji5e8vwm.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"rxji5e8vwm"},{"Name":"integrity","Value":"sha256-kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4="},{"Name":"label","Value":"_content/FarmaciaLasFlores/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"857"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 19 Mar 2025 17:37:48 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"857"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022kW3zU\u002Bo9PT3qE4rlNvoRuF5b3R\u002BH\u002BrLHoBU1C06uLK4=\u0022"},{"Name":"Last-Modified","Value":"Fri, 21 Mar 2025 00:52:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FarmaciaLasFlores/FarmaciaLasFlores.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\FarmaciaLasFlores.xvgas7q1a2.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA=\u0022"},{"Name":"Last-Modified","Value":"Thu, 20 Mar 2025 02:01:49 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 16:54:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FarmaciaLasFlores/FarmaciaLasFlores.xvgas7q1a2.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\FarmaciaLasFlores.xvgas7q1a2.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xvgas7q1a2"},{"Name":"integrity","Value":"sha256-A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA="},{"Name":"label","Value":"_content/FarmaciaLasFlores/FarmaciaLasFlores.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA=\u0022"},{"Name":"Last-Modified","Value":"Thu, 20 Mar 2025 02:01:49 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1135"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A5T4Nwka4YjVGYJ9XL1IMTVH9Lf3m6HN0YnaX2ccWbA=\u0022"},{"Name":"Last-Modified","Value":"Sat, 22 Mar 2025 16:54:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FarmaciaLasFlores/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

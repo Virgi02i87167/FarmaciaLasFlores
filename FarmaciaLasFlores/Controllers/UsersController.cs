@@ -15,28 +15,37 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
-        public IActionResult Create()
-        {
-            return View("../Views/Users/Create.cshtml");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UsuariosViewModel model)
         {
+            Console.WriteLine("Create action ejecutada");
             if (ModelState.IsValid)
             {
-                model.NuevoUsuario.Password = BCrypt.Net.BCrypt.HashPassword(model.NuevoUsuario.Password); // Encriptar contraseña
-
-                _context.Usuarios.Add(model.NuevoUsuario);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+                try
+                {
+                    model.NuevoUsuario.Password = BCrypt.Net.BCrypt.HashPassword(model.NuevoUsuario.Password);
+                    _context.Usuarios.Add(model.NuevoUsuario);
+                    await _context.SaveChangesAsync();
+                    Console.WriteLine("Datos guardados exitosamente");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al guardar: {ex.Message}");
+                    ModelState.AddModelError("", $"Ocurrió un error al guardar los datos: {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("ModelState no válido");
             }
 
-            return View(model);
+            // Si llegamos aquí, hubo un error de validación o una excepción
+            // Rellenamos ListaUsuarios para que se muestre en la vista
+            model.ListaUsuarios = await _context.Usuarios.ToListAsync();
+            return View("Index", model);
         }
-
 
         public async Task<IActionResult> Index()
         {
@@ -45,7 +54,6 @@ namespace FarmaciaLasFlores.Controllers
                 NuevoUsuario = new Usuarios(),
                 ListaUsuarios = await _context.Usuarios.ToListAsync()
             };
-
             return View(modelo);
         }
 

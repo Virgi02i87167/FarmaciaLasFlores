@@ -3,57 +3,74 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
 <h2>Crear Usuario</h2>
+
+<!-- Resumen de validación para errores generales -->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <form asp-action="Create" method="post">
     <div class="form-group">
         <label asp-for="NuevoUsuario.Nombre"></label>
         <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="NuevoUsuario.Posicion"></label>
         <input asp-for="NuevoUsuario.Posicion" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.Posicion" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="NuevoUsuario.email"></label>
         <input asp-for="NuevoUsuario.email" class="form-control" type="email" required />
+        <span asp-validation-for="NuevoUsuario.email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="NuevoUsuario.NombreUsuario"></label>
         <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.NombreUsuario" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="NuevoUsuario.Password">Contraseña</label>
         <input asp-for="NuevoUsuario.Password" class="form-control" type="password" required />
+        <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 
-
-<h2>Lista de Usuarios</h2>
-
+<!-- Opcional: Mostrar la lista de usuarios -->
+<h3>Usuarios Existentes</h3>
 <table class="table">
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Cargo</th>
+            <th>Posición</th>
             <th>Email</th>
-            <th>Usuario</th>
+            <th>Nombre de Usuario</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.ListaUsuarios)
+        @foreach (var usuario in Model.ListaUsuarios)
         {
             <tr>
-                <td>@user.Nombre</td>
-                <td>@user.Posicion</td>
-                <td>@user.email</td>
-                <td>@user.NombreUsuario</td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Posicion</td>
+                <td>@usuario.email</td>
+                <td>@usuario.NombreUsuario</td>
             </tr>
         }
     </tbody>
