@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj": {}
+    "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj": {
+    "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+        "projectUniqueName": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
         "projectName": "FarmaciaLasFlores",
-        "projectPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-        "packagesPath": "C:\\Users\\alfar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\",
+        "projectPath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+        "packagesPath": "C:\\Users\\xyz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alfar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\xyz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -66,6 +66,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Microsoft.Extensions.Caching.Abstractions": {
               "target": "Package",
               "version": "[9.0.3, )"
             },
@@ -93,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

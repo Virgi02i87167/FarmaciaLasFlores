@@ -61,6 +61,7 @@
             <th>Posición</th>
             <th>Email</th>
             <th>Nombre de Usuario</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -71,6 +72,15 @@
                 <td>@usuario.Posicion</td>
                 <td>@usuario.email</td>
                 <td>@usuario.NombreUsuario</td>
+
+                <!--Agregamos el boton para eliminar un empleado y sus credencialesc-->
+                <td>
+                    <form asp-action="Delete" asp-controller="Users" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                        <input type="hidden" name="id" value="@usuario.Id" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+
             </tr>
         }
     </tbody>
