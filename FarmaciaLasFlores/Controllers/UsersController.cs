@@ -1,4 +1,5 @@
-﻿using FarmaciaLasFlores.Db;
+﻿using System.Linq.Expressions;
+using FarmaciaLasFlores.Db;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Scripting;
@@ -13,6 +14,23 @@ namespace FarmaciaLasFlores.Controllers
         public UsersController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        //GET: Users/Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Usuario = await _context.Usuarios.FindAsync(id);
+            if (Usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(Usuario);
         }
 
         [HttpPost]
@@ -47,15 +65,52 @@ namespace FarmaciaLasFlores.Controllers
             return View("Index", model);
         }
 
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreUsuario,Password")] Usuarios usuarios)
         {
-            var modelo = new UsuariosViewModel
+            if (id != usuarios.Id)
             {
-                NuevoUsuario = new Usuarios(),
-                ListaUsuarios = await _context.Usuarios.ToListAsync()
-            };
-            return View(modelo);
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(usuarios.Password))
+                    {
+                        usuarios.Password = BCrypt.Net.BCrypt.HashPassword(usuarios.Password);
+                    }
+
+                    _context.Update(usuarios);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Usuario Actualizado Exitosamente.";
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UsuarioExists(usuarios.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Ocurrio un error al actualizar el usuario: {ex.Message}");
+                }
+            }
+
+            return View(usuarios);
         }
 
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuarios.Any(e => e.Id == id);
+        }
     }
 }

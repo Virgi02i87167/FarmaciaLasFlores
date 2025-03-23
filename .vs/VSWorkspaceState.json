@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\FarmaciaLasFlores",
+    "\\FarmaciaLasFlores\\Models",
+    "\\FarmaciaLasFlores\\Views",
+    "\\FarmaciaLasFlores\\Views\\Users"
   ],
-  "SelectedNode": "\\FarmaciaLasFlores.sln",
   "PreviewInSolutionExplorer": false
 }
