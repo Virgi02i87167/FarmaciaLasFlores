@@ -16,6 +16,16 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var modelo = new UsuariosViewModel
+            {
+                NuevoUsuario = new Usuarios(),
+                ListaUsuarios = await _context.Usuarios.ToListAsync()
+            };
+            return View(modelo);
+        }
+
         //GET: Users/Edit
         public async Task<IActionResult> Edit(int? id)
         {
