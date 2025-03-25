@@ -1,0 +1,62 @@
+﻿@model FarmaciaLasFlores.Models.ProductosViewModel
+
+@{
+    ViewData["Title"] = "Gestión de Productos";
+}
+
+<!-- Título -->
+<h2 class="text-center mb-4">Registrar Nuevo Producto</h2>
+
+<!-- Formulario -->
+<form asp-action="Create" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.Nombre" class="form-label">Nombre del Producto</label>
+        <input asp-for="NuevoProducto.Nombre" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.Cantidad" class="form-label">Cantidad</label>
+        <input asp-for="NuevoProducto.Cantidad" type="number" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.Cantidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.Precio" class="form-label">Precio</label>
+        <input asp-for="NuevoProducto.Precio" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.Precio" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Guardar Producto</button>
+</form>
+
+<!-- Título de productos existentes -->
+<h2 class="text-center mt-5 mb-4">Productos Existentes</h2>
+
+<!-- Tabla de productos -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var producto in Model.ListaProductos)
+        {
+            <tr>
+                <td>@producto.Nombre</td>
+                <td>@producto.Cantidad</td>
+                <td>@producto.Precio</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Productos", new { id = producto.Id })" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="@Url.Action("Delete", "Productos", new { id = producto.Id })" method="post" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

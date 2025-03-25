@@ -1,0 +1,12 @@
+# Ignorar la carpeta .vs (Visual Studio)
+.vs/
+
+# Ignorar archivos de configuración de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignorar la carpeta bin/ y obj/ (compilaciones)
+bin/
+obj/

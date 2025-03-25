@@ -867,3 +867,4 @@ C:\Users\xyz\OneDrive - Universidad de Oriente\Escritorio\FarmaciaLasFlores\Farm
 C:\Users\xyz\OneDrive - Universidad de Oriente\Escritorio\FarmaciaLasFlores\FarmaciaLasFlores\obj\Debug\net8.0\Farmacia.FB9C319A.Up2Date
 C:\Users\xyz\OneDrive - Universidad de Oriente\Escritorio\FarmaciaLasFlores\FarmaciaLasFlores\obj\Debug\net8.0\FarmaciaLasFlores.genruntimeconfig.cache
 C:\Users\xyz\OneDrive - Universidad de Oriente\Escritorio\FarmaciaLasFlores\FarmaciaLasFlores\obj\Debug\net8.0\ref\FarmaciaLasFlores.dll
+C:\Users\ferna\Source\Repos\FarmaciaLasFlores\FarmaciaLasFlores\bin\Debug\net8.0\BCrypt.Net-Next.dll
