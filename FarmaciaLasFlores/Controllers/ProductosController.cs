@@ -11,7 +11,7 @@ namespace FarmaciaLasFlores.Controllers
     public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        /
         public ProductosController(ApplicationDbContext context)
         {
             _context = context;
@@ -33,20 +33,20 @@ namespace FarmaciaLasFlores.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductosViewModel viewModel)
-        {
+        {// Validar que el modelo sea válido
             if (!ModelState.IsValid)
             {
                 // Si hay errores, se recarga la lista de productos y se devuelve la vista
                 viewModel.ListaProductos = await _context.Productos.ToListAsync();
                 return View("Index", viewModel);
             }
-
+            //aqui se guarda el producto
             try
             {
                 _context.Productos.Add(viewModel.NuevoProducto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            }//verifica si hay errores
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"Ocurrió un error al guardar el producto: {ex.Message}");

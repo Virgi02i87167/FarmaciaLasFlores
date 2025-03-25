@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaLasFlores.Models
-{
+{//entidad  que corresponde a la tabla productos
     public class Productos
     {
         [Key]
