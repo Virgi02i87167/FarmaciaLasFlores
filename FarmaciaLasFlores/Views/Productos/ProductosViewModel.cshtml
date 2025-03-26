@@ -1,13 +1,5 @@
-﻿@model FarmaciaLasFlores.Models.ProductosViewModel
+﻿@model ProductosViewModel
 
-@{
-    ViewData["Title"] = "Gestión de Productos";
-}
-
-<!-- Título -->
-<h2 class="text-center mb-4">Gestión de Productos</h2>
-
-<!-- Formulario para agregar o actualizar productos -->
 <form asp-action="@(Model.NuevoProducto.Id > 0 ? "Update" : "Create")" method="post">
     <input type="hidden" asp-for="NuevoProducto.Id" />
 
@@ -33,31 +25,3 @@
         @(Model.NuevoProducto.Id > 0 ? "Actualizar Producto" : "Guardar Producto")
     </button>
 </form>
-
-<!-- Título de productos existentes -->
-<h2 class="text-center mt-5 mb-4">Productos Existentes</h2>
-
-<!-- Tabla de productos (sin opción de eliminar) -->
-<table class="table table-bordered table-striped table-hover">
-    <thead class="table-light">
-        <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var producto in Model.ListaProductos)
-        {
-            <tr>
-                <td>@producto.Nombre</td>
-                <td>@producto.Cantidad</td>
-                <td>@producto.Precio</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Productos", new { id = producto.Id })" class="btn btn-warning btn-sm">Editar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
