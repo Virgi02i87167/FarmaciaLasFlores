@@ -21,6 +21,30 @@
         <span asp-validation-for="NuevoProducto.Precio" class="text-danger"></span>
     </div>
 
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.Lote" class="form-label">Lote</label>
+        <input asp-for="NuevoProducto.Lote" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.FechaRegistro" class="form-label">Fecha de Registro</label>
+        <input asp-for="NuevoProducto.FechaRegistro" type="date" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.FechaRegistro" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.FechaVencimiento" class="form-label">Fecha de Vencimiento</label>
+        <input asp-for="NuevoProducto.FechaVencimiento" type="date" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="NuevoProducto.TipoMedicamento" class="form-label">Tipo de Medicamento</label>
+        <input asp-for="NuevoProducto.TipoMedicamento" class="form-control" required />
+        <span asp-validation-for="NuevoProducto.TipoMedicamento" class="text-danger"></span>
+    </div>
+
     <button type="submit" class="btn btn-success w-100">
         @(Model.NuevoProducto.Id > 0 ? "Actualizar Producto" : "Guardar Producto")
     </button>
