@@ -15,6 +15,22 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new UsuariosViewModel
+            {
+                NuevoUsuario = usuario,
+                ListaUsuarios = await _context.Usuarios.ToListAsync()
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UsuariosViewModel model)
@@ -46,6 +62,49 @@ namespace FarmaciaLasFlores.Controllers
             model.ListaUsuarios = await _context.Usuarios.ToListAsync();
             return View("Index", model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, UsuariosViewModel viewModel)
+        {
+            if (id != viewModel.NuevoUsuario.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(viewModel.NuevoUsuario.Password))
+                    {
+                        viewModel.NuevoUsuario.Password = BCrypt.Net.BCrypt.HashPassword(viewModel.NuevoUsuario.Password);
+                    }
+                    _context.Update(viewModel.NuevoUsuario);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Usuario actualizado exitosamente.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UsuarioExists(viewModel.NuevoUsuario.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return View(viewModel);
+        }
+
+
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuarios.Any(e => e.Id == id);
+        }
+
 
         public async Task<IActionResult> Index()
         {
