@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaLasFlores.Models
-{//entidad  que corresponde a la tabla productos
+{
+    // Entidad que corresponde a la tabla productos
     public class Productos
     {
         [Key]
@@ -18,5 +20,21 @@ namespace FarmaciaLasFlores.Models
         [Required(ErrorMessage = "Debe ingresar un precio válido.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
         public decimal Precio { get; set; }
+
+        [Required(ErrorMessage = "El lote del producto es obligatorio.")]
+        [StringLength(50, ErrorMessage = "El lote no puede superar los 50 caracteres.")]
+        public string Lote { get; set; }
+
+        [Required(ErrorMessage = "La fecha de registro es obligatoria.")]
+        [DataType(DataType.Date)]
+        public DateTime FechaRegistro { get; set; }
+
+        [Required(ErrorMessage = "La fecha de vencimiento es obligatoria.")]
+        [DataType(DataType.Date)]
+        public DateTime FechaVencimiento { get; set; }
+
+        [Required(ErrorMessage = "El tipo de producto es obligatorio.")]
+        [StringLength(50, ErrorMessage = "El tipo de producto no puede superar los 50 caracteres.")]
+        public string TipoMedicamento { get; set; }
     }
 }

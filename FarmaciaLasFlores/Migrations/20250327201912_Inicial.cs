@@ -5,7 +5,7 @@
 namespace FarmaciaLasFlores.Migrations
 {
     /// <inheritdoc />
-    public partial class correciones : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

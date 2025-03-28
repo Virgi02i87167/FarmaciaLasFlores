@@ -1,22 +1,32 @@
 using FarmaciaLasFlores.Db;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Agregar servicios de autenticación con cookies antes de construir la aplicación
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";  // Página de inicio de sesión
+        options.LogoutPath = "/Login/"; // Página de cierre de sesión
+    });
+
+// Agregar servicios de controladores con vistas
 builder.Services.AddControllersWithViews();
 
-//Aqui se crea la conexion (controladores con vista)
+// Aquí se configura la conexión a la base de datos (DbContext)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-//Aquí se comienza a crear la app
+
+// Ahora construimos la aplicación
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configurar el pipeline de HTTP
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -25,11 +35,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Activar la autenticación y autorización
+app.UseAuthentication();  // Agregar la autenticación antes de UseAuthorization
 app.UseAuthorization();
 
+// Mapear las rutas
 app.MapControllerRoute(
     name: "default",
-    //Cabie controller=Home a Login para que la pagina principal que muestre sea la del Login
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();

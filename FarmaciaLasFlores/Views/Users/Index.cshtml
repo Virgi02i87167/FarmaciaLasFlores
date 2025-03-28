@@ -80,6 +80,8 @@
                     <!-- Botón de eliminación -->
                     <form asp-action="Delete" asp-controller="Users" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
                         <input type="hidden" name="id" value="@usuario.Id" />
+                        <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">Editar</a>
+
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
