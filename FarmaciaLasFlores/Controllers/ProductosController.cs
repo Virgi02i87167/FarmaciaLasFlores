@@ -152,5 +152,31 @@ namespace FarmaciaLasFlores.Controllers
 
             return View("Index", viewModel);
         }
+
+        //Eliminacion de producto
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var producto = _context.Productos.Find(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Productos.Remove(producto);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Producto eliminado correctamente";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al eliminar el producto: " + ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -104,6 +104,11 @@
                     <td>@producto.TipoMedicamento</td>
                     <td>
                         <a href="@Url.Action("Edit", "Productos", new { id = producto.Id })" class="btn btn-warning btn-sm">Editar</a>
+                        <form asp-action="Delete" method="post" style="display:inline-block">
+                            <input type="hidden" name="id" value="@producto.Id" />
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estas seguro de eliminar este producto?')">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             }
