@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FarmaciaLasFlores")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a1ec04201bac8c8a0b7a3f66a1b80d866441068a")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce688ab32c71eb74ad6a27b5cb875749c0bbd24e")]
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4b3547330068d04fb528fa6e13161d8c729e98a")]
 [assembly: System.Reflection.AssemblyProductAttribute("FarmaciaLasFlores")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FarmaciaLasFlores")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

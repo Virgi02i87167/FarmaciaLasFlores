@@ -1,37 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\",
+  "WorkspaceRootPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\",
   "Documents": [
     {
-<<<<<<< HEAD
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\escritorio\\farmacialasflores\\farmacialasflores\\farmacialasflores.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\farmacialasflores.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\escritorio\\farmacialasflores\\farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\escritorio\\farmacialasflores\\farmacialasflores\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-=======
       "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\models\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\models\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\escritorio\\farmacialasflores\\farmacialasflores\\views\\productos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\productos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-<<<<<<< HEAD
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\escritorio\\farmacialasflores\\farmacialasflores\\views\\productos\\productosviewmodel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\productos\\productosviewmodel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-=======
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,28 +22,9 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< HEAD
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FarmaciaLasFlores",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-              "RelativeToolTip": "FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-28T16:14:39.761Z",
-              "EditorCaption": ""
-            },
-            {
-=======
           "SelectedChildIndex": 4,
           "Children": [
             {
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
@@ -73,71 +35,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-<<<<<<< HEAD
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\appsettings.json",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
-              "RelativeToolTip": "FarmaciaLasFlores\\appsettings.json",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-26T04:36:27.611Z",
-=======
-              "Title": "ProductosController.cs",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAuwKIAAAA7AAAAAAAAAA==",
+              "Title": "Usuarios.cs",
+              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Usuarios.cs",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Models\\Usuarios.cs",
+              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Usuarios.cs",
+              "RelativeToolTip": "FarmaciaLasFlores\\Models\\Usuarios.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA5wB4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T18:54:33.973Z",
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
+              "WhenOpened": "2025-03-30T09:09:43.275Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 4,
-              "Title": "ProductosViewModel.cshtml",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Productos\\ProductosViewModel.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Productos\\ProductosViewModel.cshtml",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Productos\\ProductosViewModel.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Productos\\ProductosViewModel.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-26T00:12:40.336Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-=======
               "DocumentIndex": 2,
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Productos\\Index.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Productos\\Index.cshtml",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Productos\\Index.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Productos\\Index.cshtml",
-<<<<<<< HEAD
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-25T21:54:50.263Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProductosController.cs",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Escritorio\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\ProductosController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAAwDsAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-25T23:51:30.094Z"
-=======
-              "ViewState": "AgIAAFQAAAAAAAAAAAAAAG4AAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-29T18:53:42.502Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\appsettings.json",
+              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
+              "RelativeToolTip": "FarmaciaLasFlores\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-30T09:08:45.583Z",
               "EditorCaption": ""
             },
             {
@@ -148,11 +66,10 @@
               "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\AccountController.cs",
               "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAG8AAABtAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAGIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T07:34:20.116Z",
+              "WhenOpened": "2025-03-30T09:07:23.847Z",
               "EditorCaption": ""
->>>>>>> fee50d2 (Boton eliminar y recuperacion de contraseña)
             }
           ]
         }

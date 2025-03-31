@@ -78,8 +78,20 @@ namespace FarmaciaLasFlores.Controllers
                 user.Password = HashPassword(model.NewPassword);
                 user.ResetToken = null;
                 user.ResetTokenExpiry = null;
-                _context.SaveChanges();
-                return RedirectToAction("Login");
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    // Captura y muestra los detalles de la excepción interna
+                    Console.WriteLine(ex.InnerException?.Message);
+                }
+
+
+                //_context.SaveChanges();
+                return RedirectToAction("Index", "Login");
             }
 
             ViewBag.Message = "El enlace es inválido o ha expirado.";
@@ -109,7 +121,7 @@ namespace FarmaciaLasFlores.Controllers
                     smtp.Port = 587;  // Usa 587 con TLS (más seguro)
                     smtp.EnableSsl = true;
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new System.Net.NetworkCredential("hvirgilio088@gmail.com", "contraseña");
+                    smtp.Credentials = new System.Net.NetworkCredential("hvirgilio088@gmail.com", "xlye fguy mfib vxyo");
 
                     var message = new MailMessage
                     {
