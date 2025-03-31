@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250330091343_inicial")]
-    partial class inicial
+    [Migration("20250331064952_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,6 @@ namespace FarmaciaLasFlores.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ResetToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

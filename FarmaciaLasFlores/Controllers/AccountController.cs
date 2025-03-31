@@ -73,29 +73,39 @@ namespace FarmaciaLasFlores.Controllers
             }
 
             var user = _context.Usuarios.FirstOrDefault(u => u.ResetToken == model.Token && u.ResetTokenExpiry > DateTime.Now);
-            if (user != null)
+            if (user == null)
             {
-                user.Password = HashPassword(model.NewPassword);
-                user.ResetToken = null;
-                user.ResetTokenExpiry = null;
-
-                try
-                {
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateException ex)
-                {
-                    // Captura y muestra los detalles de la excepción interna
-                    Console.WriteLine(ex.InnerException?.Message);
-                }
-
-
-                //_context.SaveChanges();
-                return RedirectToAction("Index", "Login");
+                Console.WriteLine("Usuario no encontrado o token expirado.");
+                ViewBag.Message = "El enlace es inválido o ha expirado.";
+                return View(model);
             }
 
-            ViewBag.Message = "El enlace es inválido o ha expirado.";
-            return View();
+            // Hash de la nueva contraseña
+            var hashedPassword = HashPassword(model.NewPassword);
+            Console.WriteLine($"Contraseña anterior: {user.Password}");
+            Console.WriteLine($"Nueva contraseña hasheada: {hashedPassword}");
+
+            user.Password = hashedPassword;
+            user.ResetToken = null;
+            user.ResetTokenExpiry = null;
+
+            try
+            {
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+
+                // Verificación posterior a la actualización
+                var dbCheck = _context.Usuarios.FirstOrDefault(u => u.Id == user.Id);
+                Console.WriteLine($"Contraseña en DB después de guardar: {dbCheck?.Password}");
+
+                return RedirectToAction("Index", "Login");
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Error al actualizar: {ex.InnerException?.Message}");
+                ViewBag.Message = "Hubo un error al actualizar la contraseña.";
+                return View(model);
+            }
         }
 
         private string GenerateToken()

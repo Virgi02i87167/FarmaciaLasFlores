@@ -90,7 +90,6 @@ namespace FarmaciaLasFlores.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ResetToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

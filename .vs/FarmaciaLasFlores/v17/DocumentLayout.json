@@ -5,14 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\models\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\models\\usuarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,39 +26,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Usuarios.cs",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Usuarios.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Models\\Usuarios.cs",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Usuarios.cs",
-              "RelativeToolTip": "FarmaciaLasFlores\\Models\\Usuarios.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA5wB4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T09:09:43.275Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\appsettings.json",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\appsettings.json",
-              "RelativeToolTip": "FarmaciaLasFlores\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-30T09:08:45.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\AccountController.cs",
               "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAAAE8AAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAAwLIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-30T09:07:23.847Z",
               "EditorCaption": ""

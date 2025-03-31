@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -26,7 +28,8 @@ namespace FarmaciaLasFlores.Controllers
         [HttpPost]
         public async Task<IActionResult> IniciarSesionAsync(string NombreUsuario, string Password)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == Password);
+            var hashedPassword = HashPassword(Password);
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
 
             if (usuario != null)
             {
@@ -53,12 +56,27 @@ namespace FarmaciaLasFlores.Controllers
             }
         }
 
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Login");
         }
+
     }
 }
     

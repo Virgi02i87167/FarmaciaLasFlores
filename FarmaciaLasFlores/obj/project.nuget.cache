@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GhENKNA4FK8=",
+  "dgSpecHash": "WnGe5ogLapg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\alfar\\Source\\Repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+  "projectFilePath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alfar\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\alfar\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

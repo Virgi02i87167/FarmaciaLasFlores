@@ -26,7 +26,7 @@ namespace FarmaciaLasFlores.Models
         [Required]
         public string Password { get; set; }
 
-        public string ResetToken { get; set; }
+        public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
     }
 }
