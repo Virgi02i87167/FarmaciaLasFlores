@@ -41,8 +41,30 @@ namespace FarmaciaLasFlores.Controllers
             return View(viewModel); // Pasar el ViewModel a la vista
         }
 
+        // Consulta para buscar ventas// Javier Eulices Martinez
+        public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin)
+        {
+            var ventasQuery = _context.Ventas.Include(v => v.Producto).AsQueryable();
 
+            if (fechaInicio.HasValue)
+            {
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta >= fechaInicio.Value);
+            }
 
+            if (fechaFin.HasValue)
+            {
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
+            }
+
+            var ventas = await ventasQuery.ToListAsync();
+
+            var viewModel = new VentasViewModel
+            {
+                ListaVentas = ventas
+            };
+
+            return View("Index", viewModel); // Pasar el ViewModel a la vista
+        }
 
         // Acción para agregar un producto al carrito
         [HttpPost]

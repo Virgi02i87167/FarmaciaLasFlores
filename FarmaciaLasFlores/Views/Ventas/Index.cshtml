@@ -49,6 +49,39 @@
 
 <h2 class="text-center mb-4">Ventas Realizadas</h2>
 
+ 
+<!-- agregando campos filtrar ventas por fecha, cliente y producto -->
+<form method="get" asp-action="BuscarVentas">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="sr-only" for="fechaInicio">Fecha Inicio</label>
+            <input type="date" class="form-control mb-2" id="fechaInicio" name="fechaInicio" placeholder="Fecha Inicio">
+        </div>
+        <div class="col-auto">
+            <label class="sr-only" for="fechaFin">Fecha Fin</label>
+            <input type="date" class="form-control mb-2" id="fechaFin" name="fechaFin" placeholder="Fecha Fin">
+        </div>
+        <div class="col-auto">
+            <label class="sr-only" for="clienteId">Cliente</label>
+            <select class="form-control mb-2" id="clienteId" name="clienteId">
+                <option value="">Seleccionar Cliente</option>
+                <!-- Aquí puedes agregar opciones dinámicamente desde tu base de datos -->
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="sr-only" for="productoId">Producto</label>
+            <select class="form-control mb-2" id="productoId" name="productoId">
+                <option value="">Seleccionar Producto</option>
+                <!-- Aquí puedes agregar opciones dinámicamente desde tu base de datos -->
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Buscar</button> <!--Boton buscar¡-->
+        </div>
+    </div>
+</form>
+
+
 <!-- Mostrar Ventas -->
 @if (Model.ListaVentas.Any())
 {

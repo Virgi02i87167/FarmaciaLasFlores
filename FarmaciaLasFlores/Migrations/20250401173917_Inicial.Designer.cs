@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250331215850_TblVentas")]
-    partial class TblVentas
+    [Migration("20250401173917_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
