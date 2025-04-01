@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmaciaLasFlores.Models
 {
@@ -19,7 +20,9 @@ namespace FarmaciaLasFlores.Models
 
         [Required(ErrorMessage = "Debe ingresar un precio válido.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Precio { get; set; }
+
 
         [Required(ErrorMessage = "El lote del producto es obligatorio.")]
         [StringLength(50, ErrorMessage = "El lote no puede superar los 50 caracteres.")]

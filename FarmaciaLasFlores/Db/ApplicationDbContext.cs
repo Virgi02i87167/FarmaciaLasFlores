@@ -9,6 +9,7 @@ namespace FarmaciaLasFlores.Db
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Productos> Productos { get; set; }
+        public DbSet<Ventas> Ventas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,8 +25,8 @@ namespace FarmaciaLasFlores.Db
                 .IsUnique();
 
             // Configuración para Productos
-            modelBuilder.Entity<Productos>()
-                .Property(p => p.Precio)
+            modelBuilder.Entity<Ventas>()
+                .Property(p => p.PrecioVenta)
                 .HasColumnType("decimal(18,2)");  // Especificamos precisión y escala para 'Precio'
         }
     }

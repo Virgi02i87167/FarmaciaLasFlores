@@ -1,0 +1,61 @@
+﻿@model FarmaciaLasFlores.Models.VentasViewModel
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+
+<h2 class="text-center mb-4">Carrito de Ventas</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (Model.ListaProductos.Any())
+{
+    <form method="post" asp-action="FinalizarVenta">
+        <table class="table table-bordered table-striped table-hover shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var producto in Model.ListaProductos)
+                {
+                    <tr>
+                        <td>@producto.Nombre</td>
+
+                        <!-- Campo para seleccionar la cantidad -->
+                        <td>
+                            <input type="number" name="cantidad[@producto.Id]" value="@producto.Cantidad" min="1" class="form-control" />
+                        </td>
+
+                        <!-- Campo para definir el precio de venta -->
+                        <td>
+                            <input type="number" name="precioVenta[@producto.Id]" value="@producto.Precio" step="0.01" class="form-control" />
+                        </td>
+
+                        <!-- Mostrar el total calculado en C# -->
+                        <td>
+                            <span>@(producto.Precio * producto.Cantidad)</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-success w-100">Realizar Venta</button>
+    </form>
+}
+else
+{
+    <p>No hay productos en el carrito.</p>
+}
+
+
