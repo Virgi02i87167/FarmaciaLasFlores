@@ -47,42 +47,8 @@
 
 <hr />
 
-<h2 class="text-center mb-4">Ventas Realizadas</h2>
-
- 
-<!-- agregando campos filtrar ventas por fecha, cliente y producto -->
-<form method="get" asp-action="BuscarVentas">
-    <div class="form-row align-items-center">
-        <div class="col-auto">
-            <label class="sr-only" for="fechaInicio">Fecha Inicio</label>
-            <input type="date" class="form-control mb-2" id="fechaInicio" name="fechaInicio" placeholder="Fecha Inicio">
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="fechaFin">Fecha Fin</label>
-            <input type="date" class="form-control mb-2" id="fechaFin" name="fechaFin" placeholder="Fecha Fin">
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="clienteId">Cliente</label>
-            <select class="form-control mb-2" id="clienteId" name="clienteId">
-                <option value="">Seleccionar Cliente</option>
-                <!-- Aquí puedes agregar opciones dinámicamente desde tu base de datos -->
-            </select>
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="productoId">Producto</label>
-            <select class="form-control mb-2" id="productoId" name="productoId">
-                <option value="">Seleccionar Producto</option>
-                <!-- Aquí puedes agregar opciones dinámicamente desde tu base de datos -->
-            </select>
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-2">Buscar</button> <!--Boton buscar¡-->
-        </div>
-    </div>
-</form>
-
-
 <!-- Mostrar Ventas -->
+<h2 class="text-center mb-4">Ventas Realizadas</h2>
 @if (Model.ListaVentas.Any())
 {
     <table class="table table-bordered table-striped table-hover shadow-sm">
@@ -113,4 +79,44 @@ else
 {
     <p>No se han registrado ventas aún.</p>
 }
+
+ 
+<!-- agregando campos filtrar ventas por fecha, cliente y producto -->
+<h2 class="text-center mb-4">Buscar Ventas</h2>
+<form method="get" asp-action="BuscarVentas">
+    <div class="row g-3 align-items-center">
+        <!-- Campo Fecha Inicio -->
+        <div class="col-md-3">
+            <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+        </div>
+
+        <!-- Campo Fecha Fin -->
+        <div class="col-md-3">
+            <label for="fechaFin" class="form-label">Fecha Fin</label>
+            <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+        </div>
+
+        <!-- Campo Producto -->
+        <div class="col-md-3">
+            <label for="productoId" class="form-label">Producto</label>
+            <select class="form-control" id="productoId" name="productoId">
+                <option value="">Seleccionar Producto</option>
+                @if (ViewBag.Productos != null)
+                {
+                    foreach (var producto in ViewBag.Productos)
+                    {
+                        <option value="@producto.Id">@producto.Nombre</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Botón de Buscar -->
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+        </div>
+    </div>
+</form>
+
 

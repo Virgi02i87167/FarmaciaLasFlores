@@ -76,7 +76,6 @@ namespace FarmaciaLasFlores.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Login");
         }
-
     }
 }
     

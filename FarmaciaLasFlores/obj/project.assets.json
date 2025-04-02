@@ -11433,23 +11433,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\": {},
+    "C:\\Users\\alfar\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JAVIER MARTINEZ\\source\\repos\\Proyecto\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "projectUniqueName": "C:\\Users\\alfar\\Source\\Repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
       "projectName": "FarmaciaLasFlores",
-      "projectPath": "C:\\Users\\JAVIER MARTINEZ\\source\\repos\\Proyecto\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-      "packagesPath": "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JAVIER MARTINEZ\\source\\repos\\Proyecto\\FarmaciaLasFlores\\obj\\",
+      "projectPath": "C:\\Users\\alfar\\Source\\Repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "packagesPath": "C:\\Users\\alfar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alfar\\Source\\Repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\JAVIER MARTINEZ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alfar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11458,6 +11458,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

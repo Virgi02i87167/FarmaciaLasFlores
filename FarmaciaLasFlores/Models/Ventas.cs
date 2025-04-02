@@ -10,7 +10,7 @@ namespace FarmaciaLasFlores.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime FechaVenta { get; set; }
+        public DateTime FechaVenta { get; set; } = DateTime.Now; // Establece la fecha automáticamente
 
         [Required]
         public int ProductoId { get; set; }
@@ -19,13 +19,12 @@ namespace FarmaciaLasFlores.Models
         public Productos Producto { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]
+        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0.")]
         public int Cantidad { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PrecioVenta { get; set; }
-
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]

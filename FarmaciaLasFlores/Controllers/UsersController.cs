@@ -2,6 +2,8 @@
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -39,7 +41,7 @@ namespace FarmaciaLasFlores.Controllers
             {
                 try
                 {
-                    model.NuevoUsuario.Password = BCrypt.Net.BCrypt.HashPassword(model.NuevoUsuario.Password);
+                    model.NuevoUsuario.Password = HashPassword(model.NuevoUsuario.Password);
                     _context.Usuarios.Add(model.NuevoUsuario);
                     await _context.SaveChangesAsync();
                     Console.WriteLine("Datos guardados exitosamente");
@@ -76,7 +78,7 @@ namespace FarmaciaLasFlores.Controllers
                 {
                     if (!string.IsNullOrEmpty(viewModel.NuevoUsuario.Password))
                     {
-                        viewModel.NuevoUsuario.Password = BCrypt.Net.BCrypt.HashPassword(viewModel.NuevoUsuario.Password);
+                        viewModel.NuevoUsuario.Password = HashPassword(viewModel.NuevoUsuario.Password);
                     }
                     _context.Update(viewModel.NuevoUsuario);
                     await _context.SaveChangesAsync();
@@ -130,5 +132,18 @@ namespace FarmaciaLasFlores.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
     }
 }
