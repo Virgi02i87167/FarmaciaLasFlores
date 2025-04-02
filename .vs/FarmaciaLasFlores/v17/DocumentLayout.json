@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Ventas\\Index.cshtml",
               "ToolTip": "C:\\Users\\JAVIER MARTINEZ\\source\\repos\\Proyecto\\FarmaciaLasFlores\\Views\\Ventas\\Index.cshtml",
               "RelativeToolTip": "FarmaciaLasFlores\\Views\\Ventas\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAAFEAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-01T18:44:22.22Z",
               "EditorCaption": ""
@@ -87,8 +87,7 @@
               "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\VentasController.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAowDEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T18:34:08.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T18:34:08.208Z"
             },
             {
               "$type": "Document",
