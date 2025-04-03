@@ -1,5 +1,7 @@
 ﻿using FarmaciaLasFlores.Db;
 using FarmaciaLasFlores.Models;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -178,5 +180,87 @@ namespace FarmaciaLasFlores.Controllers
                 return View("Carrito", viewModel); // Regresar al carrito si hay error
             }
         }
+
+        [HttpGet]
+        public IActionResult GenerarPDF(DateTime? FechaInicio, DateTime? FechaFin)
+        {
+            var ventas = _context.Ventas
+                .Include(v => v.Producto)  // ✅ Asegura que se cargue el producto
+                .AsQueryable();
+
+            if (FechaInicio.HasValue)
+            {
+                ventas = ventas.Where(p => p.FechaVenta >= FechaInicio.Value);
+            }
+
+            if (FechaFin.HasValue)
+            {
+                ventas = ventas.Where(p => p.FechaVenta <= FechaFin.Value);
+            }
+
+            var listaVentas = ventas.ToList();
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
+
+                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                Paragraph title = new Paragraph("Reporte de Ventas", titleFont)
+                {
+                    Alignment = Element.ALIGN_CENTER
+                };
+                document.Add(title);
+                document.Add(new Paragraph("\n"));
+
+                if (listaVentas.Any())
+                {
+                    PdfPTable table = new PdfPTable(5) { WidthPercentage = 100 };
+
+                    string[] headers = { "FechaVenta", "Producto", "Cantidad", "PrecioVenta", "Total" };
+                    foreach (var header in headers)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)))
+                        {
+                            BackgroundColor = BaseColor.LightGray,
+                            HorizontalAlignment = Element.ALIGN_CENTER
+                        };
+                        table.AddCell(cell);
+                    }
+
+                    foreach (var venta in listaVentas)
+                    {
+                        table.AddCell(new PdfPCell(new Phrase(venta.FechaVenta.ToString("yyyy-MM-dd"))) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                        // ✅ Verificar que Producto no sea nulo antes de acceder a Nombre
+                        string nombreProducto = venta.Producto != null ? venta.Producto.Nombre : "Desconocido";
+                        table.AddCell(new PdfPCell(new Phrase(nombreProducto)) { HorizontalAlignment = Element.ALIGN_LEFT });
+
+                        table.AddCell(new PdfPCell(new Phrase(venta.Cantidad.ToString())) { HorizontalAlignment = Element.ALIGN_CENTER });
+                        table.AddCell(new PdfPCell(new Phrase(venta.PrecioVenta.ToString("C"))) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                        table.AddCell(new PdfPCell(new Phrase(venta.Total.ToString("C"))) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                    }
+
+                    document.Add(table);
+                }
+                else
+                {
+                    Paragraph noData = new Paragraph("No hay ventas registradas en el período seleccionado.", FontFactory.GetFont(FontFactory.HELVETICA, 12))
+                    {
+                        Alignment = Element.ALIGN_CENTER
+                    };
+                    document.Add(noData);
+                }
+
+                document.Close();
+                writer.Close();
+
+                memoryStream.Position = 0;
+                return File(memoryStream.ToArray(), "application/pdf", "Reporte_Ventas.pdf");
+            }
+        }
+
+
     }
 }
