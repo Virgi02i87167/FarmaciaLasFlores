@@ -71,6 +71,17 @@
                     <td>@venta.Cantidad</td>
                     <td>@venta.PrecioVenta</td>
                     <td>@venta.Total</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger btn-eliminar-venta"
+                                data-venta-id="@venta.Id"
+                                data-producto-nombre="@venta.Producto.Nombre"
+                                data-fecha="@venta.FechaVenta.ToString("dd/MM/yyyy")" data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteModal">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                    </td>
+
                 </tr>
             }
         </tbody>
@@ -121,6 +132,29 @@ else
 </form>
 
 
+<!-- Modal de Confirmación para Eliminar Venta -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar la venta de <strong id="productoNombreModal"></strong> realizada el <strong id="fechaVentaModal"></strong>?</p>
+                <p class="text-danger">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="DeleteVenta" asp-controller="Ventas" method="post">
+                    <input type="hidden" id="ventaIdInput" name="id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Formulario para generar PDF con filtros -->
 <h2 class="text-center mb-4">Generar Reporte</h2>
 <form asp-action="GenerarPDF" method="get" id="pdfForm">
@@ -159,4 +193,22 @@ else
             event.preventDefault();
         }
     });
+
+    <!-- Pasando el ID para poder eliminar la venta -->
+    document.addEventListener("DOMContentLoaded", function () {
+            const botonesEliminar = document.querySelectorAll(".btn-eliminar-venta");
+
+            botonesEliminar.forEach(boton => {
+                boton.addEventListener("click", function () {
+                    const ventaId = this.getAttribute("data-venta-id");
+                    const productoNombre = this.getAttribute("data-producto-nombre");
+                    const fechaVenta = this.getAttribute("data-fecha");
+
+                    // Asignar los valores al modal
+                    document.getElementById("ventaIdInput").value = ventaId;
+                    document.getElementById("productoNombreModal").innerText = productoNombre;
+                    document.getElementById("fechaVentaModal").innerText = fechaVenta;
+                });
+            });
+        });
 </script>

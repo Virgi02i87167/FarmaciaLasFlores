@@ -1,0 +1,49 @@
+﻿@model FarmaciaLasFlores.Models.VentasViewModel
+
+<h2 class="text-center mb-4">Editar Venta</h2>
+
+<form asp-action="Editar" method="post">
+    <input type="hidden" asp-for="NuevaVenta.Id" />
+    <input type="hidden" asp-for="NuevaVenta.Total" id="hiddenTotal" />
+
+    <div class="mb-3">
+        <label class="form-label">Producto</label>
+        <select asp-for="NuevaVenta.ProductoId" class="form-control" asp-items="@(new SelectList(Model.ListaProductos, "Id", "Nombre"))"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Cantidad</label>
+        <input type="number" asp-for="NuevaVenta.Cantidad" class="form-control" min="1" />
+        <span asp-validation-for="NuevaVenta.Cantidad" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Precio Venta</label>
+        <input type="number" asp-for="NuevaVenta.PrecioVenta" class="form-control" step="0.01" />
+        <span asp-validation-for="NuevaVenta.PrecioVenta" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Total</label>
+        <input type="text" class="form-control" id="totalDisplay" value="@(Model.NuevaVenta.Cantidad * Model.NuevaVenta.PrecioVenta)" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">
+        Actualizar Venta
+    </button>
+</form>
+
+<script>
+    function calcularTotal() {
+        const cantidad = parseFloat(document.querySelector('[name="NuevaVenta.Cantidad"]').value) || 0;
+        const precio = parseFloat(document.querySelector('[name="NuevaVenta.PrecioVenta"]').value) || 0;
+        const total = cantidad * precio;
+
+        document.getElementById("hiddenTotal").value = total.toFixed(2);
+        document.getElementById("totalDisplay").value = total.toFixed(2);
+    }
+
+    document.querySelector('[name="NuevaVenta.Cantidad"]').addEventListener("input", calcularTotal);
+    document.querySelector('[name="NuevaVenta.PrecioVenta"]').addEventListener("input", calcularTotal);
+
+    // Calcular al cargar
+    calcularTotal();
+</script>

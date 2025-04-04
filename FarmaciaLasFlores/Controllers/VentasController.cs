@@ -13,13 +13,15 @@ namespace FarmaciaLasFlores.Controllers
     public class VentasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<VentasController> _logger;
 
         // Variable para almacenar el carrito temporalmente
         private static List<Productos> carrito = new List<Productos>();
 
-        public VentasController(ApplicationDbContext context)
+        public VentasController(ApplicationDbContext context, ILogger<VentasController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // Acción para mostrar la vista de productos disponibles
@@ -263,6 +265,99 @@ namespace FarmaciaLasFlores.Controllers
             }
         }
 
+        // Acción para mostrar el formulario de edición
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var venta = await _context.Ventas
+                .Include(v => v.Producto)
+                .FirstOrDefaultAsync(v => v.Id == id);
 
+            if (venta == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new VentasViewModel
+            {
+                NuevaVenta = venta,
+                ListaProductos = await _context.Productos.ToListAsync()
+            };
+
+            return View(viewModel);
+        }
+
+
+        // Acción para guardar los cambios
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(VentasViewModel viewModel)
+        {
+            Console.WriteLine("Entró al método Editar (POST)");
+
+            if (!ModelState.IsValid)
+            {
+                var venta = await _context.Ventas.FindAsync(viewModel.NuevaVenta.Id);
+                if (venta == null)
+                {
+                    return NotFound();
+                }
+
+                venta.ProductoId = viewModel.NuevaVenta.ProductoId;
+                venta.Cantidad = viewModel.NuevaVenta.Cantidad;
+                venta.PrecioVenta = viewModel.NuevaVenta.PrecioVenta;
+                venta.Total = viewModel.NuevaVenta.Cantidad * viewModel.NuevaVenta.PrecioVenta;
+
+                try
+                {
+                    _context.Update(venta);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Venta actualizada exitosamente.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error al guardar los cambios: " + ex.Message);
+                }
+            }
+
+            // Recargar productos si hay errores
+            viewModel.ListaProductos = await _context.Productos.ToListAsync();
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteVenta(int id)
+        {
+            try
+            {
+                var venta = _context.Ventas.Include(v => v.Producto).FirstOrDefault(v => v.Id == id);
+
+                if (venta == null)
+                {
+                    return Json(new { success = false, message = "Venta no encontrada" });
+                }
+
+                // Aquí puedes agregar validaciones adicionales si es necesario
+                // Por ejemplo, no permitir eliminar ventas antiguas:
+                if (venta.FechaVenta < DateTime.Now.AddMonths(-1))
+                {
+                    return Json(new { success = false, message = "No se pueden eliminar ventas con más de 1 mes de antigüedad" });
+                }
+
+                _context.Ventas.Remove(venta);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Venta eliminada correctamente";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar venta");
+                return Json(new { success = false, message = "Ocurrió un error al eliminar la venta" });
+            }
+        }
     }
 }
