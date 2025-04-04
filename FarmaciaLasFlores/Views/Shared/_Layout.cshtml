@@ -15,7 +15,7 @@
             <!-- Si no está autenticado, solo muestra el inicio de sesión -->
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container-fluid">
-                     <!-- <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a> -->
+                    <!-- <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a> -->
                 </div>
             </nav>
         }
@@ -48,6 +48,7 @@
             </nav>
         }
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -60,26 +61,14 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
-
-    <!--Diseño Boostrap -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>
+

@@ -41,9 +41,10 @@
                             <input type="number" name="precioVenta[@producto.Id]" value="@producto.Precio" step="0.01" class="form-control" />
                         </td>
 
-                        <!-- Mostrar el total calculado en C# -->
+                        <!-- Mostrar el total calculado en C# con id único para cada producto -->
                         <td>
-                            <span>@(producto.Precio * producto.Cantidad)</span>
+                            <span id="total-@producto.Id">@($"{producto.Precio * producto.Cantidad:0.00}")</span>
+
                         </td>
                     </tr>
                 }
@@ -57,5 +58,38 @@ else
 {
     <p>No hay productos en el carrito.</p>
 }
+
+@section Scripts {
+    <script>
+        // Función para actualizar el total cuando cambian la cantidad o el precio
+        function actualizarTotal(productoId) {
+            // Obtener los valores de la cantidad y el precio
+            var cantidad = document.querySelector('input[name="cantidad[' + productoId + ']"]').value;
+            var precio = document.querySelector('input[name="precioVenta[' + productoId + ']"]').value;
+
+            // Calcular el total
+            var total = cantidad * precio;
+
+            // Actualizar el campo de total correspondiente
+            document.querySelector('#total-' + productoId).textContent = total.toFixed(2);
+        }
+
+        // Asignar eventos a los campos de cantidad y precio para recalcular el total cuando cambien
+        document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
+            input.addEventListener('input', function () {
+                var productoId = input.name.match(/\d+/)[0]; // Obtener el Id del producto
+                actualizarTotal(productoId);
+            });
+        });
+
+        document.querySelectorAll('input[name^="precioVenta["]').forEach(input => {
+            input.addEventListener('input', function () {
+                var productoId = input.name.match(/\d+/)[0]; // Obtener el Id del producto
+                actualizarTotal(productoId);
+            });
+        });
+    </script>
+}
+
 
 

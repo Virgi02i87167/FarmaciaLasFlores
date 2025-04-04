@@ -62,7 +62,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var venta in Model.ListaVentas)
+            <!-- Ordenado de más reciente a más antigua -->
+            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta)) 
             {
                 <tr>
                     <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>

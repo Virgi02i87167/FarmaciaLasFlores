@@ -30,19 +30,21 @@ namespace FarmaciaLasFlores.Controllers
                                           .OrderBy(p => p.FechaRegistro)
                                           .ToListAsync() ?? new List<Productos>(); // Asegurar que no sea null
 
-            // Obtener las ventas realizadas y cargar la relación con los productos
-            var ventas = await _context.Ventas.Include(v => v.Producto).ToListAsync();
+            // Obtener las ventas realizadas y cargar la relacion con los productos
+            var ventas = await _context.Ventas.Include(v => v.Producto)
+                                              .OrderByDescending(v => v.FechaVenta) // Ordenar las ventas por fecha (más reciente a más antigua)
+                                              .ToListAsync();
 
-            // Crear el ViewModel y asignar los datos correspondientes
             var viewModel = new VentasViewModel
             {
                 ListaProductos = productos, // Lista de productos ordenados por fecha
-                ListaVentas = ventas // Lista de ventas realizadas
+                ListaVentas = ventas // Lista de ventas ordenadas por fecha de venta
             };
 
             ViewBag.Productos = productos; // Reutilizar la lista de productos ya obtenida
             return View(viewModel); // Pasar el ViewModel a la vista
         }
+
 
 
         // Consulta para buscar ventas// Javier Eulices Martinez
