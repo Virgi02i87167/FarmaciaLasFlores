@@ -71,6 +71,15 @@
                     <td>@venta.Cantidad</td>
                     <td>@venta.PrecioVenta</td>
                     <td>@venta.Total</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger btn-eliminar-venta"
+                                data-venta-id="@venta.Id"
+                                data-producto-nombre="@venta.Producto.Nombre"
+                                data-fecha="@venta.FechaVenta.ToString("dd/MM/yyyy")" data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteModal">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -119,6 +128,28 @@ else
         </div>
     </div>
 </form>
+
+<!-- Modal de Confirmación para Eliminar Venta -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar la venta de <strong id="productoNombreModal"></strong> realizada el <strong id="fechaVentaModal"></strong>?</p>
+                <p class="text-danger">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="DeleteVenta" asp-controller="Ventas" method="post">
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Formulario para generar PDF con filtros -->
