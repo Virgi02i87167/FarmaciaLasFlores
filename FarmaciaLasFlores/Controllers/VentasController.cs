@@ -71,8 +71,13 @@ namespace FarmaciaLasFlores.Controllers
 
             var ventas = await ventasQuery.ToListAsync();
 
+            var productos = await _context.Productos
+                                          .OrderBy(p => p.FechaRegistro)
+                                          .ToListAsync() ?? new List<Productos>();
+
             var viewModel = new VentasViewModel
             {
+               ListaProductos = productos,
                 ListaVentas = ventas
             };
 

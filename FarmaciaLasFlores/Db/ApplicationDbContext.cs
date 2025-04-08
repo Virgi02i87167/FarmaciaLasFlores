@@ -11,6 +11,7 @@ namespace FarmaciaLasFlores.Db
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Ventas> Ventas { get; set; }
         public DbSet<Roles> Roles { get; set; }
+        public DbSet<Medicamentos> Medicamentos {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

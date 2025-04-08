@@ -1,0 +1,27 @@
+﻿@model FarmaciaLasFlores.Models.MedicamentosViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Tipo de Medicamentos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar Nuevo</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tipo de Medicamento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListaMedicamentos)
+        {
+            <tr>
+                <td>@item.TipoMedicamento</td>
+            </tr>
+        }
+    </tbody>
+</table>

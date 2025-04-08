@@ -17,20 +17,14 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Index()
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var modelo = new UsuariosViewModel
             {
-                return NotFound();
-            }
-            var viewModel = new UsuariosViewModel
-            {
-                NuevoUsuario = usuario,
+                NuevoUsuario = new Usuarios(),
                 ListaUsuarios = await _context.Usuarios.ToListAsync()
             };
-            return View(viewModel);
+            return View(modelo);
         }
 
 
@@ -77,6 +71,22 @@ namespace FarmaciaLasFlores.Controllers
         }
 
         // Acción Edit (POST)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new UsuariosViewModel
+            {
+                NuevoUsuario = usuario,
+                ListaUsuarios = await _context.Usuarios.ToListAsync()
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UsuariosViewModel viewModel)
@@ -125,17 +135,6 @@ namespace FarmaciaLasFlores.Controllers
         private bool UsuarioExists(int id)
         {
             return _context.Usuarios.Any(e => e.Id == id);
-        }
-
-
-        public async Task<IActionResult> Index()
-        {
-            var modelo = new UsuariosViewModel
-            {
-                NuevoUsuario = new Usuarios(),
-                ListaUsuarios = await _context.Usuarios.ToListAsync()
-            };
-            return View(modelo);
         }
 
         [HttpPost]

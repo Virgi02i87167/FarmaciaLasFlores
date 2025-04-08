@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -17,24 +19,46 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
-        // Mostrar lista de productos con búsqueda
         public async Task<IActionResult> Index(string searchString)
         {
-            var productos = from p in _context.Productos select p;
+            // Obtener la lista de medicamentos desde la base de datos
+            var medicamentos = await _context.Medicamentos.ToListAsync();
+
+            // Consultar los productos, con la posibilidad de filtrar según la búsqueda
+            var productosQuery = _context.Productos.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                productos = productos.Where(p => p.Nombre.Contains(searchString) || p.Lote.Contains(searchString));
+                productosQuery = productosQuery
+                                 .Where(p => p.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                            p.Lote.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
+            // Incluir medicamentos relacionados
+            productosQuery = productosQuery.Include(p => p.Medicamentos);
+
+            var productos = await productosQuery.ToListAsync();
+
+            // Crear el modelo de vista
             var viewModel = new ProductosViewModel
             {
                 NuevoProducto = new Productos(), // Objeto vacío para el formulario
-                ListaProductos = await productos.ToListAsync()
+                ListaProductos = productos // Lista de productos con Medicamentos relacionados
             };
 
+            // Asignar el valor de búsqueda a la vista para mantener el valor de búsqueda
             ViewData["SearchString"] = searchString;
+
+            // Cargar las listas desplegables
+            CargarListasDesplegables();
+
             return View(viewModel);
+        }
+
+        private void CargarListasDesplegables()
+        {
+            // Cargar la lista de medicamentos en el ViewData para la lista desplegable
+            ViewData["MedicamentosId"] = new SelectList(_context.Medicamentos, "Id", "TipoMedicamento");
         }
 
         // Guardar nuevo producto
@@ -42,10 +66,23 @@ namespace FarmaciaLasFlores.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductosViewModel viewModel)
         {
+            Console.WriteLine("MedicamentosId recibido: " + viewModel.NuevoProducto.MedicamentosId);
+            
             if (!ModelState.IsValid)
             {
-                viewModel.ListaProductos = await _context.Productos.ToListAsync();
-                return View("Index", viewModel);
+                // Imprimir el estado del modelo para depuración
+                foreach (var key in ModelState.Keys)
+                {
+                    var state = ModelState[key];
+                    if (state.Errors.Count > 0)
+                    {
+                        Console.WriteLine($"Campo: {key}");
+                        foreach (var error in state.Errors)
+                        {
+                            Console.WriteLine($" - Error: {error.ErrorMessage}");
+                        }
+                    }
+                }
             }
 
             // Validaciones adicionales
@@ -69,16 +106,9 @@ namespace FarmaciaLasFlores.Controllers
                 ModelState.AddModelError("NuevoProducto.Lote", "El lote no puede estar vacío.");
             }
 
-            if (string.IsNullOrWhiteSpace(viewModel.NuevoProducto.TipoMedicamento))
+            if (viewModel.NuevoProducto.MedicamentosId <= 0)
             {
-                ModelState.AddModelError("NuevoProducto.TipoMedicamento", "El tipo de medicamento no puede estar vacío.");
-            }
-
-            // Si hay errores, devolvemos la vista con los mensajes
-            if (!ModelState.IsValid)
-            {
-                viewModel.ListaProductos = await _context.Productos.ToListAsync();
-                return View("Index", viewModel);
+                ModelState.AddModelError("NuevoProducto.MedicamentosId", "El tipo de medicamento no puede estar vacío.");
             }
 
             try
@@ -87,14 +117,17 @@ namespace FarmaciaLasFlores.Controllers
 
                 _context.Productos.Add(viewModel.NuevoProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // Redirige al índice después de guardar
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"Error al guardar el producto: {ex.Message}");
+                viewModel.ListaProductos = await _context.Productos
+                    .Include(p => p.Medicamentos)
+                    .ToListAsync();
+                CargarListasDesplegables();
+                return View("Index", viewModel);
             }
-
-            return View("Index", viewModel);
         }
 
         // Cargar datos en el formulario para editar
@@ -139,7 +172,7 @@ namespace FarmaciaLasFlores.Controllers
                 producto.Precio = viewModel.NuevoProducto.Precio;
                 producto.FechaVencimiento = viewModel.NuevoProducto.FechaVencimiento;
                 producto.Lote = viewModel.NuevoProducto.Lote;
-                producto.TipoMedicamento = viewModel.NuevoProducto.TipoMedicamento;
+                producto.MedicamentosId = viewModel.NuevoProducto.MedicamentosId;
 
                 _context.Update(producto);
                 await _context.SaveChangesAsync();

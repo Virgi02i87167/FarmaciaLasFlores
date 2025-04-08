@@ -13,8 +13,7 @@ namespace FarmaciaLasFlores.Models
         [StringLength(100)]
         public string Nombre { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Debe seleccionar una posición.")]
         public string Posicion { get; set; }
 
         [Required]

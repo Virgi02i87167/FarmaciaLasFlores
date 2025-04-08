@@ -1,0 +1,34 @@
+﻿@model FarmaciaLasFlores.Models.MedicamentosViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>@(ViewContext.RouteData.Values["action"].ToString() == "Create" ? "Crear" : "Editar") Categorias</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NuevoMedicamento.TipoMedicamento" class="control-label"></label>
+                <input asp-for="NuevoMedicamento.TipoMedicamento" class="form-control" />
+                <span asp-validation-for="NuevoMedicamento.TipoMedicamento" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

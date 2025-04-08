@@ -36,8 +36,10 @@ namespace FarmaciaLasFlores.Models
         [DataType(DataType.Date)]
         public DateTime FechaVencimiento { get; set; }
 
-        [Required(ErrorMessage = "El tipo de producto es obligatorio.")]
-        [StringLength(50, ErrorMessage = "El tipo de producto no puede superar los 50 caracteres.")]
-        public string TipoMedicamento { get; set; }
+        // Clave foránea
+        public int MedicamentosId { get; set; }
+
+        [ForeignKey("MedicamentosId")]
+        public Medicamentos Medicamentos { get; set; }
     }
 }
