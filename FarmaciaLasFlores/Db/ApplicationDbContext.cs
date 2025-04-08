@@ -10,6 +10,7 @@ namespace FarmaciaLasFlores.Db
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Ventas> Ventas { get; set; }
+        public DbSet<Roles> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

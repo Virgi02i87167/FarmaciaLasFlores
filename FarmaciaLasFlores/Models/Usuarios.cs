@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using iTextSharp.text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmaciaLasFlores.Models
 {
@@ -28,5 +30,12 @@ namespace FarmaciaLasFlores.Models
 
         public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
+
+        //Llave foranea tabla Roles
+
+        public int RolId { get; set; }
+
+        [ForeignKey("RolId")]
+        public Roles Rol { get; set; }
     }
 }

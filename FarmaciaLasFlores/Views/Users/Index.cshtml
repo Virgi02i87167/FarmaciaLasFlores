@@ -51,6 +51,22 @@
         <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
+    <!-- Selección de Rol -->
+<div class="mb-3">
+    <label for="NuevoUsuario.RolId" class="form-label">Rol</label>
+    <select asp-for="NuevoUsuario.RolId" class="form-control" required>
+        <option value="">Seleccionar Rol</option>
+        @foreach (var rol in Model.ListaRoles)
+        {
+            // Definir si se debe seleccionar este rol
+            var selected = rol.Id == Model.NuevoUsuario.RolId ? "selected" : "";
+            <option value="@rol.Id" @selected>@rol.NombreRoles</option>
+        }
+    </select>
+    <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
+</div>
+
+
     <button type="submit" class="btn btn-success w-100">Guardar</button>
 </form>
 
@@ -80,7 +96,7 @@
                     <!-- Botón de eliminación -->
                     <form asp-action="Delete" asp-controller="Users" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
                         <input type="hidden" name="id" value="@usuario.Id" />
-                        <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">Editar</a>
+                        <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">Editar</a>
 
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>

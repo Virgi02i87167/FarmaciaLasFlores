@@ -1,6 +1,7 @@
 ﻿using FarmaciaLasFlores.Db;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,15 +33,23 @@ namespace FarmaciaLasFlores.Controllers
             return View(viewModel);
         }
 
+
+
+        // Acción Create (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UsuariosViewModel model)
         {
             Console.WriteLine("Create action ejecutada");
+
+            // Cargar la lista de roles para el formulario
+            model.ListaRoles = await _context.Roles.ToListAsync();
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Hash del password
                     model.NuevoUsuario.Password = HashPassword(model.NuevoUsuario.Password);
                     _context.Usuarios.Add(model.NuevoUsuario);
                     await _context.SaveChangesAsync();
@@ -60,26 +69,36 @@ namespace FarmaciaLasFlores.Controllers
 
             // Si llegamos aquí, hubo un error de validación o una excepción
             // Rellenamos ListaUsuarios para que se muestre en la vista
+            // En tu controlador, antes de retornar la vista de creación
+            ViewData["Roles"] = new SelectList(await _context.Roles.ToListAsync(), "Id", "NombreRoles");
+
             model.ListaUsuarios = await _context.Usuarios.ToListAsync();
             return View("Index", model);
         }
 
+        // Acción Edit (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UsuariosViewModel viewModel)
         {
+            // Cargar la lista de roles para el formulario de edición
+            viewModel.ListaRoles = await _context.Roles.ToListAsync();
+
             if (id != viewModel.NuevoUsuario.Id)
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Si el password no es nulo o vacío, hacer el hash
                     if (!string.IsNullOrEmpty(viewModel.NuevoUsuario.Password))
                     {
                         viewModel.NuevoUsuario.Password = HashPassword(viewModel.NuevoUsuario.Password);
                     }
+
                     _context.Update(viewModel.NuevoUsuario);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Usuario actualizado exitosamente.";
@@ -97,8 +116,10 @@ namespace FarmaciaLasFlores.Controllers
                     }
                 }
             }
+
             return View(viewModel);
         }
+
 
 
         private bool UsuarioExists(int id)

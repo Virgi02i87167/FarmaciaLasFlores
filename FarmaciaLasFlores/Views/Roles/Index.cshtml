@@ -1,0 +1,65 @@
+﻿@model FarmaciaLasFlores.Models.RolesViewModel
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<!-- Mensaje de error general -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<h2 class="text-center mb-4">Crear Rol</h2>
+
+<!--Validaciónes -->
+<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+<!-- Formulario de creación de rol -->
+<form asp-action="Create" method="post" class="w-50 mx-auto">
+    <div class="mb-3">
+        <label asp-for="NuevoRol.NombreRoles" class="form-label">Nombre del Rol</label>
+        <input asp-for="NuevoRol.NombreRoles" class="form-control" required maxlength="50" placeholder="Ej: Administrador" />
+        <span asp-validation-for="NuevoRol.NombreRoles" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Guardar</button>
+</form>
+
+
+<h3 class="mt-5 text-center">Roles Existentes</h3>
+
+<!-- Tabla de roles existentes -->
+<table class="table table-bordered table-striped table-hover mt-4">
+    <thead class="table-light">
+        <tr>
+            <th>Nombre del Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rol in Model.ListaRoles)
+        {
+            <tr>
+                <td>@rol.NombreRoles</td>
+                <td>
+                    <!-- Botón de eliminación -->
+                    <form asp-action="Delete" asp-controller="Roles" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este rol?');">
+                        <input type="hidden" name="id" value="@rol.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

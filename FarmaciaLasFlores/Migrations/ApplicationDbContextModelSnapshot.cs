@@ -62,6 +62,24 @@ namespace FarmaciaLasFlores.Migrations
                     b.ToTable("Productos");
                 });
 
+            modelBuilder.Entity("FarmaciaLasFlores.Models.Roles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NombreRoles")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("FarmaciaLasFlores.Models.Usuarios", b =>
                 {
                     b.Property<int>("Id")
@@ -95,6 +113,9 @@ namespace FarmaciaLasFlores.Migrations
                     b.Property<DateTime?>("ResetTokenExpiry")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("RolId")
+                        .HasColumnType("int");
+
                     b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -104,6 +125,8 @@ namespace FarmaciaLasFlores.Migrations
 
                     b.HasIndex("NombreUsuario")
                         .IsUnique();
+
+                    b.HasIndex("RolId");
 
                     b.HasIndex("email")
                         .IsUnique();
@@ -134,11 +157,27 @@ namespace FarmaciaLasFlores.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductoId");
 
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("Ventas");
+                });
+
+            modelBuilder.Entity("FarmaciaLasFlores.Models.Usuarios", b =>
+                {
+                    b.HasOne("FarmaciaLasFlores.Models.Roles", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("FarmaciaLasFlores.Models.Ventas", b =>
@@ -149,7 +188,15 @@ namespace FarmaciaLasFlores.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FarmaciaLasFlores.Models.Usuarios", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Producto");
+
+                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }

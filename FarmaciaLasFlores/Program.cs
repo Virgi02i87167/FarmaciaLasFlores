@@ -1,4 +1,5 @@
 using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,9 +40,26 @@ app.UseRouting();
 app.UseAuthentication();  // Agregar la autenticación antes de UseAuthorization
 app.UseAuthorization();
 
+// Bloque para migrar la base de datos y crear roles si es necesario
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+
+    if (!context.Roles.Any())
+    {
+        context.Roles.AddRange(
+            new Roles { NombreRoles = "Administrador" },
+            new Roles { NombreRoles = "Empleado" }
+        );
+        context.SaveChanges();
+    }
+}
+
 // Mapear las rutas
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
+
