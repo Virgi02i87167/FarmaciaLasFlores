@@ -40,17 +40,20 @@
         <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
-    <<div class="mb-3">
+    <!--
+        <div class="mb-3">
     <label for="NuevoUsuario.RolId" class="form-label">Rol</label>
     <select asp-for="NuevoUsuario.RolId" class="form-control" required>
         <option value="">Seleccionar Rol</option>
-        @foreach (var rol in Model.ListaRoles)
+        foreach (var rol in Model.ListaRoles)
         {
-            <option value="@rol.Id" @(rol.Id == Model.NuevoUsuario.RolId ? "selected" : "")>@rol.NombreRoles</option>
+            @@<option value="@@rol.Id" @@(rol.Id == Model.NuevoUsuario.RolId ? "selected" : "")>@@rol.NombreRoles</option>@@
         }
     </select>
     <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
 </div>
+
+    --> 
 
 
 

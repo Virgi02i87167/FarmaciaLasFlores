@@ -52,19 +52,21 @@
     </div>
 
     <!-- Selección de Rol -->
-<div class="mb-3">
+ <!--
+     <div class="mb-3">
     <label for="NuevoUsuario.RolId" class="form-label">Rol</label>
     <select asp-for="NuevoUsuario.RolId" class="form-control" required>
         <option value="">Seleccionar Rol</option>
-        @foreach (var rol in Model.ListaRoles)
+        @@foreach (var rol in Model.ListaRoles)
         {
             // Definir si se debe seleccionar este rol
             var selected = rol.Id == Model.NuevoUsuario.RolId ? "selected" : "";
-            <option value="@rol.Id" @selected>@rol.NombreRoles</option>
+            <option value="rol.Id" selected>rol.NombreRoles</option>
         }
     </select>
     <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
 </div>
+ -->
 
 
     <button type="submit" class="btn btn-success w-100">Guardar</button>

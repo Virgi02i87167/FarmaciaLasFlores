@@ -30,6 +30,7 @@ namespace FarmaciaLasFlores.Controllers
         {
             var hashedPassword = HashPassword(Password);
             var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
+            
 
             if (usuario != null)
             {

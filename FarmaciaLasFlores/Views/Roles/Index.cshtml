@@ -49,10 +49,12 @@
                 <td>@rol.NombreRoles</td>
                 <td>
                     <!-- Botón de eliminación -->
-                    <form asp-action="Delete" asp-controller="Roles" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este rol?');">
+                    <!-- Botón de actualización --> <!--Javier Eulices Martinez-->
+                    <form asp-action="Update" asp-controller="Roles" method="post" onsubmit="return confirm('¿Estás seguro de que quieres actualizar este rol?');">
                         <input type="hidden" name="id" value="@rol.Id" />
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
                     </form>
+
                 </td>
             </tr>
         }

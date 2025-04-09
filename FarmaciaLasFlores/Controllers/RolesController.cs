@@ -52,10 +52,10 @@ namespace FarmaciaLasFlores.Controllers
         }
 
 
-        // Acción para eliminar un rol
+        // Acción para eliminar un rol Javier Eulices Martinez
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Update(int id) //Elemento Update
         {
             var rol = await _context.Roles.FindAsync(id);
             if (rol == null)
