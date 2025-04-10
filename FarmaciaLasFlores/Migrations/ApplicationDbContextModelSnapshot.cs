@@ -88,6 +88,9 @@ namespace FarmaciaLasFlores.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("NombreRoles")
                         .IsRequired()
                         .HasMaxLength(50)

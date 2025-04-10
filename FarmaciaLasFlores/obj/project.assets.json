@@ -11439,11 +11439,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\FloresJavier\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "projectUniqueName": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\ProyectoJonathan\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
       "projectName": "FarmaciaLasFlores",
-      "projectPath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\FloresJavier\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "projectPath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\ProyectoJonathan\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
       "packagesPath": "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\FloresJavier\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\",
+      "outputPath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\ProyectoJonathan\\FarmaciaLasFlores\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

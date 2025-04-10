@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FarmaciaLasFlores.Migrations
 {
     /// <inheritdoc />
-    public partial class Flores : Migration
+    public partial class user : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,8 @@ namespace FarmaciaLasFlores.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreRoles = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    NombreRoles = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

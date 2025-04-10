@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3quQZhMhEwQ=",
+  "dgSpecHash": "hTuq5R6616U=",
   "success": true,
-  "projectFilePath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\FloresJavier\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+  "projectFilePath": "C:\\Users\\JAVIER MARTINEZ\\Desktop\\ProyectoJonathan\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

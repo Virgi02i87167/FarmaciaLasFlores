@@ -48,12 +48,19 @@
             <tr>
                 <td>@rol.NombreRoles</td>
                 <td>
-                    <!-- Botón de eliminación -->
+                 
+                    
                     <!-- Botón de actualización --> <!--Javier Eulices Martinez-->
-                    <form asp-action="Update" asp-controller="Roles" method="post" onsubmit="return confirm('¿Estás seguro de que quieres actualizar este rol?');">
+                    <!-- Mostrar "Desactivar" si el rol está activo, y viceversa -->
+                    <form asp-action="Update" asp-controller="Roles" method="post"
+                          onsubmit="return confirm('¿Estás seguro de que quieres cambiar el estado de este rol?');">
                         <input type="hidden" name="id" value="@rol.Id" />
-                        <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
+                        <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-danger" : "btn-success")">
+                            @(rol.Activo ? "Desactivar" : "Activar")
+                        </button>
                     </form>
+
+
 
                 </td>
             </tr>
