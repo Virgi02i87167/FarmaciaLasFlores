@@ -1,10 +1,13 @@
 ﻿using FarmaciaLasFlores.Db;
 using FarmaciaLasFlores.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [Authorize(Roles = "Admin")] // Protege todo el controlador para solo admins
     public class RolesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -14,18 +17,18 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
-        // Acción GET para mostrar el formulario de creación y los roles existentes
+        // GET: Muestra lista de roles y formulario de creación
         public async Task<IActionResult> Index()
         {
             var model = new RolesViewModel
             {
                 NuevoRol = new Roles(),
-                ListaRoles = await _context.Roles.ToListAsync()  // Carga los roles existentes
+                ListaRoles = await _context.Roles.ToListAsync()
             };
-            return View(model);  // Retorna la vista Index con el modelo
+            return View(model);
         }
 
-        // Acción POST para crear un nuevo rol
+        // POST: Crea un nuevo rol
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RolesViewModel model)
@@ -34,28 +37,89 @@ namespace FarmaciaLasFlores.Controllers
             {
                 try
                 {
-                    // Agregar el nuevo rol a la base de datos
+                    // Validar si el rol ya existe
+                    if (await _context.Roles.AnyAsync(r => r.NombreRoles == model.NuevoRol.NombreRoles))
+                    {
+                        ModelState.AddModelError("NuevoRol.Nombre", "Este nombre de rol ya existe");
+                        model.ListaRoles = await _context.Roles.ToListAsync();
+                        return View("Index", model);
+                    }
+
                     _context.Roles.Add(model.NuevoRol);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");  // Redirige al listado de roles
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
-                    // Si ocurre un error, agrega un mensaje a los errores del modelo
-                    ModelState.AddModelError("", $"Ocurrió un error al guardar los datos: {ex.Message}");
+                    ModelState.AddModelError("", $"Error al guardar: {ex.Message}");
                 }
             }
 
-            // Si el modelo no es válido, recarga la lista de roles y muestra los errores
-            model.ListaRoles = await _context.Roles.ToListAsync();  // Carga los roles existentes
-            return View("Index", model);  // Regresa a la vista Index con el modelo actualizado
+            model.ListaRoles = await _context.Roles.ToListAsync();
+            return View("Index", model);
         }
 
+        // GET: Muestra formulario para editar rol
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // Acción para eliminar un rol Javier Eulices Martinez
+            var rol = await _context.Roles.FindAsync(id);
+            if (rol == null)
+            {
+                return NotFound();
+            }
+
+            return View(rol);
+        }
+
+        // POST: Actualiza un rol existente
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id) //Elemento Update
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion")] Roles rol)
+        {
+            if (id != rol.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Validar nombre único (excluyendo el actual)
+                    if (await _context.Roles.AnyAsync(r => r.NombreRoles == rol.NombreRoles && r.Id != rol.Id))
+                    {
+                        ModelState.AddModelError("Nombre", "Este nombre de rol ya está en uso");
+                        return View(rol);
+                    }
+
+                    _context.Update(rol);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RolExists(rol.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return View(rol);
+        }
+
+        // POST: Elimina un rol
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
         {
             var rol = await _context.Roles.FindAsync(id);
             if (rol == null)
@@ -63,12 +127,23 @@ namespace FarmaciaLasFlores.Controllers
                 return NotFound();
             }
 
-            _context.Roles.Remove(rol);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Roles.Remove(rol);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                TempData["ErrorMessage"] = "No se puede eliminar el rol porque está en uso.";
+                return RedirectToAction(nameof(Index));
+            }
 
-            return RedirectToAction(nameof(Index));  // Redirige al listado de roles
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool RolExists(int id)
+        {
+            return _context.Roles.Any(e => e.Id == id);
         }
     }
 }
-
-
