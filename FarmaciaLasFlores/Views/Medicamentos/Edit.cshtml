@@ -1,0 +1,28 @@
+﻿@model FarmaciaLasFlores.Models.MedicamentosViewModel
+
+@{
+    ViewData["Title"] = "Editar Tipo de Medicamento";
+}
+
+<h2>Editar Tipo de Medicamento</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="NuevoMedicamento.Id" />
+    <div class="form-group">
+        <label asp-for="NuevoMedicamento.TipoMedicamento" class="control-label"></label>
+        <input asp-for="NuevoMedicamento.TipoMedicamento" class="form-control" />
+        <span asp-validation-for="NuevoMedicamento.TipoMedicamento" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

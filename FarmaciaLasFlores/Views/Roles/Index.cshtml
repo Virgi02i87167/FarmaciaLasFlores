@@ -48,8 +48,6 @@
             <tr>
                 <td>@rol.NombreRoles</td>
                 <td>
-                 
-                    
                     <!-- Botón de actualización --> <!--Javier Eulices Martinez-->
                     <!-- Mostrar "Desactivar" si el rol está activo, y viceversa -->
                     <form asp-action="Update" asp-controller="Roles" method="post"
@@ -59,9 +57,9 @@
                             @(rol.Activo ? "Desactivar" : "Activar")
                         </button>
                     </form>
-
-
-
+                </td>
+                <td>
+                    
                 </td>
             </tr>
         }

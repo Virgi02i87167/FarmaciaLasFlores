@@ -14,6 +14,7 @@
     <thead>
         <tr>
             <th>Tipo de Medicamento</th>
+            <th>Acciones</th> <!--Nueva columna-->
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
         {
             <tr>
                 <td>@item.TipoMedicamento</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                </td>
             </tr>
         }
     </tbody>

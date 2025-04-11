@@ -76,5 +76,54 @@ namespace FarmaciaLasFlores.Controllers
 
             return RedirectToAction("Index");
         }
+
+        //GET: Medicamentos/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var medicamento = await _context.Medicamentos.FindAsync(id);
+            if (medicamento == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new MedicamentosViewModel
+            {
+                NuevoMedicamento = medicamento,
+                ListaMedicamentos = await _context.Medicamentos.ToListAsync()
+            };
+
+            return View(viewModel);
+        }
+
+        //POST: Medicamento/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, MedicamentosViewModel viewModel)
+        {
+            if (id != viewModel.NuevoMedicamento.Id)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                viewModel.ListaMedicamentos = await _context.Medicamentos.ToListAsync();
+                return View(viewModel);
+            }
+
+            try
+            {
+                _context.Update(viewModel.NuevoMedicamento);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error al actualizar el tipo de medicamento: {ex.Message}");
+            }
+
+            viewModel.ListaMedicamentos = await _context.Medicamentos.ToListAsync();
+            return View(viewModel);
+        }
     }
 }
