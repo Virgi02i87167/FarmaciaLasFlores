@@ -48,7 +48,8 @@
             <tr>
                 <td>@rol.NombreRoles</td>
                 <td>
-                    <!-- Botón de actualización --> <!--Javier Eulices Martinez-->
+                    <a asp-action="Edit" asp-route-id="@rol.Id" class="btn btn-warning btn-sm">Editar</a>
+
                     <!-- Mostrar "Desactivar" si el rol está activo, y viceversa -->
                     <form asp-action="Update" asp-controller="Roles" method="post"
                           onsubmit="return confirm('¿Estás seguro de que quieres cambiar el estado de este rol?');">
