@@ -1,0 +1,41 @@
+﻿@model FarmaciaLasFlores.Models.Usuarios
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<h1 class="text-danger">Eliminar Usuario</h1>
+
+<h3>¿Estás seguro de que deseas desactivar este usuario?</h3>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Posicion</dt>
+            <dd class="col-sm-9">@Model.Posicion</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.email</dd>
+
+            <dt class="col-sm-3">Nombre Usuario</dt>
+            <dd class="col-sm-9">@Model.NombreUsuario</dd>
+
+            <dt class="col-sm-3">Rol</dt>
+            <dd class="col-sm-9">@Model.Rol.NombreRoles</dd>
+
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
+        </dl>
+    </div>
+</div>
+
+
+<form asp-action="Delete" method="post" class="mt-3">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash"></i> Confirmar Desactivación
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

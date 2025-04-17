@@ -3,8 +3,11 @@ using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto;
+using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -22,12 +25,25 @@ namespace FarmaciaLasFlores.Controllers
             var modelo = new UsuariosViewModel
             {
                 NuevoUsuario = new Usuarios(),
-                ListaUsuarios = await _context.Usuarios.ToListAsync()
+                ListaUsuarios = await _context.Usuarios.Include(u => u.Rol).ToListAsync()
             };
             return View(modelo);
         }
 
+        public async Task<IActionResult> Create()
+        {
+            var model = new UsuariosViewModel();
+            model.ListaRoles = await _context.Roles.ToListAsync();
 
+            // Llenar la lista de SelectListItem para el dropdown
+            model.ListaRolesSelectList = model.ListaRoles.Select(r => new SelectListItem
+            {
+                Value = r.Id.ToString(),
+                Text = r.NombreRoles
+            }).ToList();
+
+            return View(model);
+        }
 
         // Acción Create (POST)
         [HttpPost]
@@ -36,16 +52,15 @@ namespace FarmaciaLasFlores.Controllers
         {
             Console.WriteLine("Create action ejecutada");
 
-            // Cargar la lista de roles para el formulario
-            model.ListaRoles = await _context.Roles.ToListAsync();
-
-            if (ModelState.IsValid)
-            {
+            if (!ModelState.IsValid)
+            {  
                 try
                 {
-                    // Hash del password
                     model.NuevoUsuario.Password = HashPassword(model.NuevoUsuario.Password);
                     _context.Usuarios.Add(model.NuevoUsuario);
+
+                    Console.WriteLine($"RolId recibido: {model.NuevoUsuario.RolId}");
+
                     await _context.SaveChangesAsync();
                     Console.WriteLine("Datos guardados exitosamente");
                     return RedirectToAction("Index");
@@ -61,10 +76,14 @@ namespace FarmaciaLasFlores.Controllers
                 Console.WriteLine("ModelState no válido");
             }
 
-            // Si llegamos aquí, hubo un error de validación o una excepción
-            // Rellenamos ListaUsuarios para que se muestre en la vista
-            // En tu controlador, antes de retornar la vista de creación
-            ViewData["Roles"] = new SelectList(await _context.Roles.ToListAsync(), "Id", "NombreRoles");
+            //Recargar listas para que se vuelvan a mostrar correctamente
+            var roles = await _context.Roles.ToListAsync();
+            model.ListaRoles = roles;
+            model.ListaRolesSelectList = roles.Select(r => new SelectListItem
+            {
+                Value = r.Id.ToString(),
+                Text = r.NombreRoles
+            }).ToList();
 
             model.ListaUsuarios = await _context.Usuarios.ToListAsync();
             return View("Index", model);
@@ -74,6 +93,8 @@ namespace FarmaciaLasFlores.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            var roles = _context.Roles.ToList(); // Obtén los roles desde la base de datos
+
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
@@ -82,7 +103,12 @@ namespace FarmaciaLasFlores.Controllers
             var viewModel = new UsuariosViewModel
             {
                 NuevoUsuario = usuario,
-                ListaUsuarios = await _context.Usuarios.ToListAsync()
+                ListaUsuarios = await _context.Usuarios.ToListAsync(),
+                ListaRolesSelectList = roles.Select(r => new SelectListItem
+                {
+                    Value = r.Id.ToString(),
+                    Text = r.NombreRoles
+                }).ToList()
             };
             return View(viewModel);
         }
@@ -99,7 +125,7 @@ namespace FarmaciaLasFlores.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -112,7 +138,7 @@ namespace FarmaciaLasFlores.Controllers
                     _context.Update(viewModel.NuevoUsuario);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Usuario actualizado exitosamente.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,27 +156,46 @@ namespace FarmaciaLasFlores.Controllers
             return View(viewModel);
         }
 
-
-
-        private bool UsuarioExists(int id)
+        public IActionResult Delete(int id)
         {
-            return _context.Usuarios.Any(e => e.Id == id);
-        }
+            var usuario = _context.Usuarios
+                .Include(u => u.Rol) // Si necesitas el Rol
+                .FirstOrDefault(u => u.Id == id);
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
             }
-            _context.Usuarios.Remove(usuario);
-            await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            var viewModel = new Usuarios
+            {
+                Id = usuario.Id,
+                Nombre = usuario.Nombre,
+                Posicion = usuario.Posicion,
+                email = usuario.email,
+                NombreUsuario = usuario.NombreUsuario,
+                Rol = usuario.Rol,
+                Estado = usuario.Estado
+            };
+
+            return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult Delete(Usuarios usuario)
+        {
+            var user = _context.Usuarios.Find(usuario.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Estado = false; // o 0, dependiendo del tipo
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         private string HashPassword(string password)
         {
@@ -164,6 +209,11 @@ namespace FarmaciaLasFlores.Controllers
                 }
                 return builder.ToString();
             }
+        }
+
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

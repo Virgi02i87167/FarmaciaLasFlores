@@ -36,13 +36,7 @@
             <input asp-for="NuevoProducto.Lote" class="form-control" required />
             <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
         </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.FechaRegistro" class="form-label">Fecha de Registro</label>
-            <input asp-for="NuevoProducto.FechaRegistro" type="date" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.FechaRegistro" class="text-danger"></span>
-        </div>
-
+        
         <div class="form-group mb-3">
             <label asp-for="NuevoProducto.FechaVencimiento" class="form-label">Fecha de Vencimiento</label>
             <input asp-for="NuevoProducto.FechaVencimiento" type="date" class="form-control" required />
@@ -136,7 +130,7 @@
         <input type="date" name="FechaFin" id="FechaFin" class="form-control" value="@Model.FechaFin?.ToString("yyyy-MM-dd")" />
     </div>
 
-    <button type="submit" class="btn btn-info mt-3">Descargar PDF</button>
+    <button type="submit" class="btn btn-info mt-3">Generar Reporte</button>
 </form>
 
 <script>

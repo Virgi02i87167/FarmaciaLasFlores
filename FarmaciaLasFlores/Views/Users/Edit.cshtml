@@ -40,26 +40,27 @@
         <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
-    <!--
-        <div class="mb-3">
-    <label for="NuevoUsuario.RolId" class="form-label">Rol</label>
-    <select asp-for="NuevoUsuario.RolId" class="form-control" required>
-        <option value="">Seleccionar Rol</option>
-        foreach (var rol in Model.ListaRoles)
-        {
-            @@<option value="@@rol.Id" @@(rol.Id == Model.NuevoUsuario.RolId ? "selected" : "")>@@rol.NombreRoles</option>@@
-        }
-    </select>
-    <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
-</div>
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.RolId" class="form-label">Rol</label>
+        <select asp-for="NuevoUsuario.RolId" asp-items="Model.ListaRolesSelectList" class="form-control" required>
+            <option value="">Seleccione un rol</option>
+        </select>
+        <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
+    </div>
 
-    --> 
-
-
-
-
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.Estado" class="form-label">Estado</label>
+        <select asp-for="NuevoUsuario.Estado" class="form-select">
+            <option value="">-- Seleccione un estado --</option>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+        <span asp-validation-for="NuevoUsuario.Estado" class="text-danger"></span>
+    </div>
+    
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <br />
         <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>

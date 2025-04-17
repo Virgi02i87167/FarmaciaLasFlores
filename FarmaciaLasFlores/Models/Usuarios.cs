@@ -9,32 +9,33 @@ namespace FarmaciaLasFlores.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe agregar un nombre.")]
         [StringLength(100)]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "Debe seleccionar una posición.")]
+        [Required(ErrorMessage = "Debe agregar una posicion.")]
         public string Posicion { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe agregar un email.")]
         [StringLength(50)]
         public string email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe agregar un nombre de usuario.")]
         [StringLength(50)]
         public string NombreUsuario { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe agregar una contraseña.")]
         public string Password { get; set; }
 
         public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
 
-        //Llave foranea tabla Roles
-
+        [Required(ErrorMessage = "Debe seleccionar un rol")]
         public int RolId { get; set; }
 
-        [ForeignKey("RolId")]
         public Roles Rol { get; set; }
+
+        [Required(ErrorMessage = "Debe seleccionar un estado .")]
+        public bool Estado { get; set; } = true;
     }
 }

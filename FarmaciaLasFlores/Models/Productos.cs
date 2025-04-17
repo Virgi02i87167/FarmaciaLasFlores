@@ -28,7 +28,7 @@ namespace FarmaciaLasFlores.Models
         [StringLength(50, ErrorMessage = "El lote no puede superar los 50 caracteres.")]
         public string Lote { get; set; }
 
-        [Required(ErrorMessage = "La fecha de registro es obligatoria.")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime FechaRegistro { get; set; }
 

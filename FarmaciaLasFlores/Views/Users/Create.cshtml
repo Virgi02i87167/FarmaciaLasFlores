@@ -1,0 +1,68 @@
+﻿@model FarmaciaLasFlores.Models.UsuariosViewModel
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h2 class="text-center mb-4">Crear Usuario</h2>
+
+<!-- Resumen de validación -->
+<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+<!-- Formulario de creación de usuario -->
+<form asp-action="Create" method="post" class="w-50 mx-auto">
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.Nombre" class="form-label">Nombre</label>
+        <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.Posicion" class="form-label">Posición</label>
+        <input asp-for="NuevoUsuario.Posicion" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.Posicion" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.email" class="form-label">Email</label>
+        <input asp-for="NuevoUsuario.email" class="form-control" type="email" required />
+        <span asp-validation-for="NuevoUsuario.email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.NombreUsuario" class="form-label">Nombre de Usuario</label>
+        <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" required />
+        <span asp-validation-for="NuevoUsuario.NombreUsuario" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.Password" class="form-label">Contraseña</label>
+        <input asp-for="NuevoUsuario.Password" class="form-control" type="password" required />
+        <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
+    </div>
+
+    <!-- Selección de Rol -->
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.RolId" class="form-label">Rol</label>
+        <select asp-for="NuevoUsuario.RolId" asp-items="Model.ListaRolesSelectList" class="form-control" required>
+            <option value="">Seleccione un rol</option>
+        </select>
+        <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoUsuario.Estado" class="form-label">Estado</label>
+        <select asp-for="NuevoUsuario.Estado" class="form-select">
+            <option value="true">Activo</option>
+        </select>
+        <span asp-validation-for="NuevoUsuario.Estado" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-success w-100">Guardar</button>
+    <br />
+    <br />
+    <div>
+        <a asp-action="Index" class="btn btn-warning w-100">Regresar</a>
+    </div>
+</form>

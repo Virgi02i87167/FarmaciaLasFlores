@@ -66,8 +66,6 @@ namespace FarmaciaLasFlores.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductosViewModel viewModel)
         {
-            Console.WriteLine("MedicamentosId recibido: " + viewModel.NuevoProducto.MedicamentosId);
-            
             if (!ModelState.IsValid)
             {
                 // Imprimir el estado del modelo para depuración

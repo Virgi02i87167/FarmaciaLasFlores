@@ -3,6 +3,10 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+</p>
+
 <!-- Mensaje de error general -->
 @if (!ViewData.ModelState.IsValid)
 {
@@ -13,64 +17,6 @@
         }
     </div>
 }
-
-<h2 class="text-center mb-4">Crear Usuario</h2>
-
-<!-- Resumen de validación -->
-<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
-
-<!-- Formulario de creación de usuario -->
-<form asp-action="Create" method="post" class="w-50 mx-auto">
-    <div class="mb-3">
-        <label asp-for="NuevoUsuario.Nombre" class="form-label">Nombre</label>
-        <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
-        <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NuevoUsuario.Posicion" class="form-label">Posición</label>
-        <input asp-for="NuevoUsuario.Posicion" class="form-control" required />
-        <span asp-validation-for="NuevoUsuario.Posicion" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NuevoUsuario.email" class="form-label">Email</label>
-        <input asp-for="NuevoUsuario.email" class="form-control" type="email" required />
-        <span asp-validation-for="NuevoUsuario.email" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NuevoUsuario.NombreUsuario" class="form-label">Nombre de Usuario</label>
-        <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" required />
-        <span asp-validation-for="NuevoUsuario.NombreUsuario" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NuevoUsuario.Password" class="form-label">Contraseña</label>
-        <input asp-for="NuevoUsuario.Password" class="form-control" type="password" required />
-        <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
-    </div>
-
-    <!-- Selección de Rol -->
- <!--
-     <div class="mb-3">
-    <label for="NuevoUsuario.RolId" class="form-label">Rol</label>
-    <select asp-for="NuevoUsuario.RolId" class="form-control" required>
-        <option value="">Seleccionar Rol</option>
-        @@foreach (var rol in Model.ListaRoles)
-        {
-            // Definir si se debe seleccionar este rol
-            var selected = rol.Id == Model.NuevoUsuario.RolId ? "selected" : "";
-            <option value="rol.Id" selected>rol.NombreRoles</option>
-        }
-    </select>
-    <span asp-validation-for="NuevoUsuario.RolId" class="text-danger"></span>
-</div>
- -->
-
-
-    <button type="submit" class="btn btn-success w-100">Guardar</button>
-</form>
 
 <!-- Título de lista de usuarios -->
 <h3 class="mt-5 text-center">Usuarios Existentes</h3>
@@ -83,6 +29,8 @@
             <th>Posición</th>
             <th>Email</th>
             <th>Nombre de Usuario</th>
+            <th>Rol</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -94,14 +42,11 @@
                 <td>@usuario.Posicion</td>
                 <td>@usuario.email</td>
                 <td>@usuario.NombreUsuario</td>
+                <td>@usuario.Rol.NombreRoles</td>
+                <td>@(usuario.Estado ? "Activo" : "Inactivo")</td>
                 <td>
-                    <!-- Botón de eliminación -->
-                    <form asp-action="Delete" asp-controller="Users" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
-                        <input type="hidden" name="id" value="@usuario.Id" />
-                        <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">Editar</a>
-
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
+                    <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-area="" asp-controller="Users" asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
         }
