@@ -31,25 +31,31 @@ namespace FarmaciaLasFlores.Controllers
             var hashedPassword = HashPassword(Password);
             var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
             
-
-
             if (usuario != null)
             {
-                // Crear los claims para el usuario autenticado
-                var claims = new List<Claim>
+                if (usuario.Estado == true)
+                {
+                    // Crear los claims para el usuario autenticado
+                    var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, usuario.NombreUsuario),
                     // Puedes agregar más claims si es necesario
                 };
 
-                // Crear el identity de la cookie
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    // Crear el identity de la cookie
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                // Establecer la autenticación
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                    // Establecer la autenticación
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                return RedirectToAction("Index", "Home");  // Redirige al Home si las credenciales son correctas
+                    return RedirectToAction("Index", "Home");  // Redirige al Home si las credenciales son correctas
+                }
+                else
+                {
+                    ViewBag.Error = "Este usuario no existe.";
+                    return View("Index");
+                }
             }
             else
             {

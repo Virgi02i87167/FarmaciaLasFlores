@@ -2,23 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido</h1>
-    <a class="navbar-brand" asp-controller="Users" asp-action="Index">Ver Usuarios</a>
-</div>
+<div class="container py-5">
+    <h1 class="display-4 text-center mb-5">Bienvenido</h1>
 
-<div class="text-center">
-    <a class="navbar-brand" asp-controller="Productos" asp-action="Index">Ver Productos</a>
-</div>
-
-<div class="text-center">
-    <a class="navbar-brand" asp-controller="Ventas" asp-action="Index">Ver Ventas</a>
-</div>
-
-<div class="text-center">
-    <a class="navbar-brand" asp-controller="Roles" asp-action="Index">Ver Rol</a>
-</div>
-
-<div class="text-center">
-    <a class="navbar-brand" asp-controller="Medicamentos" asp-action="Index">Ver Tipo Medicamentos</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mb-3">
+            <a class="btn btn-primary w-100 py-3" asp-controller="Users" asp-action="Index">
+                <i class="bi bi-people-fill me-2"></i> Ver Usuarios
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <a class="btn btn-success w-100 py-3" asp-controller="Productos" asp-action="Index">
+                <i class="bi bi-box-seam me-2"></i> Ver Productos
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <a class="btn btn-warning w-100 py-3" asp-controller="Ventas" asp-action="Index">
+                <i class="bi bi-cart-fill me-2"></i> Ver Ventas
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <a class="btn btn-info w-100 py-3" asp-controller="Roles" asp-action="Index">
+                <i class="bi bi-person-badge-fill me-2"></i> Ver Rol
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <a class="btn btn-secondary w-100 py-3" asp-controller="Medicamentos" asp-action="Index">
+                <i class="bi bi-capsule-pill me-2"></i> Ver Tipo Medicamentos
+            </a>
+        </div>
+    </div>
 </div>
