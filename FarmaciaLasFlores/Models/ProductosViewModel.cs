@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace FarmaciaLasFlores.Models
 {
@@ -9,8 +10,7 @@ namespace FarmaciaLasFlores.Models
 
         public string SearchString { get; set; } = string.Empty; //para buscar productos
 
-        // Nuevas propiedades para el filtrado por fechas
-        public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
+        public int? TipoMedicamentoId { get; set; }
+        public List<SelectListItem> ListaTiposMedicamento { get; set; } = new List<SelectListItem>();
     }
 }

@@ -1,0 +1,50 @@
+﻿@model FarmaciaLasFlores.Models.Productos
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<h1 class="text-danger">Eliminar Producto</h1>
+
+<h3>¿Estás seguro de que deseas eliminar este producto?</h3>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Cantidad</dt>
+            <dd class="col-sm-9">@Model.Cantidad</dd>
+
+            <dt class="col-sm-3">Precio</dt>
+            <dd class="col-sm-9">@Model.Precio.ToString("C", new System.Globalization.CultureInfo("es-SV"))</dd>
+
+            <dt class="col-sm-3">Lote</dt>
+            <dd class="col-sm-9">@Model.Lote</dd>
+
+            <dt class="col-sm-3">Fecha Registro</dt>
+            <dd class="col-sm-9">@Model.FechaRegistro.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Fecha Vencimiento</dt>
+            <dd class="col-sm-9">@Model.FechaVencimiento.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Tipo Medicamento</dt>
+            <dd class="col-sm-9">@Model.Medicamentos?.TipoMedicamento</dd>
+
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Deleted" method="post" class="mt-3">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash"></i> Confirmar Eliminación
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Cancelar
+    </a>
+</form>

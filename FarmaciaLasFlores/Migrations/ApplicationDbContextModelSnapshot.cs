@@ -51,6 +51,9 @@ namespace FarmaciaLasFlores.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
 

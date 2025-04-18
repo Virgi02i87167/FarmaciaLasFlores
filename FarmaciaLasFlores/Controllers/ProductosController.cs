@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -19,46 +20,41 @@ namespace FarmaciaLasFlores.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(ProductosViewModel filtro)
         {
-            // Obtener la lista de medicamentos desde la base de datos
-            var medicamentos = await _context.Medicamentos.ToListAsync();
+            var productosQuery = _context.Productos
+                .Include(p => p.Medicamentos)
+                .AsQueryable();
 
-            // Consultar los productos, con la posibilidad de filtrar según la búsqueda
-            var productosQuery = _context.Productos.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrWhiteSpace(filtro.SearchString))
             {
-                productosQuery = productosQuery
-                                 .Where(p => p.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-                                            p.Lote.Contains(searchString, StringComparison.OrdinalIgnoreCase));
-            }
+                var search = filtro.SearchString.Trim().ToLower();
 
-            // Incluir medicamentos relacionados
-            productosQuery = productosQuery.Include(p => p.Medicamentos);
+                productosQuery = productosQuery
+                    .Where(p =>
+                        p.Nombre.ToLower().Contains(search) ||
+                        p.Medicamentos.TipoMedicamento.ToLower().Contains(search));
+            }
 
             var productos = await productosQuery.ToListAsync();
 
-            // Crear el modelo de vista
-            var viewModel = new ProductosViewModel
-            {
-                NuevoProducto = new Productos(), // Objeto vacío para el formulario
-                ListaProductos = productos // Lista de productos con Medicamentos relacionados
-            };
+            filtro.ListaProductos = productos;
+            filtro.NuevoProducto = new Productos();
 
-            // Asignar el valor de búsqueda a la vista para mantener el valor de búsqueda
-            ViewData["SearchString"] = searchString;
-
-            // Cargar las listas desplegables
-            CargarListasDesplegables();
-
-            return View(viewModel);
+            return View(filtro);
         }
+
 
         private void CargarListasDesplegables()
         {
             // Cargar la lista de medicamentos en el ViewData para la lista desplegable
             ViewData["MedicamentosId"] = new SelectList(_context.Medicamentos, "Id", "TipoMedicamento");
+        }
+
+        public IActionResult Create()
+        {
+            CargarListasDesplegables();
+            return View();
         }
 
         // Guardar nuevo producto
@@ -115,7 +111,7 @@ namespace FarmaciaLasFlores.Controllers
 
                 _context.Productos.Add(viewModel.NuevoProducto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index)); // Redirige al índice después de guardar
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -131,6 +127,7 @@ namespace FarmaciaLasFlores.Controllers
         // Cargar datos en el formulario para editar
         public async Task<IActionResult> Edit(int id)
         {
+            CargarListasDesplegables();
             var producto = await _context.Productos.FindAsync(id);
             if (producto == null)
             {
@@ -140,21 +137,27 @@ namespace FarmaciaLasFlores.Controllers
             var viewModel = new ProductosViewModel
             {
                 NuevoProducto = producto,
-                ListaProductos = await _context.Productos.ToListAsync()
+                ListaProductos = await _context.Productos
+                .Include(p => p.Medicamentos)
+                .ToListAsync()
             };
 
-            return View("Index", viewModel); // Usa la misma vista con datos cargados
+            return View(viewModel); // Usa la misma vista con datos cargados
         }
 
         // Actualizar producto
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ProductosViewModel viewModel)
+        public async Task<IActionResult> Edit(ProductosViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                viewModel.ListaProductos = await _context.Productos.ToListAsync();
-                return View("Index", viewModel);
+                CargarListasDesplegables();
+                viewModel.ListaProductos = await _context.Productos
+                    .Include(p => p.Medicamentos)
+                    .ToListAsync();
+                return View(viewModel);
             }
 
             var producto = await _context.Productos.FindAsync(viewModel.NuevoProducto.Id);
@@ -174,40 +177,49 @@ namespace FarmaciaLasFlores.Controllers
 
                 _context.Update(producto);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"Error al modificar el producto: {ex.Message}");
             }
 
-            return View("Index", viewModel);
+            CargarListasDesplegables(); // También aquí
+            viewModel.ListaProductos = await _context.Productos
+                .Include(p => p.Medicamentos)
+                .ToListAsync();
+            return View(viewModel);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var producto = _context.Productos
+        .Include(p => p.Medicamentos) // Para incluir TipoMedicamento
+        .FirstOrDefault(p => p.Id == id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            return View(producto);
         }
 
         //Eliminacion de producto
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public IActionResult Deleted(int id)
         {
-            try
+            var producto = _context.Productos.Find(id);
+            if (producto == null)
             {
-                var producto = _context.Productos.Find(id);
-                if (producto == null)
-                {
-                    return NotFound();
-                }
-
-                _context.Productos.Remove(producto);
-                _context.SaveChanges();
-
-                TempData["SuccessMessage"] = "Producto eliminado correctamente";
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "Error al eliminar el producto: " + ex.Message;
+                return NotFound();
             }
 
-            return RedirectToAction(nameof(Index));
+            producto.Estado = false;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

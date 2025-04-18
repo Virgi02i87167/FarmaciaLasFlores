@@ -4,57 +4,9 @@
     ViewData["Title"] = "Gestión de Productos";
 }
 
-<!-- Título de la sección de agregar producto -->
-<h2 class="text-center mb-4">Agregar Producto</h2>
-
-<!-- Formulario para agregar o actualizar productos -->
-<div class="card p-4 shadow-sm">
-    <form asp-action="Create" asp-controller="Productos" method="post">
-        <input type="hidden" asp-for="NuevoProducto.Id" />
-
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.Nombre" class="form-label">Nombre del Producto</label>
-            <input asp-for="NuevoProducto.Nombre" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.Nombre" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.Cantidad" class="form-label">Cantidad</label>
-            <input asp-for="NuevoProducto.Cantidad" type="number" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.Cantidad" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.Precio" class="form-label">Precio</label>
-            <input asp-for="NuevoProducto.Precio" type="number" step="0.01" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.Precio" class="text-danger"></span>
-        </div>
-
-        <!-- Campos adicionales para la tabla Productos -->
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.Lote" class="form-label">Lote</label>
-            <input asp-for="NuevoProducto.Lote" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label asp-for="NuevoProducto.FechaVencimiento" class="form-label">Fecha de Vencimiento</label>
-            <input asp-for="NuevoProducto.FechaVencimiento" type="date" class="form-control" required />
-            <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="NuevoProducto.MedicamentosId" class="control-label">Tipo Medicamento</label>
-            <select asp-for="NuevoProducto.MedicamentosId" class="form-control" asp-items="ViewBag.MedicamentosId"></select>
-
-        </div>
-
-        <br />
-        <button type="submit" class="btn btn-success w-100">
-            @(Model.NuevoProducto.Id > 0 ? "Actualizar Producto" : "Guardar Producto")
-        </button>
-    </form>
-</div>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+</p>
 
 <!-- Título principal -->
 <h2 class="text-center mb-4">Buscar Producto</h2>
@@ -62,8 +14,9 @@
 <!-- Formulario de búsqueda -->
 <form asp-action="Index" method="get" class="mb-4">
     <div class="input-group">
-        <input type="text" name="searchString" class="form-control" placeholder="Buscar producto..." value="@ViewData["SearchString"]" />
+        <input asp-for="SearchString" class="form-control" placeholder="Buscar por nombre o tipo de medicamento..." />
         <button type="submit" class="btn btn-primary">Buscar</button>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Limpiar</a>
     </div>
 </form>
 
@@ -81,6 +34,7 @@
             <th>Fecha Registro</th>
             <th>Fecha Vencimiento</th>
             <th>Tipo Medicamento</th>
+            <th>Estado</th>
             <th>Acción</th>
         </tr>
     </thead>
@@ -89,21 +43,26 @@
         {
             @foreach (var producto in Model.ListaProductos)
             {
-                <tr>
+                <tr class="@(producto.FechaVencimiento < DateTime.Now ? "table-danger" : "")">
                     <td>@producto.Nombre</td>
                     <td>@producto.Cantidad</td>
                     <td>@producto.Precio.ToString("C", new System.Globalization.CultureInfo("es-SV"))</td>
                     <td>@producto.Lote</td>
-                    <td>@producto.FechaRegistro.ToString("yyyy-MM-dd")</td>
-                    <td>@producto.FechaVencimiento.ToString("yyyy-MM-dd")</td>
+                    <td>@producto.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                    <td>@producto.FechaVencimiento.ToString("dd/MM/yyyy")</td>
                     <td>@producto.Medicamentos.TipoMedicamento</td>
+                    <td>@(producto.Estado ? "Activo" : "Inactivo")</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Productos", new { id = producto.Id })" class="btn btn-warning btn-sm">Editar</a>
-                        <form asp-action="Delete" method="post" style="display:inline-block">
-                            <input type="hidden" name="id" value="@producto.Id" />
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estas seguro de eliminar este producto?')">Eliminar</button>
-                        </form>
+                        <a asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.Id"
+                           class="btn btn-warning btn-sm" title="Editar producto" data-bs-toggle="tooltip">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+
+                        <a asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.Id"
+                           class="btn btn-danger btn-sm" title="Eliminar producto" data-bs-toggle="tooltip">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+
                     </td>
                 </tr>
             }
@@ -111,33 +70,8 @@
         else
         {
             <tr>
-                <td colspan="8" class="text-center">No se encontraron productos.</td>
+                <td colspan="9" class="text-center">No se encontraron productos.</td>
             </tr>
         }
     </tbody>
 </table>
-
-<!-- Botón para generar el PDF con los filtros aplicados -->
-<form asp-controller="Reporte" asp-action="GenerarPDF" method="get" id="pdfForm">
-    <!-- Filtros de fechas -->
-    <div class="form-group">
-        <label for="FechaInicio">Fecha de Inicio</label>
-        <input type="date" name="FechaInicio" id="FechaInicio" class="form-control" value="@Model.FechaInicio?.ToString("yyyy-MM-dd")" />
-    </div>
-
-    <div class="form-group">
-        <label for="FechaFin">Fecha de Fin</label>
-        <input type="date" name="FechaFin" id="FechaFin" class="form-control" value="@Model.FechaFin?.ToString("yyyy-MM-dd")" />
-    </div>
-
-    <button type="submit" class="btn btn-info mt-3">Generar Reporte</button>
-</form>
-
-<script>
-    // Sincroniza los valores de los filtros con el formulario de generación de PDF
-    document.getElementById("filterForm").addEventListener("submit", function () {
-        // Sincroniza los valores de los filtros de fechas
-        document.getElementById("pdfFechaInicio").value = document.getElementById("FechaInicio") ? document.getElementById("FechaInicio").value : '';
-        document.getElementById("pdfFechaFin").value = document.getElementById("FechaFin") ? document.getElementById("FechaFin").value : '';
-    });
-</script>

@@ -37,9 +37,13 @@ namespace FarmaciaLasFlores.Models
         public DateTime FechaVencimiento { get; set; }
 
         // Clave foránea
+        [Required(ErrorMessage = "El medicamento es obligatorio.")]
         public int MedicamentosId { get; set; }
 
         [ForeignKey("MedicamentosId")]
         public Medicamentos Medicamentos { get; set; }
+
+        [Required(ErrorMessage = "Debe seleccionar un estado .")]
+        public bool Estado { get; set; } = true;
     }
 }

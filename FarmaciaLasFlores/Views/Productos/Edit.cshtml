@@ -1,0 +1,71 @@
+﻿@model FarmaciaLasFlores.Models.ProductosViewModel
+
+@{
+    ViewData["Title"] = "Editando producto";
+}
+
+<h2>Editar Producto</h2>
+
+<form asp-action="Edit" method="post">
+    <!-- Campo oculto para enviar el ID del producto -->
+    <input type="hidden" asp-for="NuevoProducto.Id" />
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.Nombre" class="control-label"></label>
+        <input asp-for="NuevoProducto.Nombre" class="form-control" />
+        <span asp-validation-for="NuevoProducto.Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.Lote" class="control-label"></label>
+        <input asp-for="NuevoProducto.Lote" class="form-control" />
+        <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.Precio" class="control-label"></label>
+        <input asp-for="NuevoProducto.Precio" class="form-control" />
+        <span asp-validation-for="NuevoProducto.Precio" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.Cantidad" class="control-label"></label>
+        <input asp-for="NuevoProducto.Cantidad" class="form-control" />
+        <span asp-validation-for="NuevoProducto.Cantidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.FechaVencimiento" class="control-label"></label>
+        <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" />
+        <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NuevoProducto.MedicamentosId" class="control-label"></label>
+        <select asp-for="NuevoProducto.MedicamentosId" class="form-control"
+                asp-items="@(ViewData["MedicamentosId"] as SelectList)">
+            <option value="">-- Seleccione un medicamento --</option>
+        </select>
+        <span asp-validation-for="NuevoProducto.MedicamentosId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NuevoProducto.Estado" class="form-label">Estado</label>
+        <select asp-for="NuevoProducto.Estado" class="form-select">
+            <option value="">-- Seleccione un estado --</option>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+        <span asp-validation-for="NuevoProducto.Estado" class="text-danger"></span>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
