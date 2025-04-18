@@ -4,21 +4,33 @@
     ViewData["Title"] = "Editar Tipo de Medicamento";
 }
 
-<h2>Editar Tipo de Medicamento</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Tipo de Medicamento</h2>
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="NuevoMedicamento.Id" />
-    <div class="form-group">
-        <label asp-for="NuevoMedicamento.TipoMedicamento" class="control-label"></label>
-        <input asp-for="NuevoMedicamento.TipoMedicamento" class="form-control" />
-        <span asp-validation-for="NuevoMedicamento.TipoMedicamento" class="text-danger"></span>
+    <!-- Formulario de Edición -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="NuevoMedicamento.Id" />
+
+                <div class="mb-3">
+                    <label asp-for="NuevoMedicamento.TipoMedicamento" class="form-label">Tipo de Medicamento</label>
+                    <input asp-for="NuevoMedicamento.TipoMedicamento" class="form-control" required />
+                    <span asp-validation-for="NuevoMedicamento.TipoMedicamento" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i> Guardar Cambios
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle me-2"></i> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-    <br />
-    <div class="form-group">
-        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{

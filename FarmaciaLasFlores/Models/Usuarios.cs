@@ -27,6 +27,11 @@ namespace FarmaciaLasFlores.Models
         [Required(ErrorMessage = "Debe agregar una contraseña.")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Debe confirmar la contraseña.")]
+        [Compare("Password", ErrorMessage = "La contraseña debe ser igual a la anterior.")]
+        [NotMapped] // Para que no se guarde en la base de datos
+        public string ConfirmPassword { get; set; }
+
         public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
 

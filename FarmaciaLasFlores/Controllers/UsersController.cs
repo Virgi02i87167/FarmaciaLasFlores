@@ -56,18 +56,19 @@ namespace FarmaciaLasFlores.Controllers
             {  
                 try
                 {
+                    // Hashear la contraseña solo una vez
                     model.NuevoUsuario.Password = HashPassword(model.NuevoUsuario.Password);
+
+                    // ConfirmPassword no se guarda en la base de datos
+                    model.NuevoUsuario.ConfirmPassword = null;
+
                     _context.Usuarios.Add(model.NuevoUsuario);
-
-                    Console.WriteLine($"RolId recibido: {model.NuevoUsuario.RolId}");
-
                     await _context.SaveChangesAsync();
-                    Console.WriteLine("Datos guardados exitosamente");
+
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error al guardar: {ex.Message}");
                     ModelState.AddModelError("", $"Ocurrió un error al guardar los datos: {ex.Message}");
                 }
             }
@@ -132,7 +133,26 @@ namespace FarmaciaLasFlores.Controllers
                     // Si el password no es nulo o vacío, hacer el hash
                     if (!string.IsNullOrEmpty(viewModel.NuevoUsuario.Password))
                     {
+                        // Validar que coincidan
+                        if (viewModel.NuevoUsuario.Password != viewModel.NuevoUsuario.ConfirmPassword)
+                        {
+                            ModelState.AddModelError("ConfirmPassword", "Las contraseñas no coinciden.");
+                            return View(viewModel);
+                        }
+
                         viewModel.NuevoUsuario.Password = HashPassword(viewModel.NuevoUsuario.Password);
+                    }
+                    else
+                    {
+                        // Mantener la contraseña anterior
+                        var usuarioDB = await _context.Usuarios
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(u => u.Id == viewModel.NuevoUsuario.Id);
+
+                        if (usuarioDB != null)
+                        {
+                            viewModel.NuevoUsuario.Password = usuarioDB.Password;
+                        }
                     }
 
                     _context.Update(viewModel.NuevoUsuario);

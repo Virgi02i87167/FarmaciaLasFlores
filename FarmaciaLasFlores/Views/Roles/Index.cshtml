@@ -15,59 +15,63 @@
     </div>
 }
 
-<h2 class="text-center mb-4">Crear Rol</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Crear Nuevo Rol</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Validaciones -->
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<!--Validaciónes -->
-<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
-
-<!-- Formulario de creación de rol -->
-<form asp-action="Create" method="post" class="w-50 mx-auto">
-    <div class="mb-3">
-        <label asp-for="NuevoRol.NombreRoles" class="form-label">Nombre del Rol</label>
-        <input asp-for="NuevoRol.NombreRoles" class="form-control" required maxlength="50" placeholder="Ej: Administrador" />
-        <span asp-validation-for="NuevoRol.NombreRoles" class="text-danger"></span>
+                    <!-- Formulario -->
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label asp-for="NuevoRol.NombreRoles" class="form-label">Nombre del Rol</label>
+                            <input asp-for="NuevoRol.NombreRoles" class="form-control" required maxlength="50" placeholder="Ej: Administrador" />
+                            <span asp-validation-for="NuevoRol.NombreRoles" class="text-danger small"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Guardar Rol</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-success w-100">Guardar</button>
-</form>
-
-
-<h3 class="mt-5 text-center">Roles Existentes</h3>
-
-<!-- Tabla de roles existentes -->
-<table class="table table-bordered table-striped table-hover mt-4">
-    <thead class="table-light">
-        <tr>
-            <th>Nombre del Rol</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var rol in Model.ListaRoles)
-        {
-            <tr>
-                <td>@rol.NombreRoles</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@rol.Id" class="btn btn-warning btn-sm">Editar</a>
-
-                    <!-- Mostrar "Desactivar" si el rol está activo, y viceversa -->
-                    <form asp-action="Update" asp-controller="Roles" method="post"
-                          onsubmit="return confirm('¿Estás seguro de que quieres cambiar el estado de este rol?');">
-                        <input type="hidden" name="id" value="@rol.Id" />
-                        <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-danger" : "btn-success")">
-                            @(rol.Activo ? "Desactivar" : "Activar")
-                        </button>
-                    </form>
-                </td>
-                <td>
-                    
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-
-
+    <!-- Tabla de roles -->
+    <div class="mt-5">
+        <h4 class="text-center mb-3">Roles Existentes</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Nombre del Rol</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var rol in Model.ListaRoles)
+                    {
+                        <tr>
+                            <td>@rol.NombreRoles</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@rol.Id" class="btn btn-warning btn-sm">Editar</a>
+                            </td>
+                            <td>
+                                <form asp-action="Update" asp-controller="Roles" method="post"
+                                      onsubmit="return confirm('¿Estás seguro de que quieres cambiar el estado de este rol?');">
+                                    <input type="hidden" name="id" value="@rol.Id" />
+                                    <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-danger" : "btn-success")">
+                                        @(rol.Activo ? "Desactivar" : "Activar")
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

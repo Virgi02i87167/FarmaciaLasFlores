@@ -41,6 +41,12 @@
     </div>
 
     <div class="mb-3">
+        <label asp-for="NuevoUsuario.ConfirmPassword" class="form-label">Confirmar Contraseña</label>
+        <input asp-for="NuevoUsuario.ConfirmPassword" class="form-control" type="password" required />
+        <span asp-validation-for="NuevoUsuario.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label asp-for="NuevoUsuario.RolId" class="form-label">Rol</label>
         <select asp-for="NuevoUsuario.RolId" asp-items="Model.ListaRolesSelectList" class="form-control" required>
             <option value="">Seleccione un rol</option>
