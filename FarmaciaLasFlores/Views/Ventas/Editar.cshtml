@@ -1,7 +1,7 @@
 ﻿@model FarmaciaLasFlores.Models.VentasViewModel
 
 <h2 class="text-center mb-4">Editar Venta</h2>
-
+<!--a
 <form asp-action="Editar" method="post">
     <input type="hidden" asp-for="NuevaVenta.Id" />
     <input type="hidden" asp-for="NuevaVenta.Total" id="hiddenTotal" />
@@ -23,14 +23,14 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Total</label>
-        <input type="text" class="form-control" id="totalDisplay" value="@(Model.NuevaVenta.Cantidad * Model.NuevaVenta.PrecioVenta)" readonly />
+        <input type="text" class="form-control" id="totalDisplay" value="(Model.NuevaVenta * Model.NuevaVenta)" readonly />
     </div>
 
     <button type="submit" class="btn btn-success w-100">
         Actualizar Venta
     </button>
 </form>
-
+-->
 <script>
     function calcularTotal() {
         const cantidad = parseFloat(document.querySelector('[name="NuevaVenta.Cantidad"]').value) || 0;

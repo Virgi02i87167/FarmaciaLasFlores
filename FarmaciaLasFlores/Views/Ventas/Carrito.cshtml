@@ -38,12 +38,12 @@
 
                         <!-- Campo para definir el precio de venta -->
                         <td>
-                            <input type="number" name="precioVenta[@producto.Id]" value="@producto.Precio" step="0.01" class="form-control" />
+                            <input type="number" name="precioVenta[@producto.Id]" value="@producto.PrecioCompra" step="0.01" class="form-control" />
                         </td>
 
                         <!-- Mostrar el total calculado en C# con id único para cada producto -->
                         <td>
-                            <span id="total-@producto.Id">@($"{producto.Precio * producto.Cantidad:0.00}")</span>
+                            <span id="total-@producto.Id">@($"{producto.PrecioCompra * producto.Cantidad:0.00}")</span>
 
                         </td>
                     </tr>

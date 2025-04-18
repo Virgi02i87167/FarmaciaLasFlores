@@ -17,7 +17,8 @@ namespace FarmaciaLasFlores.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TipoMedicamento = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    TipoMedicamento = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,7 +47,8 @@ namespace FarmaciaLasFlores.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecioCompra = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Lote = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -98,21 +100,13 @@ namespace FarmaciaLasFlores.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FechaVenta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProductoId = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
-                    PrecioVenta = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ventas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Ventas_Productos_ProductoId",
-                        column: x => x.ProductoId,
-                        principalTable: "Productos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ventas_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
@@ -120,6 +114,45 @@ namespace FarmaciaLasFlores.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "DetalleVenta",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VentaId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioVenta = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetalleVenta", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetalleVenta_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DetalleVenta_Ventas_VentaId",
+                        column: x => x.VentaId,
+                        principalTable: "Ventas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetalleVenta_ProductoId",
+                table: "DetalleVenta",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetalleVenta_VentaId",
+                table: "DetalleVenta",
+                column: "VentaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_MedicamentosId",
@@ -144,11 +177,6 @@ namespace FarmaciaLasFlores.Migrations
                 column: "RolId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ventas_ProductoId",
-                table: "Ventas",
-                column: "ProductoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ventas_UsuarioId",
                 table: "Ventas",
                 column: "UsuarioId");
@@ -158,16 +186,19 @@ namespace FarmaciaLasFlores.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ventas");
+                name: "DetalleVenta");
 
             migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Ventas");
 
             migrationBuilder.DropTable(
                 name: "Medicamentos");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Roles");

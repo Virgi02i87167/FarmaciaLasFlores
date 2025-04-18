@@ -17,8 +17,11 @@
             <dt class="col-sm-3">Cantidad</dt>
             <dd class="col-sm-9">@Model.Cantidad</dd>
 
-            <dt class="col-sm-3">Precio</dt>
-            <dd class="col-sm-9">@Model.Precio.ToString("C", new System.Globalization.CultureInfo("es-SV"))</dd>
+            <dt class="col-sm-3">Precio Compra</dt>
+            <dd class="col-sm-9">@Model.PrecioCompra.ToString("C", new System.Globalization.CultureInfo("es-SV"))</dd>
+
+            <dt class="col-sm-3">Precio Venta</dt>
+            <dd class="col-sm-9">@Model.PrecioVenta.ToString("C", new System.Globalization.CultureInfo("es-SV"))</dd>
 
             <dt class="col-sm-3">Lote</dt>
             <dd class="col-sm-9">@Model.Lote</dd>

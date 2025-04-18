@@ -27,7 +27,7 @@ namespace FarmaciaLasFlores.Db
                 .IsUnique();
 
             // Configuración para Productos
-            modelBuilder.Entity<Ventas>()
+            modelBuilder.Entity<DetalleVenta>()
                 .Property(p => p.PrecioVenta)
                 .HasColumnType("decimal(18,2)");  // Especificamos precisión y escala para 'Precio'
         }

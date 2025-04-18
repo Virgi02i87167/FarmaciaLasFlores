@@ -33,14 +33,12 @@ namespace FarmaciaLasFlores.Controllers
                                           .ToListAsync() ?? new List<Productos>(); // Asegurar que no sea null
 
             // Obtener las ventas realizadas y cargar la relacion con los productos
-            var ventas = await _context.Ventas.Include(v => v.Producto)
-                                              .OrderByDescending(v => v.FechaVenta) // Ordenar las ventas por fecha (más reciente a más antigua)
-                                              .ToListAsync();
+            //var ventas = await _context.Ventas.Include(v => v.Producto).OrderByDescending(v => v.FechaVenta) // Ordenar las ventas por fecha (más reciente a más antigua).ToListAsync();
 
             var viewModel = new VentasViewModel
             {
                 ListaProductos = productos, // Lista de productos ordenados por fecha
-                ListaVentas = ventas // Lista de ventas ordenadas por fecha de venta
+               //ListaVentas = ventas // Lista de ventas ordenadas por fecha de venta
             };
 
             ViewBag.Productos = productos; // Reutilizar la lista de productos ya obtenida
@@ -52,33 +50,31 @@ namespace FarmaciaLasFlores.Controllers
         // Consulta para buscar ventas// Javier Eulices Martinez
         public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? productoId)
         {
-            var ventasQuery = _context.Ventas.Include(v => v.Producto).AsQueryable();
+            //var ventasQuery = _context.Ventas.Include(v => v.Producto).AsQueryable();
 
             if (fechaInicio.HasValue)
             {
-                ventasQuery = ventasQuery.Where(v => v.FechaVenta >= fechaInicio.Value);
+                //ventasQuery = ventasQuery.Where(v => v.FechaVenta >= fechaInicio.Value);
             }
 
             if (fechaFin.HasValue)
             {
-                ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
+                //ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
             }
 
             if (productoId.HasValue && productoId.Value > 0)
             {
-                ventasQuery = ventasQuery.Where(v => v.ProductoId == productoId.Value);
+                //ventasQuery = ventasQuery.Where(v => v.ProductoId == productoId.Value);
             }
 
-            var ventas = await ventasQuery.ToListAsync();
+            //var ventas = await ventasQuery.ToListAsync();
 
-            var productos = await _context.Productos
-                                          .OrderBy(p => p.FechaRegistro)
-                                          .ToListAsync() ?? new List<Productos>();
+            //var productos = await _context.Productos.OrderBy(p => p.FechaRegistro).ToListAsync() ?? new List<Productos>();
 
             var viewModel = new VentasViewModel
             {
-               ListaProductos = productos,
-                ListaVentas = ventas
+               //ListaProductos = productos,
+                //ListaVentas = ventas
             };
 
             return View("Index", viewModel); // Pasar el ViewModel a la vista
@@ -156,10 +152,9 @@ namespace FarmaciaLasFlores.Controllers
                     // Crear el objeto de venta
                     var venta = new Ventas
                     {
-                        ProductoId = producto.Id,
                         FechaVenta = DateTime.Now,
-                        Cantidad = cantidadValor,
-                        PrecioVenta = precioValor,
+                        //Cantidad = cantidadValor,
+                        //PrecioVenta = precioValor,
                         Total = precioValor * cantidadValor
                     };
 
@@ -190,102 +185,21 @@ namespace FarmaciaLasFlores.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GenerarPDF(DateTime? FechaInicio, DateTime? FechaFin)
-        {
-            var ventas = _context.Ventas
-                .Include(v => v.Producto)  // ✅ Asegura que se cargue el producto
-                .AsQueryable();
-
-            if (FechaInicio.HasValue)
-            {
-                ventas = ventas.Where(p => p.FechaVenta >= FechaInicio.Value);
-            }
-
-            if (FechaFin.HasValue)
-            {
-                ventas = ventas.Where(p => p.FechaVenta <= FechaFin.Value);
-            }
-
-            var listaVentas = ventas.ToList();
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                Document document = new Document(PageSize.A4);
-                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
-                document.Open();
-
-                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-                Paragraph title = new Paragraph("Reporte de Ventas", titleFont)
-                {
-                    Alignment = Element.ALIGN_CENTER
-                };
-                document.Add(title);
-                document.Add(new Paragraph("\n"));
-
-                if (listaVentas.Any())
-                {
-                    PdfPTable table = new PdfPTable(5) { WidthPercentage = 100 };
-
-                    string[] headers = { "FechaVenta", "Producto", "Cantidad", "PrecioVenta", "Total" };
-                    foreach (var header in headers)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(header, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)))
-                        {
-                            BackgroundColor = BaseColor.LightGray,
-                            HorizontalAlignment = Element.ALIGN_CENTER
-                        };
-                        table.AddCell(cell);
-                    }
-
-                    foreach (var venta in listaVentas)
-                    {
-                        table.AddCell(new PdfPCell(new Phrase(venta.FechaVenta.ToString("yyyy-MM-dd"))) { HorizontalAlignment = Element.ALIGN_CENTER });
-
-                        // ✅ Verificar que Producto no sea nulo antes de acceder a Nombre
-                        string nombreProducto = venta.Producto != null ? venta.Producto.Nombre : "Desconocido";
-                        table.AddCell(new PdfPCell(new Phrase(nombreProducto)) { HorizontalAlignment = Element.ALIGN_LEFT });
-
-                        table.AddCell(new PdfPCell(new Phrase(venta.Cantidad.ToString())) { HorizontalAlignment = Element.ALIGN_CENTER });
-                        table.AddCell(new PdfPCell(new Phrase(venta.PrecioVenta.ToString("C"))) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                        table.AddCell(new PdfPCell(new Phrase(venta.Total.ToString("C"))) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                    }
-
-                    document.Add(table);
-                }
-                else
-                {
-                    Paragraph noData = new Paragraph("No hay ventas registradas en el período seleccionado.", FontFactory.GetFont(FontFactory.HELVETICA, 12))
-                    {
-                        Alignment = Element.ALIGN_CENTER
-                    };
-                    document.Add(noData);
-                }
-
-                document.Close();
-                writer.Close();
-
-                memoryStream.Position = 0;
-                return File(memoryStream.ToArray(), "application/pdf", "Reporte_Ventas.pdf");
-            }
-        }
-
+        
         // Acción para mostrar el formulario de edición
         [HttpGet]
         public async Task<IActionResult> Editar(int id)
         {
-            var venta = await _context.Ventas
-                .Include(v => v.Producto)
-                .FirstOrDefaultAsync(v => v.Id == id);
+            //var venta = await _context.Ventas.Include(v => v.Producto).FirstOrDefaultAsync(v => v.Id == id);
 
-            if (venta == null)
+            //if (venta == null)
             {
                 return NotFound();
             }
 
             var viewModel = new VentasViewModel
             {
-                NuevaVenta = venta,
+                //NuevaVenta = venta,
                 ListaProductos = await _context.Productos.ToListAsync()
             };
 
@@ -308,10 +222,6 @@ namespace FarmaciaLasFlores.Controllers
                     return NotFound();
                 }
 
-                venta.ProductoId = viewModel.NuevaVenta.ProductoId;
-                venta.Cantidad = viewModel.NuevaVenta.Cantidad;
-                venta.PrecioVenta = viewModel.NuevaVenta.PrecioVenta;
-                venta.Total = viewModel.NuevaVenta.Cantidad * viewModel.NuevaVenta.PrecioVenta;
 
                 try
                 {
@@ -338,21 +248,21 @@ namespace FarmaciaLasFlores.Controllers
         {
             try
             {
-                var venta = _context.Ventas.Include(v => v.Producto).FirstOrDefault(v => v.Id == id);
+                //var venta = _context.Ventas.Include(v => v.Producto).FirstOrDefault(v => v.Id == id);
 
-                if (venta == null)
+                //if (venta == null)
                 {
                     return Json(new { success = false, message = "Venta no encontrada" });
                 }
 
                 // Aquí puedes agregar validaciones adicionales si es necesario
                 // Por ejemplo, no permitir eliminar ventas antiguas:
-                if (venta.FechaVenta < DateTime.Now.AddMonths(-1))
+                //if (venta.FechaVenta < DateTime.Now.AddMonths(-1))
                 {
                     return Json(new { success = false, message = "No se pueden eliminar ventas con más de 1 mes de antigüedad" });
                 }
 
-                _context.Ventas.Remove(venta);
+                //_context.Ventas.Remove(venta);
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Venta eliminada correctamente";

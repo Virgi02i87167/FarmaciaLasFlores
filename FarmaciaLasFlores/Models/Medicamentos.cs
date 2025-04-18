@@ -12,5 +12,8 @@ namespace FarmaciaLasFlores.Models
         public string TipoMedicamento { get; set; }
 
         public List<Productos> Productos { get; set; } = new List<Productos>();
+
+        [Required(ErrorMessage = "Debe seleccionar un estado .")]
+        public bool Estado { get; set; } = true;
     }
 }

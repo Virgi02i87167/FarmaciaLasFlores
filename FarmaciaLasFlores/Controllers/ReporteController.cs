@@ -73,7 +73,7 @@ namespace FarmaciaLasFlores.Controllers
                 {
                     table.AddCell(new PdfPCell(new Phrase(producto.Nombre)));
                     table.AddCell(new PdfPCell(new Phrase(producto.Cantidad.ToString())));
-                    table.AddCell(new PdfPCell(new Phrase(producto.Precio.ToString("C"))));
+                    table.AddCell(new PdfPCell(new Phrase(producto.PrecioCompra.ToString("C"))));
                     table.AddCell(new PdfPCell(new Phrase(producto.Lote)));
                     table.AddCell(new PdfPCell(new Phrase(producto.FechaRegistro.ToString("yyyy-MM-dd"))));
                     table.AddCell(new PdfPCell(new Phrase(producto.FechaVencimiento.ToString("yyyy-MM-dd"))));

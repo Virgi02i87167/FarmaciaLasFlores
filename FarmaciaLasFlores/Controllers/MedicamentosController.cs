@@ -77,7 +77,6 @@ namespace FarmaciaLasFlores.Controllers
             return RedirectToAction("Index");
         }
 
-        //GET: Medicamentos/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var medicamento = await _context.Medicamentos.FindAsync(id);
@@ -95,7 +94,6 @@ namespace FarmaciaLasFlores.Controllers
             return View(viewModel);
         }
 
-        //POST: Medicamento/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, MedicamentosViewModel viewModel)
@@ -124,6 +122,24 @@ namespace FarmaciaLasFlores.Controllers
 
             viewModel.ListaMedicamentos = await _context.Medicamentos.ToListAsync();
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id)
+        {
+            var estado = await _context.Medicamentos.FindAsync(id);
+            if (estado == null)
+            {
+                return NotFound();
+            }
+
+            estado.Estado = !estado.Estado;
+
+            _context.Medicamentos.Update(estado);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

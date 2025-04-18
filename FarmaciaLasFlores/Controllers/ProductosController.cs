@@ -80,7 +80,7 @@ namespace FarmaciaLasFlores.Controllers
             }
 
             // Validaciones adicionales
-            if (viewModel.NuevoProducto.Precio <= 0)
+            if (viewModel.NuevoProducto.PrecioCompra <= 0)
             {
                 ModelState.AddModelError("NuevoProducto.Precio", "El precio debe ser mayor que cero.");
             }
@@ -109,6 +109,9 @@ namespace FarmaciaLasFlores.Controllers
             {
                 viewModel.NuevoProducto.FechaRegistro = DateTime.Now; // Se asigna la fecha actual al registrar
 
+                // 👉 Calcular el precio de venta con el 30% de ganancia
+                viewModel.NuevoProducto.PrecioVenta = viewModel.NuevoProducto.PrecioCompra * 1.30m;
+
                 _context.Productos.Add(viewModel.NuevoProducto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -133,6 +136,8 @@ namespace FarmaciaLasFlores.Controllers
             {
                 return NotFound();
             }
+
+            producto.PrecioVenta = producto.PrecioCompra * 1.30m;
 
             var viewModel = new ProductosViewModel
             {
@@ -170,10 +175,12 @@ namespace FarmaciaLasFlores.Controllers
             {
                 producto.Nombre = viewModel.NuevoProducto.Nombre;
                 producto.Cantidad = viewModel.NuevoProducto.Cantidad;
-                producto.Precio = viewModel.NuevoProducto.Precio;
+                producto.PrecioCompra = viewModel.NuevoProducto.PrecioCompra;
                 producto.FechaVencimiento = viewModel.NuevoProducto.FechaVencimiento;
                 producto.Lote = viewModel.NuevoProducto.Lote;
                 producto.MedicamentosId = viewModel.NuevoProducto.MedicamentosId;
+
+                producto.PrecioVenta = producto.PrecioCompra * 1.30m;
 
                 _context.Update(producto);
                 await _context.SaveChangesAsync();

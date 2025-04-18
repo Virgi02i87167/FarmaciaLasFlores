@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250418035129_MigracionInicial")]
+    [Migration("20250418210219_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />
@@ -25,6 +25,38 @@ namespace FarmaciaLasFlores.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("FarmaciaLasFlores.Models.DetalleVenta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("DetalleVenta");
+                });
+
             modelBuilder.Entity("FarmaciaLasFlores.Models.Medicamentos", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +64,9 @@ namespace FarmaciaLasFlores.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TipoMedicamento")
                         .IsRequired()
@@ -76,7 +111,10 @@ namespace FarmaciaLasFlores.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Precio")
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PrecioVenta")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -171,17 +209,11 @@ namespace FarmaciaLasFlores.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FechaVenta")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
@@ -191,11 +223,28 @@ namespace FarmaciaLasFlores.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductoId");
-
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Ventas");
+                });
+
+            modelBuilder.Entity("FarmaciaLasFlores.Models.DetalleVenta", b =>
+                {
+                    b.HasOne("FarmaciaLasFlores.Models.Productos", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FarmaciaLasFlores.Models.Ventas", "Venta")
+                        .WithMany("Detalles")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Producto");
+
+                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("FarmaciaLasFlores.Models.Productos", b =>
@@ -222,19 +271,11 @@ namespace FarmaciaLasFlores.Migrations
 
             modelBuilder.Entity("FarmaciaLasFlores.Models.Ventas", b =>
                 {
-                    b.HasOne("FarmaciaLasFlores.Models.Productos", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FarmaciaLasFlores.Models.Usuarios", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Producto");
 
                     b.Navigation("Usuario");
                 });
@@ -242,6 +283,11 @@ namespace FarmaciaLasFlores.Migrations
             modelBuilder.Entity("FarmaciaLasFlores.Models.Medicamentos", b =>
                 {
                     b.Navigation("Productos");
+                });
+
+            modelBuilder.Entity("FarmaciaLasFlores.Models.Ventas", b =>
+                {
+                    b.Navigation("Detalles");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,8 +21,11 @@ namespace FarmaciaLasFlores.Models
         [Required(ErrorMessage = "Debe ingresar un precio válido.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Precio { get; set; }
+        public decimal PrecioCompra { get; set; }
 
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public decimal PrecioVenta { get; set; }
 
         [Required(ErrorMessage = "El lote del producto es obligatorio.")]
         [StringLength(50, ErrorMessage = "El lote no puede superar los 50 caracteres.")]
@@ -42,6 +45,7 @@ namespace FarmaciaLasFlores.Models
 
         [ForeignKey("MedicamentosId")]
         public Medicamentos Medicamentos { get; set; }
+
 
         [Required(ErrorMessage = "Debe seleccionar un estado .")]
         public bool Estado { get; set; } = true;

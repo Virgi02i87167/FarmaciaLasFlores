@@ -31,7 +31,7 @@
             <tr>
                 <td>@producto.Nombre</td>
                 <td>@producto.Cantidad</td>
-                <td>@producto.Precio</td>
+                <td>@producto.PrecioCompra</td>
                 <td>@producto.MedicamentosId</td>
                 <td>@producto.FechaRegistro.ToString("dd/MM/yyyy")</td>
                 <td>
@@ -67,15 +67,15 @@
             {
                 <tr>
                     <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
-                    <td>@venta.Producto.Nombre</td>
-                    <td>@venta.Cantidad</td>
-                    <td>@venta.PrecioVenta</td>
+                    <td>@venta.</td>
+                    <td>@venta.</td>
+                    <td>@venta.</td>
                     <td>@venta.Total</td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
                         <button class="btn btn-sm btn-danger btn-eliminar-venta"
                                 data-venta-id="@venta.Id"
-                                data-producto-nombre="@venta.Producto.Nombre"
+                                data-producto-nombre="@venta.."
                                 data-fecha="@venta.FechaVenta.ToString("dd/MM/yyyy")" data-bs-toggle="modal"
                                 data-bs-target="#confirmDeleteModal">
                             <i class="fas fa-trash-alt"></i> Eliminar

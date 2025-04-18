@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\medicamentos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\medicamentos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\medicamentos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\medicamentos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\medicamentos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\medicamentos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -63,43 +50,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Create.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Medicamentos\\Create.cshtml",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Create.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Medicamentos\\Create.cshtml",
-              "ViewState": "AgIAABAAAAAAAAAAAAAuwCwAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-18T04:23:56.355Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Edit.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Medicamentos\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Edit.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Medicamentos\\Edit.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-18T04:23:05.644Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Index.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Medicamentos\\Index.cshtml",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Medicamentos\\Index.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Medicamentos\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-18T04:20:42.187Z"
             }
           ]
         },

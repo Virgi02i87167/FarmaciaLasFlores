@@ -13,30 +13,20 @@ namespace FarmaciaLasFlores.Models
         public DateTime FechaVenta { get; set; } = DateTime.Now;
 
         [Required]
-        //Llave foranea tabla productos
-        public int ProductoId { get; set; }
-
-        [ForeignKey("ProductoId")]
-        public Productos Producto { get; set; }
-
-        [Required]
-        //Llave foranea tabla Usuario
         public int UsuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]
-        public Usuarios Usuario { get; set; } 
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0.")]
-        public int Cantidad { get; set; }
+        public Usuarios Usuario { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal PrecioVenta { get; set; }
+        public decimal Total { get; set; } // Suma de todos los subtotales
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Total { get; set; }
+        public bool Estado { get; set; } = true;
+
+        // Relación con los detalles de venta
+        public ICollection<DetalleVenta> Detalles { get; set; }
     }
 }
 
