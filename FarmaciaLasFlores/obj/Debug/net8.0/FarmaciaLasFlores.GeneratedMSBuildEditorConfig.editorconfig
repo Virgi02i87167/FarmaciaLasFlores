@@ -108,6 +108,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXENhcnJpdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/alfar/source/repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/alfar/source/repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

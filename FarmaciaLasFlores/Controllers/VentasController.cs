@@ -1,10 +1,12 @@
 ﻿using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,8 +16,6 @@ namespace FarmaciaLasFlores.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<VentasController> _logger;
-
-        // Variable para almacenar el carrito temporalmente
         private static List<Productos> carrito = new List<Productos>();
 
         public VentasController(ApplicationDbContext context, ILogger<VentasController> logger)
@@ -27,81 +27,156 @@ namespace FarmaciaLasFlores.Controllers
         // Acción para mostrar la vista de productos disponibles
         public async Task<IActionResult> Index()
         {
-            // Obtener los productos disponibles y ordenarlos por FechaRegistro
-            var productos = await _context.Productos
-                                          .OrderBy(p => p.FechaRegistro)
-                                          .ToListAsync() ?? new List<Productos>(); // Asegurar que no sea null
-
-            // Obtener las ventas realizadas y cargar la relacion con los productos
-            //var ventas = await _context.Ventas.Include(v => v.Producto).OrderByDescending(v => v.FechaVenta) // Ordenar las ventas por fecha (más reciente a más antigua).ToListAsync();
-
             var viewModel = new VentasViewModel
             {
-                ListaProductos = productos, // Lista de productos ordenados por fecha
-               //ListaVentas = ventas // Lista de ventas ordenadas por fecha de venta
+                ListaVentas = await _context.Ventas
+            .Include(v => v.Detalles)
+                .ThenInclude(d => d.Producto)
+            .Include(v => v.Usuario)
+            .OrderByDescending(v => v.FechaVenta)
+            .ToListAsync()
             };
 
-            ViewBag.Productos = productos; // Reutilizar la lista de productos ya obtenida
-            return View(viewModel); // Pasar el ViewModel a la vista
+            // Cargar los productos para el filtro (si los necesitas en el ViewBag)
+            ViewBag.Productos = await _context.Productos.ToListAsync();
+
+            return View(viewModel);
         }
 
-
-
-        // Consulta para buscar ventas// Javier Eulices Martinez
-        public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? productoId)
+        // Acción para ver los detalles de productos disponibles
+        public async Task<IActionResult> Details()
         {
-            //var ventasQuery = _context.Ventas.Include(v => v.Producto).AsQueryable();
+            var productos = await _context.Productos
+                .Include(p => p.Medicamentos)
+                .OrderBy(p => p.FechaRegistro)
+                .ToListAsync();
+
+            var modelo = new VentasViewModel
+            {
+                ListaProductos = productos ?? new List<Productos>()
+            };
+
+            return View(modelo);
+        }
+
+        // Acción para buscar ventas
+        public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin)
+        {
+            var ventasQuery = _context.Ventas.Include(v => v.Detalles).AsQueryable();
 
             if (fechaInicio.HasValue)
             {
-                //ventasQuery = ventasQuery.Where(v => v.FechaVenta >= fechaInicio.Value);
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta >= fechaInicio.Value);
             }
 
             if (fechaFin.HasValue)
             {
-                //ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
             }
 
-            if (productoId.HasValue && productoId.Value > 0)
-            {
-                //ventasQuery = ventasQuery.Where(v => v.ProductoId == productoId.Value);
-            }
-
-            //var ventas = await ventasQuery.ToListAsync();
-
-            //var productos = await _context.Productos.OrderBy(p => p.FechaRegistro).ToListAsync() ?? new List<Productos>();
+            var ventas = await ventasQuery.ToListAsync();
+            var productos = await _context.Productos.OrderBy(p => p.FechaRegistro).ToListAsync() ?? new List<Productos>();
 
             var viewModel = new VentasViewModel
             {
-               //ListaProductos = productos,
-                //ListaVentas = ventas
+                ListaProductos = productos,
+                ListaVentas = ventas
             };
 
-            return View("Index", viewModel); // Pasar el ViewModel a la vista
+            return View("Index", viewModel);
         }
 
+
+        // Acción para ver el carrito
+        public IActionResult Carrito()
+        {
+            var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito") ?? new List<ItemCarrito>();
+
+            var viewModel = new VentasViewModel
+            {
+                ListaCarrito = carrito
+            };
+
+            return View(viewModel);
+        }
 
         // Acción para agregar un producto al carrito
         [HttpPost]
         public IActionResult AddToCart(int ProductoId)
         {
             var producto = _context.Productos.FirstOrDefault(p => p.Id == ProductoId);
-            if (producto != null)
+            if (producto == null)
             {
-                carrito.Add(producto); // Agregar el producto al carrito
-                TempData["SuccessMessage"] = "Producto agregado al carrito."; // Mensaje de éxito al agregar
+                TempData["ErrorMessage"] = "Producto no encontrado.";
+                return RedirectToAction("Details");
             }
+
+            // Obtener carrito actual de la sesión
+            var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito") ?? new List<ItemCarrito>();
+
+            // Ver si el producto ya está en el carrito
+            var itemExistente = carrito.FirstOrDefault(i => i.ProductoId == ProductoId);
+            if (itemExistente != null)
+            {
+                // Validar stock disponible antes de incrementar
+                if (itemExistente.Cantidad < producto.Cantidad)
+                {
+                    itemExistente.Cantidad++; // Incrementar cantidad si hay stock
+                    TempData["SuccessMessage"] = "Cantidad incrementada en el carrito.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "No hay suficiente stock para este producto.";
+                }
+            }
+            else
+            {
+                if (producto.Cantidad > 0)
+                {
+                    // Agregar nuevo item al carrito
+                    carrito.Add(new ItemCarrito
+                    {
+                        ProductoId = producto.Id,
+                        Nombre = producto.Nombre,
+                        PrecioVenta = producto.PrecioVenta
+                    });
+                    TempData["SuccessMessage"] = "Producto agregado al carrito.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Producto sin stock disponible.";
+                }
+            }
+
+            // Guardar carrito actualizado en la sesión
+            HttpContext.Session.SetObjectAsJson("Carrito", carrito);
+
             return RedirectToAction("Carrito");
         }
 
-        // Acción para ver el carrito
-        public IActionResult Carrito()
+        [HttpPost]
+        public IActionResult EliminarDelCarritos([FromBody] ProductoRequest request)
         {
-            var viewModel = new VentasViewModel
-            {
-                ListaProductos = carrito
-            };
-            return View(viewModel);
+            var productoId = request.ProductoId;
+            var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito") ?? new List<ItemCarrito>();
+            var eliminado = carrito.RemoveAll(p => p.ProductoId == productoId) > 0;
+
+            HttpContext.Session.SetObjectAsJson("Carrito", carrito);
+
+            // Si el producto se eliminó correctamente, se devuelve un OK (200)
+            return eliminado ? Ok() : BadRequest("No se pudo eliminar el producto.");
+        }
+
+        public class ProductoRequest
+        {
+            public int ProductoId { get; set; }
+        }
+
+        [HttpPost]
+        public IActionResult LimpiarCarrito()
+        {
+            HttpContext.Session.Remove("Carrito");
+            return Ok();
         }
 
         // Acción para finalizar la venta
@@ -149,17 +224,6 @@ namespace FarmaciaLasFlores.Controllers
                         return View("Carrito", viewModel);
                     }
 
-                    // Crear el objeto de venta
-                    var venta = new Ventas
-                    {
-                        FechaVenta = DateTime.Now,
-                        //Cantidad = cantidadValor,
-                        //PrecioVenta = precioValor,
-                        Total = precioValor * cantidadValor
-                    };
-
-                    ventasARegistrar.Add(venta); // Agregar la venta a la lista de ventas a registrar
-
                     // Restar la cantidad vendida del inventario
                     productoInventario.Cantidad -= cantidadValor;
                     _context.Update(productoInventario); // Actualizar el inventario
@@ -170,108 +234,17 @@ namespace FarmaciaLasFlores.Controllers
 
                 // Guardar los cambios en la base de datos
                 int cambios = await _context.SaveChangesAsync();
-                Console.WriteLine($"Filas afectadas en la BD: {cambios}"); // Imprimir filas afectadas para depuración
+                Console.WriteLine($"Filas afectadas en la BD: {cambios}");
 
                 carrito.Clear(); // Limpiar el carrito después de la venta
                 TempData["SuccessMessage"] = "Venta registrada exitosamente."; // Mensaje de éxito de la venta
-                return RedirectToAction(nameof(Index)); // Redirigir al índice después de la venta exitosa
-            }
-            catch (Exception ex)
-            {
-                // En caso de error, se maneja la excepción y se muestra el error
-                Console.WriteLine($"Error en FinalizarVenta: {ex.Message}");
-                ModelState.AddModelError("", "Error al registrar la venta.");
-                return View("Carrito", viewModel); // Regresar al carrito si hay error
-            }
-        }
-
-        
-        // Acción para mostrar el formulario de edición
-        [HttpGet]
-        public async Task<IActionResult> Editar(int id)
-        {
-            //var venta = await _context.Ventas.Include(v => v.Producto).FirstOrDefaultAsync(v => v.Id == id);
-
-            //if (venta == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new VentasViewModel
-            {
-                //NuevaVenta = venta,
-                ListaProductos = await _context.Productos.ToListAsync()
-            };
-
-            return View(viewModel);
-        }
-
-
-        // Acción para guardar los cambios
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(VentasViewModel viewModel)
-        {
-            Console.WriteLine("Entró al método Editar (POST)");
-
-            if (!ModelState.IsValid)
-            {
-                var venta = await _context.Ventas.FindAsync(viewModel.NuevaVenta.Id);
-                if (venta == null)
-                {
-                    return NotFound();
-                }
-
-
-                try
-                {
-                    _context.Update(venta);
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = "Venta actualizada exitosamente.";
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Error al guardar los cambios: " + ex.Message);
-                }
-            }
-
-            // Recargar productos si hay errores
-            viewModel.ListaProductos = await _context.Productos.ToListAsync();
-            return View(viewModel);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteVenta(int id)
-        {
-            try
-            {
-                //var venta = _context.Ventas.Include(v => v.Producto).FirstOrDefault(v => v.Id == id);
-
-                //if (venta == null)
-                {
-                    return Json(new { success = false, message = "Venta no encontrada" });
-                }
-
-                // Aquí puedes agregar validaciones adicionales si es necesario
-                // Por ejemplo, no permitir eliminar ventas antiguas:
-                //if (venta.FechaVenta < DateTime.Now.AddMonths(-1))
-                {
-                    return Json(new { success = false, message = "No se pueden eliminar ventas con más de 1 mes de antigüedad" });
-                }
-
-                //_context.Ventas.Remove(venta);
-                _context.SaveChanges();
-
-                TempData["SuccessMessage"] = "Venta eliminada correctamente";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al eliminar venta");
-                return Json(new { success = false, message = "Ocurrió un error al eliminar la venta" });
+                Console.WriteLine($"Error en FinalizarVenta: {ex.Message}");
+                ModelState.AddModelError("", "Error al registrar la venta.");
+                return View("Carrito", viewModel);
             }
         }
     }

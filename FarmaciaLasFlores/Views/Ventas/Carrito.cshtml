@@ -4,6 +4,8 @@
     ViewData["Title"] = "Carrito de Compras";
 }
 
+<a asp-action="Details" class="btn btn-secondary">Agregar mas productos</a>
+
 <h2 class="text-center mb-4">Carrito de Ventas</h2>
 
 @if (TempData["SuccessMessage"] != null)
@@ -13,7 +15,7 @@
     </div>
 }
 
-@if (Model.ListaProductos.Any())
+@if (Model.ListaCarrito.Any())
 {
     <form method="post" asp-action="FinalizarVenta">
         <table class="table table-bordered table-striped table-hover shadow-sm">
@@ -21,37 +23,47 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>Precio Venta</th>
                     <th>Total</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var producto in Model.ListaProductos)
+                @{
+                    decimal totalGeneral = 0;
+                }
+                @foreach (var producto in Model.ListaCarrito)
                 {
-                    <tr>
+                    var subtotal = producto.PrecioVenta * producto.Cantidad;
+                    totalGeneral += subtotal;
+                    <tr id="fila-@producto.ProductoId">
                         <td>@producto.Nombre</td>
-
-                        <!-- Campo para seleccionar la cantidad -->
                         <td>
-                            <input type="number" name="cantidad[@producto.Id]" value="@producto.Cantidad" min="1" class="form-control" />
+                            <input type="number" name="cantidad[@producto.ProductoId]" value="@producto.Cantidad" min="1" class="form-control" />
                         </td>
-
-                        <!-- Campo para definir el precio de venta -->
                         <td>
-                            <input type="number" name="precioVenta[@producto.Id]" value="@producto.PrecioCompra" step="0.01" class="form-control" />
+                            @producto.PrecioVenta.ToString("0.00")
+                            <input type="hidden" name="precioVenta[@producto.ProductoId]" value="@producto.PrecioVenta" />
                         </td>
-
-                        <!-- Mostrar el total calculado en C# con id único para cada producto -->
                         <td>
-                            <span id="total-@producto.Id">@($"{producto.PrecioCompra * producto.Cantidad:0.00}")</span>
-
+                            <span id="total-@producto.ProductoId">@subtotal.ToString("0.00")</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(@producto.ProductoId)">Eliminar Producto</button>
                         </td>
                     </tr>
                 }
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total a Pagar:</strong></td>
+                    <td><strong id="total-general">@totalGeneral.ToString("0.00")</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
-
         <button type="submit" class="btn btn-success w-100">Realizar Venta</button>
+        <button type="button" class="btn btn-warning w-100 mt-2" onclick="limpiarCarrito()">Limpiar Carrito</button>
     </form>
 }
 else
@@ -59,37 +71,96 @@ else
     <p>No hay productos en el carrito.</p>
 }
 
+<div id="error-message" class="alert alert-danger" style="display: none;"></div> <!-- Mensaje de error -->
 @section Scripts {
     <script>
-        // Función para actualizar el total cuando cambian la cantidad o el precio
-        function actualizarTotal(productoId) {
-            // Obtener los valores de la cantidad y el precio
-            var cantidad = document.querySelector('input[name="cantidad[' + productoId + ']"]').value;
-            var precio = document.querySelector('input[name="precioVenta[' + productoId + ']"]').value;
+        //Eliminar producto
+            function eliminarProducto(productoId) {
+                // Hacemos la solicitud POST con fetch
+                fetch('/Ventas/EliminarDelCarritos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Si usas CSRF
+                    },
+                    body: JSON.stringify({ productoId: productoId }) // Enviamos el productoId
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Si la eliminación fue exitosa, recargamos la página
+                        window.location.reload();  // Recarga la página para que el producto eliminado ya no esté en el carrito
+                    } else {
+                        alert('Hubo un problema al eliminar el producto.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar producto:', error);
+                    alert('Hubo un error al procesar la solicitud.');
+                });
+            }
 
-            // Calcular el total
-            var total = cantidad * precio;
-
-            // Actualizar el campo de total correspondiente
-            document.querySelector('#total-' + productoId).textContent = total.toFixed(2);
+                function limpiarCarrito() {
+            fetch('/Ventas/LimpiarCarrito', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload(); // recarga para actualizar vista
+                } else {
+                    alert('No se pudo limpiar el carrito.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al limpiar carrito:', error);
+                alert('Ocurrió un error al limpiar el carrito.');
+            });
         }
 
-        // Asignar eventos a los campos de cantidad y precio para recalcular el total cuando cambien
-        document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
-            input.addEventListener('input', function () {
-                var productoId = input.name.match(/\d+/)[0]; // Obtener el Id del producto
-                actualizarTotal(productoId);
-            });
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Función para actualizar el total de un producto individual
+            function actualizarTotalProducto(productoId) {
+                var cantidad = document.querySelector('input[name="cantidad[' + productoId + ']"]').value;
+                var precio = document.querySelector('input[name="precioVenta[' + productoId + ']"]').value;
 
-        document.querySelectorAll('input[name^="precioVenta["]').forEach(input => {
-            input.addEventListener('input', function () {
-                var productoId = input.name.match(/\d+/)[0]; // Obtener el Id del producto
-                actualizarTotal(productoId);
+                var total = cantidad * precio;
+                document.querySelector('#total-' + productoId).textContent = total.toFixed(2);
+                actualizarTotalGeneral(); // También actualizamos el total general
+            }
+
+            // Función para actualizar el total general del carrito
+            function actualizarTotalGeneral() {
+                var totalGeneral = 0;
+
+                document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
+                    var productoId = input.name.match(/\d+/)[0];
+                    var cantidad = parseFloat(input.value);
+                    var precio = parseFloat(document.querySelector('input[name="precioVenta[' + productoId + ']"]').value);
+
+                    if (!isNaN(cantidad) && !isNaN(precio)) {
+                        totalGeneral += cantidad * precio;
+                    }
+                });
+
+                var totalGeneralElement = document.querySelector('#total-general');
+                if (totalGeneralElement) {
+                    totalGeneralElement.textContent = totalGeneral.toFixed(2);
+                }
+            }
+
+            // Asignar eventos a los campos de cantidad
+            document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
+                input.addEventListener('input', function () {
+                    var productoId = input.name.match(/\d+/)[0];
+                    actualizarTotalProducto(productoId);
+                });
             });
+
+            // Inicializar el total general al cargar la página
+            actualizarTotalGeneral();
         });
     </script>
 }
-
-
 

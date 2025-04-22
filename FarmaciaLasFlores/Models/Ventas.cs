@@ -23,7 +23,7 @@ namespace FarmaciaLasFlores.Models
         public decimal Total { get; set; } // Suma de todos los subtotales
 
         [Required]
-        public bool Estado { get; set; } = true;
+        public bool Estado  { get; set; } = true;
 
         // Relación con los detalles de venta
         public ICollection<DetalleVenta> Detalles { get; set; }

@@ -30,6 +30,6 @@ namespace FarmaciaLasFlores.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Subtotal { get; set; } // Cantidad * PrecioVenta
+        public decimal Subtotal { get; set; }
     }
 }

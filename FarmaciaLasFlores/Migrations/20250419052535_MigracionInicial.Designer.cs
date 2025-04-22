@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250418210219_MigracionInicial")]
+    [Migration("20250419052535_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />

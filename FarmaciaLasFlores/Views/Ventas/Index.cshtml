@@ -1,98 +1,13 @@
 ﻿@model FarmaciaLasFlores.Models.VentasViewModel
 
 @{
-    ViewData["Title"] = "Productos Disponibles y Ventas Realizadas";
+    ViewData["Title"] = "Ventas Realizadas";
 }
 
-<h2 class="text-center mb-4">Productos Disponibles</h2>
+<p>
+    <a asp-action="Details" class="btn btn-primary">Crear Nuevo</a>
+</p>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
-}
-
-<!-- Mostrar Productos -->
-<table class="table table-bordered table-striped table-hover shadow-sm">
-    <thead class="table-light">
-        <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Tipo Medicamento</th>
-            <th>Fecha Registro</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var producto in Model.ListaProductos)
-        {
-            <tr>
-                <td>@producto.Nombre</td>
-                <td>@producto.Cantidad</td>
-                <td>@producto.PrecioCompra</td>
-                <td>@producto.MedicamentosId</td>
-                <td>@producto.FechaRegistro.ToString("dd/MM/yyyy")</td>
-                <td>
-                    <form method="post" asp-action="AddToCart">
-                        <input type="hidden" name="ProductoId" value="@producto.Id" />
-                        <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<hr />
-
-<!-- Mostrar Ventas -->
-<h2 class="text-center mb-4">Ventas Realizadas</h2>
-@if (Model.ListaVentas.Any())
-{
-    <table class="table table-bordered table-striped table-hover shadow-sm">
-        <thead class="table-light">
-            <tr>
-                <th>Fecha de la Venta</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Ordenado de más reciente a más antigua -->
-            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta)) 
-            {
-                <tr>
-                    <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
-                    <td>@venta.</td>
-                    <td>@venta.</td>
-                    <td>@venta.</td>
-                    <td>@venta.Total</td>
-                    <td>
-                        <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
-                        <button class="btn btn-sm btn-danger btn-eliminar-venta"
-                                data-venta-id="@venta.Id"
-                                data-producto-nombre="@venta.."
-                                data-fecha="@venta.FechaVenta.ToString("dd/MM/yyyy")" data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteModal">
-                            <i class="fas fa-trash-alt"></i> Eliminar
-                        </button>
-                    </td>
-
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No se han registrado ventas aún.</p>
-}
-
- 
 <!-- agregando campos filtrar ventas por fecha, cliente y producto -->
 <h2 class="text-center mb-4">Buscar Ventas</h2>
 <form method="get" asp-action="BuscarVentas">
@@ -131,6 +46,51 @@ else
     </div>
 </form>
 
+<!-- Mostrar Ventas -->
+<h2 class="text-center mb-4">Ventas Realizadas</h2>
+@if (Model.ListaVentas.Any())
+{
+    <table class="table table-bordered table-striped table-hover shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Fecha de la Venta</th>
+                <th>Usuario</th>
+                <th>Total</th>
+                <th>Detalles</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Ordenado de más reciente a más antigua -->
+            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta)) 
+            {
+                <tr>
+                    <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
+                    <td>@venta.Usuario</td>
+                    <td>@venta.Total</td>
+                    <td>
+                        @foreach (var detalle in venta.Detalles)
+                        {
+                            <div>@detalle.Producto?.Nombre (x@detalle.Cantidad)</div>
+                        }
+                    </td>
+
+                    <td>@venta.Estado</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
+                        
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No se han registrado ventas aún.</p>
+}
 
 <!-- Modal de Confirmación para Eliminar Venta -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -155,46 +115,8 @@ else
     </div>
 </div>
 
-<!-- Formulario para generar PDF con filtros -->
-<h2 class="text-center mb-4">Generar Reporte</h2>
-<form asp-action="GenerarPDF" method="get" id="pdfForm">
-    <div class="row">
-        <!-- Filtro de Fecha de Inicio -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="FechaInicio">Fecha de Inicio</label>
-                <input type="date" name="FechaInicio" id="FechaInicio" class="form-control"
-                       value="@(Model?.FechaInicio?.ToString("yyyy-MM-dd") ?? "")" />
-            </div>
-        </div>
-
-        <!-- Filtro de Fecha de Fin -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="FechaFin">Fecha de Fin</label>
-                <input type="date" name="FechaFin" id="FechaFin" class="form-control"
-                       value="@(Model?.FechaFin?.ToString("yyyy-MM-dd") ?? "")" />
-            </div>
-        </div>
-    </div>
-
-    <!-- Botón de descarga -->
-    <button type="submit" class="btn btn-info mt-3">Descargar PDF</button>
-</form>
-
 <!-- Validación con JavaScript -->
 <script>
-    document.getElementById("pdfForm").addEventListener("submit", function (event) {
-        let fechaInicio = document.getElementById("FechaInicio").value;
-        let fechaFin = document.getElementById("FechaFin").value;
-
-        if (fechaInicio && fechaFin && fechaInicio > fechaFin) {
-            alert("La fecha de inicio no puede ser mayor que la fecha de fin.");
-            event.preventDefault();
-        }
-    });
-
-
     document.addEventListener("DOMContentLoaded", function () {
             const botonesEliminar = document.querySelectorAll(".btn-eliminar-venta");
 

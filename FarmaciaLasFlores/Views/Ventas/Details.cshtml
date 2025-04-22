@@ -1,0 +1,50 @@
+﻿@model FarmaciaLasFlores.Models.VentasViewModel
+
+@{
+    ViewData["Title"] = "Productos Disponibles";
+}
+
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
+
+<a asp-action="Carrito" class="btn btn-secondary">Ver Carrito</a>
+
+<h2 class="text-center mb-4">Productos Disponibles</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!-- Mostrar Productos -->
+<table class="table table-bordered table-striped table-hover shadow-sm">
+    <thead class="table-light">
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio Venta</th>
+            <th>Tipo Medicamento</th>
+            <th>Fecha Registro</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var producto in Model.ListaProductos)
+        {
+            <tr>
+                <td>@producto.Nombre</td>
+                <td>@producto.Cantidad</td>
+                <td>@producto.PrecioVenta</td>
+                <td>@producto.Medicamentos.TipoMedicamento</td>
+                <td>@producto.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <form method="post" asp-action="AddToCart">
+                        <input type="hidden" name="ProductoId" value="@producto.Id" />
+                        <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
