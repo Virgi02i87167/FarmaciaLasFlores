@@ -4,50 +4,50 @@
     ViewData["Title"] = "Editar Usuario";
 }
 
-<h2>Editar Usuario</h2>
+<h2 class="text-center text-custom-primary">Editar Usuario</h2>
 
 <form asp-action="Edit" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="NuevoUsuario.Id" />
 
     <div class="form-group">
-        <label asp-for="NuevoUsuario.Nombre" class="control-label"></label>
+        <label asp-for="NuevoUsuario.Nombre" class="control-label text-custom-primary"></label>
         <input asp-for="NuevoUsuario.Nombre" class="form-control" />
         <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NuevoUsuario.Posicion" class="control-label"></label>
+        <label asp-for="NuevoUsuario.Posicion" class="control-label text-custom-primary"></label>
         <input asp-for="NuevoUsuario.Posicion" class="form-control" />
         <span asp-validation-for="NuevoUsuario.Posicion" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NuevoUsuario.email" class="control-label"></label>
+        <label asp-for="NuevoUsuario.email" class="control-label text-custom-primary"></label>
         <input asp-for="NuevoUsuario.email" class="form-control" />
         <span asp-validation-for="NuevoUsuario.email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NuevoUsuario.NombreUsuario" class="control-label"></label>
+        <label asp-for="NuevoUsuario.NombreUsuario" class="control-label text-custom-primary"></label>
         <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" />
         <span asp-validation-for="NuevoUsuario.NombreUsuario" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NuevoUsuario.Password" class="control-label"></label>
+        <label asp-for="NuevoUsuario.Password" class="control-label text-custom-primary"></label>
         <input asp-for="NuevoUsuario.Password" type="password" class="form-control" />
         <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.ConfirmPassword" class="form-label">Confirmar Contraseña</label>
+        <label asp-for="NuevoUsuario.ConfirmPassword" class="form-label text-custom-primary">Confirmar Contraseña</label>
         <input asp-for="NuevoUsuario.ConfirmPassword" class="form-control" type="password" required />
         <span asp-validation-for="NuevoUsuario.ConfirmPassword" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.RolId" class="form-label">Rol</label>
+        <label asp-for="NuevoUsuario.RolId" class="form-label text-custom-primary">Rol</label>
         <select asp-for="NuevoUsuario.RolId" asp-items="Model.ListaRolesSelectList" class="form-control" required>
             <option value="">Seleccione un rol</option>
         </select>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Estado" class="form-label">Estado</label>
+        <label asp-for="NuevoUsuario.Estado" class="form-label text-custom-primary">Estado</label>
         <select asp-for="NuevoUsuario.Estado" class="form-select">
             <option value="">-- Seleccione un estado --</option>
             <option value="true">Activo</option>
@@ -63,12 +63,12 @@
         </select>
         <span asp-validation-for="NuevoUsuario.Estado" class="text-danger"></span>
     </div>
-    
+
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-custom-primary">Guardar Cambios</button>
         <br />
         <br />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        <a asp-action="Index" class="btn btn-custom-secondary">Cancelar</a>
     </div>
 </form>
 
@@ -77,3 +77,77 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Color principal */
+        --secondary-color: #7583a0; /* Color secundario */
+        --danger-color: #c43f48; /* Color de error o peligro */
+        --success-color: #25a152; /* Color de éxito */
+        --warning-color: #e77b85; /* Color de advertencia */
+    }
+
+    /* Títulos y textos */
+    .text-custom-primary {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    /* Estilo de los botones */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #162f8c;
+            border-color: #0a2568;
+        }
+
+    .btn-custom-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+
+        .btn-custom-secondary:hover {
+            background-color: #637b94;
+            border-color: #50677a;
+        }
+
+    /* Estilo de los campos del formulario */
+    .form-control {
+        border-radius: 8px;
+        border-color: #b0bec5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(27, 52, 136, 0.5);
+        }
+
+    .form-select {
+        border-radius: 8px;
+        border-color: #b0bec5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(27, 52, 136, 0.5);
+        }
+
+    /* Estilo de los mensajes de error */
+    .text-danger {
+        color: var(--danger-color);
+    }
+</style>

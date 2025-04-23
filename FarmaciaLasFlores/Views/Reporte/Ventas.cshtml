@@ -4,26 +4,26 @@
     ViewBag.Title = "Generar Reportes de Ventas";
 }
 
-<h2>Reportes de Ventas</h2>
+<h2 class="text-center mb-4">Reportes de Ventas</h2>
 
-<hr />
+<hr class="my-4" />
 
-<h4>📄 Generar PDF por Venta</h4>
+<h4 class="text-info">📄 Generar PDF por Venta</h4>
 <form asp-action="DescargarPDFVenta" method="get">
     <div class="form-group">
-        <label for="id">ID de Venta:</label>
+        <label for="id" class="form-label">ID de Venta:</label>
         <input type="number" name="id" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Descargar PDF</button>
+    <button type="submit" class="btn btn-custom-primary mt-2">Descargar PDF</button>
 </form>
 
-<hr />
+<hr class="my-4" />
 
-<h4>📆 Generar Reporte Mensual</h4>
+<h4 class="text-info">📆 Generar Reporte Mensual</h4>
 <form asp-action="DescargarReporteMensual" method="get">
     <div class="form-row">
         <div class="form-group col-md-3">
-            <label for="mes">Mes:</label>
+            <label for="mes" class="form-label">Mes:</label>
             <select name="mes" class="form-control">
                 @for (int i = 1; i <= 12; i++)
                 {
@@ -32,19 +32,19 @@
             </select>
         </div>
         <div class="form-group col-md-3">
-            <label for="anio">Año:</label>
+            <label for="anio" class="form-label">Año:</label>
             <input type="number" name="anio" value="@DateTime.Now.Year" class="form-control" required />
         </div>
     </div>
-    <button type="submit" class="btn btn-success mt-2">Descargar PDF</button>
+    <button type="submit" class="btn btn-custom-success mt-2">Descargar PDF</button>
 </form>
 
-<hr />
+<hr class="my-4" />
 
-<h4>👤 Generar Reporte por Usuario</h4>
+<h4 class="text-info">👤 Generar Reporte por Usuario</h4>
 <form asp-action="DescargarReporteUsuario" method="get">
     <div class="form-group">
-        <label for="usuarioId">Seleccionar Usuario:</label>
+        <label for="usuarioId" class="form-label">Seleccionar Usuario:</label>
         <select name="usuarioId" class="form-control">
             @foreach (var usuario in Model.Usuarios)
             {
@@ -52,5 +52,94 @@
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-info mt-2">Descargar PDF</button>
+    <button type="submit" class="btn btn-custom-info mt-2">Descargar PDF</button>
 </form>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #0d6efd; /* Color principal */
+        --secondary-color: #6c757d; /* Color secundario */
+        --danger-color: #dc3545; /* Color de error o peligro */
+        --success-color: #28a745; /* Color de éxito */
+        --info-color: #17a2b8; /* Color de info */
+    }
+
+    /* Estilo de los botones */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-custom-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: white;
+    }
+
+        .btn-custom-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .btn-custom-info {
+        background-color: var(--info-color);
+        border-color: var(--info-color);
+        color: white;
+    }
+
+        .btn-custom-info:hover {
+            background-color: #138496;
+            border-color: #117a8b;
+        }
+
+    /* Estilo de las etiquetas de los formularios */
+    .form-label {
+        font-weight: bold;
+    }
+
+    /* Estilo de los campos de texto */
+    .form-control {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Añadiendo márgenes a los formularios */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Diseño para los títulos */
+    h4 {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    /* Sección del formulario con separación de línea */
+    hr {
+        border-top: 2px solid var(--secondary-color);
+    }
+
+    /* Espaciado en los botones */
+    .btn {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+
+    form {
+        margin-bottom: 80px; /* Añadido para dar espacio entre los botones y el footer */
+    }
+</style>

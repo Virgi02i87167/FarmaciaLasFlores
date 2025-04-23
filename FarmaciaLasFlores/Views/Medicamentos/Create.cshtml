@@ -4,6 +4,67 @@
     ViewData["Title"] = "Create";
 }
 
+<style>
+    body {
+        background-color: #ede6e9;
+    }
+
+    h1 {
+        color: #1b3488;
+        font-weight: bold;
+    }
+
+    .card {
+        border: none;
+        border-radius: 1rem;
+        background-color: #fff;
+    }
+
+    .form-label {
+        color: #171d18;
+        font-weight: 500;
+    }
+
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+    }
+
+        .form-control:focus {
+            border-color: #7583a0;
+            box-shadow: 0 0 0 0.2rem rgba(117, 131, 160, 0.25);
+        }
+
+    .btn-primary {
+        background-color: #25a152;
+        border-color: #25a152;
+    }
+
+        .btn-primary:hover {
+            background-color: #1b3488;
+            border-color: #1b3488;
+        }
+
+    .btn-outline-secondary {
+        color: #c43f48;
+        border-color: #c43f48;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #e77b85;
+            color: #fff;
+            border-color: #e77b85;
+        }
+
+    .text-danger {
+        font-size: 0.9rem;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+</style>
+
 <div class="container mt-5">
     <h1 class="text-center mb-4">
         @(ViewContext.RouteData.Values["action"].ToString() == "Create" ? "Crear" : "Editar") Categorías

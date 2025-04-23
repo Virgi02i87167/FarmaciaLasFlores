@@ -13,36 +13,39 @@
     <header>
         @if (!User.Identity.IsAuthenticated)
         {
-            <!-- Si no está autenticado, solo muestra el inicio de sesión -->
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <!-- Navbar para usuarios no autenticados -->
+            <nav class="navbar navbar-expand-sm navbar-light border-bottom shadow-sm" style="background-color: #ede6e9;">
                 <div class="container-fluid">
-                    <!-- <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a> -->
+                    <!-- <a class="navbar-brand text-dark" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a> -->
                 </div>
             </nav>
         }
         else
         {
-            <!-- Si está autenticado, muestra el menú normal -->
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <!-- Navbar para usuarios autenticados -->
+            <nav class="navbar navbar-expand-sm navbar-dark border-bottom shadow-sm" style="background-color: #1b3488;">
                 <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index">FarmaciaLasFlores</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Principal</a>
+                                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Principal</a>
                             </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <form method="post" asp-action="Logout" asp-controller="Login" style="display:inline;">
-                                        <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
-                                    </form>
-                                </li>
-                            }
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="Login" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-white"
+                                            onmouseover="this.style.color='#c43f48'"
+                                            onmouseout="this.style.color='white'">
+                                        Cerrar Sesión
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -50,17 +53,19 @@
         }
     </header>
 
-    <div class="container">
+    <div class="container py-3" style="background-color: #ede6e9; min-height: 80vh;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - FarmaciaLasFlores
+    <footer class="footer text-muted py-1" style="background-color: #ede6e9; border-top: 1px solid #7583a0; font-size: 0.875rem;">
+        <div class="container text-center" style="color: #171d18;">
+            &copy; 2025 - <strong>FarmaciaLasFlores</strong>
         </div>
     </footer>
+
+
 
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

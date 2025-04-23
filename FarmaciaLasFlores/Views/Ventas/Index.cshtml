@@ -5,28 +5,28 @@
 }
 
 <p>
-    <a asp-action="Details" class="btn btn-primary">Crear Nuevo</a>
+    <a asp-action="Details" class="btn btn-custom-primary">Crear Nuevo</a>
 </p>
 
-<!-- agregando campos filtrar ventas por fecha, cliente y producto -->
-<h2 class="text-center mb-4">Buscar Ventas</h2>
+<!-- Buscador de Ventas -->
+<h2 class="text-center mb-4 text-custom-primary">Buscar Ventas</h2>
 <form method="get" asp-action="BuscarVentas">
     <div class="row g-3 align-items-center">
         <!-- Campo Fecha Inicio -->
         <div class="col-md-3">
-            <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+            <label for="fechaInicio" class="form-label text-custom-primary">Fecha Inicio</label>
             <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
         </div>
 
         <!-- Campo Fecha Fin -->
         <div class="col-md-3">
-            <label for="fechaFin" class="form-label">Fecha Fin</label>
+            <label for="fechaFin" class="form-label text-custom-primary">Fecha Fin</label>
             <input type="date" class="form-control" id="fechaFin" name="fechaFin">
         </div>
 
-        <!-- Campo Usuario -->
+        <!-- Campo Producto -->
         <div class="col-md-3">
-            <label for="usuarioId" class="form-label">Producto</label>
+            <label for="usuarioId" class="form-label text-custom-primary">Producto</label>
             <select class="form-control" id="usuarioId" name="usuarioId">
                 <option value="">Seleccionar Usuario</option>
                 @if (Model.ListaUsuarios != null)
@@ -39,16 +39,15 @@
             </select>
         </div>
 
-
         <!-- Botón de Buscar -->
         <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+            <button type="submit" class="btn btn-custom-primary w-100">Buscar</button>
         </div>
     </div>
 </form>
 
 <!-- Mostrar Ventas -->
-<h2 class="text-center mb-4">Ventas Realizadas</h2>
+<h2 class="text-center mb-4 text-custom-primary">Ventas Realizadas</h2>
 @if (Model.ListaVentas.Any())
 {
     <table class="table table-bordered table-striped table-hover shadow-sm">
@@ -63,8 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Ordenado de más reciente a más antigua -->
-            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta)) 
+            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta))
             {
                 <tr>
                     <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
@@ -74,9 +72,7 @@
                     <td>@(venta.Estado ? "Activo" : "Inactivo")</td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
-                        
                     </td>
-
                 </tr>
             }
         </tbody>
@@ -91,7 +87,7 @@ else
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
+            <div class="modal-header bg-custom-danger text-white">
                 <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -129,3 +125,76 @@ else
             });
         });
 </script>
+
+<style>
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Azul oscuro */
+        --secondary-color: #7583a0; /* Azul claro */
+        --danger-color: #c43f48; /* Rojo */
+        --success-color: #25a152; /* Verde */
+        --warning-color: #e77b85; /* Rosa */
+        --background-color: #ede6e9; /* Fondo suave */
+    }
+
+    /* General */
+    body {
+        background-color: var(--background-color);
+        color: #171d18;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+    }
+
+    .form-label {
+        color: var(--primary-color);
+    }
+
+    /* Estilo de los formularios */
+    .form-control, .form-select {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(27, 52, 136, 0.4);
+        }
+
+    /* Botones personalizados */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #162b6f;
+            border-color: #1a2e7b;
+        }
+
+    .btn-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #d4686f;
+            border-color: #c25760;
+        }
+
+    /* Modal */
+    .bg-custom-danger {
+        background-color: var(--danger-color);
+    }
+
+    .text-custom-primary {
+        color: var(--primary-color);
+    }
+</style>

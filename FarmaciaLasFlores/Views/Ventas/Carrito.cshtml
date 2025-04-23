@@ -4,9 +4,10 @@
     ViewData["Title"] = "Carrito de Compras";
 }
 
-<a asp-action="Details" class="btn btn-secondary">Agregar mas productos</a>
-
-<h2 class="text-center mb-4">Carrito de Ventas</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Carrito de Ventas</h2>
+    <a asp-action="Details" class="btn btn-secondary">Agregar más productos</a>
+</div>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -63,8 +64,11 @@
                 </tr>
             </tfoot>
         </table>
-        <button type="submit" class="btn btn-success w-100">Realizar Venta</button>
-        <button type="button" class="btn btn-warning w-100 mt-2" onclick="limpiarCarrito()">Limpiar Carrito</button>
+
+        <div class="d-flex justify-content-end gap-2 mt-3">
+            <button type="submit" class="btn btn-success">Realizar Venta</button>
+            <button type="button" class="btn btn-warning" onclick="limpiarCarrito()">Limpiar Carrito</button>
+        </div>
     </form>
 }
 else
@@ -72,35 +76,33 @@ else
     <p>No hay productos en el carrito.</p>
 }
 
-<div id="error-message" class="alert alert-danger" style="display: none;"></div> <!-- Mensaje de error -->
+<div id="error-message" class="alert alert-danger" style="display: none;"></div>
+
 @section Scripts {
     <script>
-        //Eliminar producto
-            function eliminarProducto(productoId) {
-                // Hacemos la solicitud POST con fetch
-                fetch('/Ventas/EliminarDelCarritos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Si usas CSRF
-                    },
-                    body: JSON.stringify({ productoId: productoId }) // Enviamos el productoId
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Si la eliminación fue exitosa, recargamos la página
-                        window.location.reload();  // Recarga la página para que el producto eliminado ya no esté en el carrito
-                    } else {
-                        alert('Hubo un problema al eliminar el producto.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al eliminar producto:', error);
-                    alert('Hubo un error al procesar la solicitud.');
-                });
-            }
+        function eliminarProducto(productoId) {
+            fetch('/Ventas/EliminarDelCarritos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                body: JSON.stringify({ productoId: productoId })
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Hubo un problema al eliminar el producto.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar producto:', error);
+                alert('Hubo un error al procesar la solicitud.');
+            });
+        }
 
-                function limpiarCarrito() {
+        function limpiarCarrito() {
             fetch('/Ventas/LimpiarCarrito', {
                 method: 'POST',
                 headers: {
@@ -109,7 +111,7 @@ else
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.reload(); // recarga para actualizar vista
+                    window.location.reload();
                 } else {
                     alert('No se pudo limpiar el carrito.');
                 }
@@ -121,37 +123,30 @@ else
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Función para actualizar el total de un producto individual
             function actualizarTotalProducto(productoId) {
                 var cantidad = document.querySelector('input[name="cantidad[' + productoId + ']"]').value;
                 var precio = document.querySelector('input[name="precioVenta[' + productoId + ']"]').value;
-
                 var total = cantidad * precio;
                 document.querySelector('#total-' + productoId).textContent = total.toFixed(2);
-                actualizarTotalGeneral(); // También actualizamos el total general
+                actualizarTotalGeneral();
             }
 
-            // Función para actualizar el total general del carrito
             function actualizarTotalGeneral() {
                 var totalGeneral = 0;
-
                 document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
                     var productoId = input.name.match(/\d+/)[0];
                     var cantidad = parseFloat(input.value);
                     var precio = parseFloat(document.querySelector('input[name="precioVenta[' + productoId + ']"]').value);
-
                     if (!isNaN(cantidad) && !isNaN(precio)) {
                         totalGeneral += cantidad * precio;
                     }
                 });
-
                 var totalGeneralElement = document.querySelector('#total-general');
                 if (totalGeneralElement) {
                     totalGeneralElement.textContent = totalGeneral.toFixed(2);
                 }
             }
 
-            // Asignar eventos a los campos de cantidad
             document.querySelectorAll('input[name^="cantidad["]').forEach(input => {
                 input.addEventListener('input', function () {
                     var productoId = input.name.match(/\d+/)[0];
@@ -159,9 +154,99 @@ else
                 });
             });
 
-            // Inicializar el total general al cargar la página
             actualizarTotalGeneral();
         });
     </script>
 }
 
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    h2 {
+        color: #1b3488;
+        font-weight: 600;
+    }
+
+    .table thead {
+        background-color: #1b3488;
+        color: white;
+    }
+
+    .table tbody tr {
+        background-color: #ffffff;
+    }
+
+    .table tfoot tr {
+        background-color: #f1f1f1;
+        font-weight: bold;
+    }
+
+    .btn-secondary {
+        background-color: #7583a0;
+        border: none;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5c6884;
+        }
+
+    .btn-danger {
+        background-color: #c43f48;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #a7333a;
+        }
+
+    .btn-success {
+        background-color: #25a152;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #1e8543;
+        }
+
+    .btn-warning {
+        background-color: #8ba22e;
+        border: none;
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #738522;
+        }
+
+    .alert-success {
+        background-color: #25a152;
+        color: white;
+        border: none;
+    }
+
+    .alert-danger {
+        background-color: #c43f48;
+        color: white;
+        border: none;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .form-control {
+        border-color: #7583a0;
+        box-shadow: none;
+    }
+
+    input.form-control:focus {
+        border-color: #1b3488;
+        box-shadow: 0 0 0 0.2rem rgba(27, 52, 136, 0.25);
+    }
+</style>

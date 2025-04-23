@@ -1,10 +1,10 @@
 ﻿@model FarmaciaLasFlores.Models.UsuariosViewModel
 @{
-    ViewData["Title"] = "Crear Usuario";
+    ViewData["Title"] = "Ver Usuario";
 }
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+    <a asp-action="Create" class="btn btn-custom-primary">Crear Nuevo</a>
 </p>
 
 <!-- Mensaje de error general -->
@@ -19,7 +19,7 @@
 }
 
 <!-- Título de lista de usuarios -->
-<h3 class="mt-5 text-center">Usuarios Existentes</h3>
+<h3 class="mt-5 text-center text-custom-primary">Usuarios Existentes</h3>
 
 <!-- Tabla de usuarios -->
 <table class="table table-bordered table-striped table-hover mt-4">
@@ -45,10 +45,96 @@
                 <td>@usuario.Rol.NombreRoles</td>
                 <td>@(usuario.Estado ? "Activo" : "Inactivo")</td>
                 <td>
-                    <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">Editar</a>
-                    <a asp-area="" asp-controller="Users" asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a asp-area="" asp-controller="Users" asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-custom-warning btn-sm">Editar</a>
+                    <a asp-area="" asp-controller="Users" asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-custom-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Color principal */
+        --secondary-color: #7583a0; /* Color secundario */
+        --danger-color: #c43f48; /* Color de error o peligro */
+        --success-color: #25a152; /* Color de éxito */
+        --warning-color: #e77b85; /* Color de advertencia */
+    }
+
+    /* Botones personalizados */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #162f8c;
+            border-color: #0a2568;
+        }
+
+    .btn-custom-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: white;
+    }
+
+        .btn-custom-warning:hover {
+            background-color: #d56774;
+            border-color: #d04c61;
+        }
+
+    .btn-custom-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+        color: white;
+    }
+
+        .btn-custom-danger:hover {
+            background-color: #9b2d38;
+            border-color: #7a1e29;
+        }
+
+    /* Estilo de la tabla */
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table-light {
+        background-color: #fff;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table-bordered {
+        border: 1px solid #dcdcdc;
+    }
+
+    /* Títulos y texto */
+    .text-custom-primary {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+    }
+
+        .alert-danger p {
+            margin: 0;
+        }
+</style>

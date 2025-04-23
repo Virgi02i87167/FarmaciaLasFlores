@@ -18,8 +18,8 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
+            <div class="card shadow-lg border-light">
+                <div class="card-header bg-custom-primary text-white text-center">
                     <h4 class="mb-0">Crear Nuevo Rol</h4>
                 </div>
                 <div class="card-body">
@@ -33,7 +33,7 @@
                             <input asp-for="NuevoRol.NombreRoles" class="form-control" required maxlength="50" placeholder="Ej: Administrador" />
                             <span asp-validation-for="NuevoRol.NombreRoles" class="text-danger small"></span>
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Guardar Rol</button>
+                        <button type="submit" class="btn btn-custom-success w-100">Guardar Rol</button>
                     </form>
                 </div>
             </div>
@@ -42,7 +42,7 @@
 
     <!-- Tabla de roles -->
     <div class="mt-5">
-        <h4 class="text-center mb-3">Roles Existentes</h4>
+        <h4 class="text-center mb-3 text-custom-primary">Roles Existentes</h4>
         <div class="table-responsive">
             <table class="table table-bordered table-hover align-middle shadow-sm">
                 <thead class="table-light text-center">
@@ -57,13 +57,13 @@
                         <tr>
                             <td>@rol.NombreRoles</td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@rol.Id" class="btn btn-warning btn-sm">Editar</a>
+                                <a asp-action="Edit" asp-route-id="@rol.Id" class="btn btn-custom-warning btn-sm">Editar</a>
                             </td>
                             <td>
                                 <form asp-action="Update" asp-controller="Roles" method="post"
                                       onsubmit="return confirm('¿Estás seguro de que quieres cambiar el estado de este rol?');">
                                     <input type="hidden" name="id" value="@rol.Id" />
-                                    <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-danger" : "btn-success")">
+                                    <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-custom-danger" : "btn-custom-success")">
                                         @(rol.Activo ? "Desactivar" : "Activar")
                                     </button>
                                 </form>
@@ -75,3 +75,114 @@
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Color principal */
+        --secondary-color: #7583a0; /* Color secundario */
+        --danger-color: #c43f48; /* Color de error o peligro */
+        --success-color: #25a152; /* Color de éxito */
+        --warning-color: #e77b85; /* Color de advertencia */
+        --background-color: #ede6e9; /* Color de fondo */
+    }
+
+    /* Estilo del encabezado de la tarjeta */
+    .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Botones personalizados */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #173b7b;
+            border-color: #132e64;
+        }
+
+    .btn-custom-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: white;
+    }
+
+        .btn-custom-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .btn-custom-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: black;
+    }
+
+        .btn-custom-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+
+    .btn-custom-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+        color: white;
+    }
+
+        .btn-custom-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    /* Estilo de los formularios */
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+        margin-top: 30px;
+    }
+
+        /* Estilo de los títulos de la tabla */
+        .table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+    /* Tabla responsive y estilizada */
+    .table-responsive {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mejor separación entre las filas de la tabla */
+    .table tr {
+        transition: background-color 0.3s;
+    }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    /* Estilo del título de Roles Existentes */
+    h4.text-custom-primary {
+        color: var(--primary-color);
+    }
+</style>

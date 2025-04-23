@@ -260,5 +260,7 @@ namespace FarmaciaLasFlores.Controllers
         {
             return HttpContext.Session.GetInt32("UsuarioId") ?? 0;
         }
+
+        
     }
 }

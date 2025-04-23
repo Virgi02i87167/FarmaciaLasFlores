@@ -2,38 +2,139 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    body {
+        background-color: #ede6e9; /* Fondo suave */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18; /* Color del texto */
+        margin: 0;
+    }
+
+    .container {
+        padding-top: 50px;
+    }
+
+    h1.display-4 {
+        color: #1b3488; /* Título en azul oscuro */
+        margin-bottom: 2rem;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .col-md-6, .col-lg-4 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        text-align: center;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    /* Botón primario (azul oscuro) */
+    .btn-primary {
+        background-color: #1b3488;
+        border-color: #1b3488;
+    }
+
+        .btn-primary:hover {
+            background-color: #7583a0; /* Azul más claro para hover */
+            border-color: #7583a0;
+        }
+
+    /* Botón secundario (verde claro) */
+    .btn-success {
+        background-color: #8ba22e; /* Verde más suave */
+        border-color: #8ba22e;
+    }
+
+        .btn-success:hover {
+            background-color: #25a152; /* Verde más intenso para hover */
+            border-color: #25a152;
+        }
+
+    /* Botón de advertencia (rojo suave) */
+    .btn-warning {
+        background-color: #e77b85; /* Rojo pastel */
+        border-color: #e77b85;
+    }
+
+        .btn-warning:hover {
+            background-color: #c43f48; /* Rojo intenso para hover */
+            border-color: #c43f48;
+        }
+
+    /* Botón informativo (gris suave) */
+    .btn-info {
+        background-color: #7583a0; /* Gris azulado */
+        border-color: #7583a0;
+    }
+
+        .btn-info:hover {
+            background-color: #1b3488; /* Azul oscuro para hover */
+            border-color: #1b3488;
+        }
+
+    /* Botón secundario 2 (verde más claro) */
+    .btn-secondary {
+        background-color: #25a152; /* Verde brillante */
+        border-color: #25a152;
+    }
+
+        .btn-secondary:hover {
+            background-color: #8ba22e; /* Verde más suave para hover */
+            border-color: #8ba22e;
+        }
+
+    .bi {
+        margin-right: 10px;
+    }
+</style>
+
 <div class="container py-5">
     <h1 class="display-4 text-center mb-5">Bienvenido</h1>
 
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-primary w-100 py-3" asp-controller="Users" asp-action="Index">
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-primary" asp-controller="Users" asp-action="Index">
                 <i class="bi bi-people-fill me-2"></i> Ver Usuarios
             </a>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-success w-100 py-3" asp-controller="Productos" asp-action="Index">
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-success" asp-controller="Productos" asp-action="Index">
                 <i class="bi bi-box-seam me-2"></i> Ver Productos
             </a>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-warning w-100 py-3" asp-controller="Ventas" asp-action="Index">
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-warning" asp-controller="Ventas" asp-action="Index">
                 <i class="bi bi-cart-fill me-2"></i> Ver Ventas
             </a>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-info w-100 py-3" asp-controller="Roles" asp-action="Index">
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-info" asp-controller="Roles" asp-action="Index">
                 <i class="bi bi-person-badge-fill me-2"></i> Ver Rol
             </a>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-secondary w-100 py-3" asp-controller="Medicamentos" asp-action="Index">
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-secondary" asp-controller="Medicamentos" asp-action="Index">
                 <i class="bi bi-capsule-pill me-2"></i> Ver Tipo Medicamentos
             </a>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-            <a class="btn btn-secondary w-100 py-3" asp-controller="Reporte" asp-action="Index">
-                <i class="bi bi-capsule-pill me-2"></i> Ver Reportes
+        <div class="col-md-6 col-lg-4">
+            <a class="btn btn-secondary" asp-controller="Reporte" asp-action="Index">
+                <i class="bi bi-file-earmark-text me-2"></i> Ver Reportes
             </a>
         </div>
     </div>

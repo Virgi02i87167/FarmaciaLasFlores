@@ -114,6 +114,7 @@ namespace FarmaciaLasFlores.Controllers
 
                 _context.Productos.Add(viewModel.NuevoProducto);
                 await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "Producto Agregado correctamente.";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -184,6 +185,7 @@ namespace FarmaciaLasFlores.Controllers
 
                 _context.Update(producto);
                 await _context.SaveChangesAsync();
+                TempData["Mensaje"] = "El producto fue actualizado correctamente.";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -225,7 +227,7 @@ namespace FarmaciaLasFlores.Controllers
 
             producto.Estado = false;
             _context.SaveChanges();
-
+            TempData["Mensaje"] = "Producto eliminado correctamente.";
             return RedirectToAction("Index");
         }
     }

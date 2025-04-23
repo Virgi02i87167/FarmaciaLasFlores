@@ -3,39 +3,120 @@
     ViewData["Title"] = "Eliminar Usuario";
 }
 
-<h1 class="text-danger">Eliminar Usuario</h1>
+<h1 class="text-danger text-center">Eliminar Usuario</h1>
 
-<h3>¿Estás seguro de que deseas desactivar este usuario?</h3>
+<h3 class="text-center text-custom-primary">¿Estás seguro de que deseas desactivar este usuario?</h3>
 
 <div class="card mt-4">
     <div class="card-body">
         <dl class="row">
-            <dt class="col-sm-3">Nombre</dt>
+            <dt class="col-sm-3 text-custom-primary">Nombre</dt>
             <dd class="col-sm-9">@Model.Nombre</dd>
 
-            <dt class="col-sm-3">Posicion</dt>
+            <dt class="col-sm-3 text-custom-primary">Posicion</dt>
             <dd class="col-sm-9">@Model.Posicion</dd>
 
-            <dt class="col-sm-3">Email</dt>
+            <dt class="col-sm-3 text-custom-primary">Email</dt>
             <dd class="col-sm-9">@Model.email</dd>
 
-            <dt class="col-sm-3">Nombre Usuario</dt>
+            <dt class="col-sm-3 text-custom-primary">Nombre Usuario</dt>
             <dd class="col-sm-9">@Model.NombreUsuario</dd>
 
-            <dt class="col-sm-3">Rol</dt>
+            <dt class="col-sm-3 text-custom-primary">Rol</dt>
             <dd class="col-sm-9">@Model.Rol.NombreRoles</dd>
 
-            <dt class="col-sm-3">Estado</dt>
+            <dt class="col-sm-3 text-custom-primary">Estado</dt>
             <dd class="col-sm-9">@(Model.Estado ? "Activo" : "Inactivo")</dd>
         </dl>
     </div>
 </div>
 
-
 <form asp-action="Delete" method="post" class="mt-3">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">
-        <i class="bi bi-trash"></i> Confirmar Eliminacion
+    <button type="submit" class="btn btn-danger btn-lg">
+        <i class="bi bi-trash me-1"></i> Confirmar Eliminación
     </button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    <a asp-action="Index" class="btn btn-custom-secondary btn-lg ms-3">Cancelar</a>
 </form>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Color principal */
+        --secondary-color: #7583a0; /* Color secundario */
+        --danger-color: #c43f48; /* Color de error o peligro */
+        --success-color: #25a152; /* Color de éxito */
+        --warning-color: #e77b85; /* Color de advertencia */
+    }
+
+    /* Estilo de los títulos */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.75rem;
+        color: var(--primary-color);
+    }
+
+    /* Estilo de los títulos dentro de la tarjeta */
+    .card {
+        border: 1px solid #d1d9e6;
+        border-radius: 8px;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    /* Estilo de los términos y valores dentro de la lista */
+    dt {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    dd {
+        font-size: 1rem;
+        color: #171d18;
+    }
+
+    /* Estilo de los botones */
+    .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+        color: white;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 8px;
+    }
+
+        .btn-danger:hover {
+            background-color: #9e2a34;
+            border-color: #7b1d28;
+        }
+
+    .btn-custom-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 8px;
+    }
+
+        .btn-custom-secondary:hover {
+            background-color: #637b94;
+            border-color: #50677a;
+        }
+
+    /* Estilo de la forma */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+</style>

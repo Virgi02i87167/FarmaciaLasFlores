@@ -3,7 +3,7 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
-<h2 class="text-center mb-4">Crear Usuario</h2>
+<h2 class="text-center mb-4 text-custom-primary">Crear Usuario</h2>
 
 <!-- Resumen de validación -->
 <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
@@ -11,45 +11,44 @@
 <!-- Formulario de creación de usuario -->
 <form asp-action="Create" method="post" class="w-50 mx-auto">
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Nombre" class="form-label">Nombre</label>
+        <label asp-for="NuevoUsuario.Nombre" class="form-label text-custom-primary">Nombre</label>
         <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
         <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Posicion" class="form-label">Posición</label>
+        <label asp-for="NuevoUsuario.Posicion" class="form-label text-custom-primary">Posición</label>
         <input asp-for="NuevoUsuario.Posicion" class="form-control" required />
         <span asp-validation-for="NuevoUsuario.Posicion" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.email" class="form-label">Email</label>
+        <label asp-for="NuevoUsuario.email" class="form-label text-custom-primary">Email</label>
         <input asp-for="NuevoUsuario.email" class="form-control" type="email" required />
         <span asp-validation-for="NuevoUsuario.email" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.NombreUsuario" class="form-label">Nombre de Usuario</label>
+        <label asp-for="NuevoUsuario.NombreUsuario" class="form-label text-custom-primary">Nombre de Usuario</label>
         <input asp-for="NuevoUsuario.NombreUsuario" class="form-control" required />
         <span asp-validation-for="NuevoUsuario.NombreUsuario" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Password" class="form-label">Contraseña</label>
+        <label asp-for="NuevoUsuario.Password" class="form-label text-custom-primary">Contraseña</label>
         <input asp-for="NuevoUsuario.Password" class="form-control" type="password" required />
         <span asp-validation-for="NuevoUsuario.Password" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.ConfirmPassword" class="form-label">Confirmar Contraseña</label>
+        <label asp-for="NuevoUsuario.ConfirmPassword" class="form-label text-custom-primary">Confirmar Contraseña</label>
         <input asp-for="NuevoUsuario.ConfirmPassword" class="form-control" type="password" required />
         <span asp-validation-for="NuevoUsuario.ConfirmPassword" class="text-danger"></span>
     </div>
 
     <!-- Selección de Rol -->
-
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.RolId" class="form-label">Rol</label>
+        <label asp-for="NuevoUsuario.RolId" class="form-label text-custom-primary">Rol</label>
         <select asp-for="NuevoUsuario.RolId" asp-items="Model.ListaRolesSelectList" class="form-control" required>
             <option value="">Seleccione un rol</option>
         </select>
@@ -57,18 +56,111 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Estado" class="form-label">Estado</label>
+        <label asp-for="NuevoUsuario.Estado" class="form-label text-custom-primary">Estado</label>
         <select asp-for="NuevoUsuario.Estado" class="form-select">
             <option value="true">Activo</option>
         </select>
         <span asp-validation-for="NuevoUsuario.Estado" class="text-danger"></span>
     </div>
 
-
-    <button type="submit" class="btn btn-success w-100">Guardar</button>
+    <button type="submit" class="btn btn-custom-success w-100">Guardar</button>
     <br />
     <br />
     <div>
-        <a asp-action="Index" class="btn btn-warning w-100">Regresar</a>
+        <a asp-action="Index" class="btn btn-custom-warning w-100">Regresar</a>
     </div>
 </form>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Azul oscuro */
+        --secondary-color: #7583a0; /* Azul claro */
+        --danger-color: #c43f48; /* Rojo */
+        --success-color: #25a152; /* Verde */
+        --warning-color: #e77b85; /* Rosa */
+        --background-color: #ede6e9; /* Fondo suave */
+    }
+
+    /* Títulos */
+    h2 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+    }
+
+    /* Estilo de los formularios */
+    .form-label {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(27, 52, 136, 0.4);
+        }
+
+    .btn {
+        padding: 12px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 8px;
+    }
+
+    /* Botones personalizados */
+    .btn-custom-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: white;
+    }
+
+        .btn-custom-success:hover {
+            background-color: #1e8a3d;
+            border-color: #1a7a33;
+        }
+
+    .btn-custom-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: white;
+    }
+
+        .btn-custom-warning:hover {
+            background-color: #d4686f;
+            border-color: #c25760;
+        }
+
+    .text-danger {
+        color: var(--danger-color);
+    }
+
+    /* Estilo de las validaciones */
+    .text-danger {
+        font-size: 0.9rem;
+        font-weight: normal;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.5rem;
+    }
+
+    .w-50 {
+        width: 50%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+</style>

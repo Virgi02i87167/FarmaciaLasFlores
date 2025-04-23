@@ -4,11 +4,12 @@
     ViewData["Title"] = "Productos Disponibles";
 }
 
-<a asp-action="Index" class="btn btn-secondary">Regresar</a>
+<div class="d-flex justify-content-between mb-4">
+    <a asp-action="Index" class="btn btn-custom-secondary">Regresar</a>
+    <a asp-action="Carrito" class="btn btn-custom-secondary">Ver Carrito</a>
+</div>
 
-<a asp-action="Carrito" class="btn btn-secondary">Ver Carrito</a>
-
-<h2 class="text-center mb-4">Productos Disponibles</h2>
+<h2 class="text-center mb-4 text-custom-primary">Productos Disponibles</h2>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -19,7 +20,7 @@
 
 <!-- Mostrar Productos -->
 <table class="table table-bordered table-striped table-hover shadow-sm">
-    <thead class="table-light">
+    <thead class="bg-custom-primary text-white">
         <tr>
             <th>Nombre</th>
             <th>Cantidad</th>
@@ -41,10 +42,50 @@
                 <td>
                     <form method="post" asp-action="AddToCart">
                         <input type="hidden" name="ProductoId" value="@producto.Id" />
-                        <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                        <button type="submit" class="btn btn-custom-success">Agregar al Carrito</button>
                     </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- Estilos personalizados -->
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    .btn-custom-secondary {
+        background-color: #7583a0;
+        color: white;
+        border: none;
+    }
+
+        .btn-custom-secondary:hover {
+            background-color: #1b3488;
+            color: white;
+        }
+
+    .btn-custom-success {
+        background-color: #25a152;
+        color: white;
+        border: none;
+    }
+
+        .btn-custom-success:hover {
+            background-color: #8ba22e;
+            color: white;
+        }
+
+    .bg-custom-primary {
+        background-color: #1b3488;
+    }
+
+    .text-custom-primary {
+        color: #1b3488;
+    }
+</style>

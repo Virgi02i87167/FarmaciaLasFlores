@@ -4,23 +4,85 @@
     ViewData["Title"] = "Reporte Produto";
 }
 
-<!-- Formulario para generar PDF con filtros -->
 <h2 class="text-center mb-4">Generar Reporte Producto</h2>
-<!-- Botón para generar el PDF con los filtros aplicados -->
+
+<!-- Formulario para generar el PDF con los filtros aplicados -->
 <form asp-controller="Reporte" asp-action="GenerarPDFProductos" method="get" id="pdfForm">
     <!-- Filtros de fechas -->
     <div class="form-group">
-        <label for="FechaInicio">Fecha de Inicio</label>
+        <label for="FechaInicio" class="form-label">Fecha de Inicio</label>
         <input type="date" name="FechaInicio" id="FechaInicio" class="form-control" value="@Model.FechaInicio?.ToString("yyyy-MM-dd")" />
     </div>
 
     <div class="form-group">
-        <label for="FechaFin">Fecha de Fin</label>
+        <label for="FechaFin" class="form-label">Fecha de Fin</label>
         <input type="date" name="FechaFin" id="FechaFin" class="form-control" value="@Model.FechaFin?.ToString("yyyy-MM-dd")" />
     </div>
 
-    <button type="submit" class="btn btn-info mt-3">Generar Reporte</button>
+    <!-- Botón para generar el PDF con los filtros aplicados -->
+    <button type="submit" class="btn btn-custom-primary mt-3">Generar Reporte</button>
 </form>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #0d6efd; /* Color principal */
+        --secondary-color: #6c757d; /* Color secundario */
+        --danger-color: #dc3545; /* Color de error o peligro */
+        --success-color: #28a745; /* Color de éxito */
+    }
+
+    /* Estilo de los botones */
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #0056b3; /* Hover effect */
+            border-color: #004085;
+        }
+
+        .btn-custom-primary:focus, .btn-custom-primary:active {
+            background-color: #004085; /* Color al hacer clic */
+            border-color: #003366;
+        }
+
+    /* Añadiendo sombra y border-radius */
+    .btn-custom-primary {
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilo de los campos de fecha */
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Tamaño del formulario */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Botón grande */
+    .btn-custom-primary {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+</style>
 
 <script>
     // Sincroniza los valores de los filtros con el formulario de generación de PDF

@@ -4,67 +4,130 @@
     ViewData["Title"] = "Editando producto";
 }
 
-<h2>Editar Producto</h2>
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
 
-<form asp-action="Edit" method="post">
-    <!-- Campo oculto para enviar el ID del producto -->
-    <input type="hidden" asp-for="NuevoProducto.Id" />
+    h2 {
+        color: #1b3488;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
 
-    <div class="form-group">
-        <label asp-for="NuevoProducto.Nombre" class="control-label"></label>
-        <input asp-for="NuevoProducto.Nombre" class="form-control" />
-        <span asp-validation-for="NuevoProducto.Nombre" class="text-danger"></span>
+    .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 80px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #25a152;
+        border-color: #25a152;
+    }
+
+        .btn-primary:hover {
+            background-color: #1b3488;
+            border-color: #1b3488;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .form-select,
+    .form-control {
+        border-radius: 0.4rem;
+    }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2>Editar Producto</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="NuevoProducto.Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.Nombre" class="form-label"></label>
+                        <input asp-for="NuevoProducto.Nombre" class="form-control" />
+                        <span asp-validation-for="NuevoProducto.Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.Lote" class="form-label"></label>
+                        <input asp-for="NuevoProducto.Lote" class="form-control" />
+                        <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.PrecioCompra" class="form-label"></label>
+                        <input asp-for="NuevoProducto.PrecioCompra" class="form-control" />
+                        <span asp-validation-for="NuevoProducto.PrecioCompra" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.Cantidad" class="form-label"></label>
+                        <input asp-for="NuevoProducto.Cantidad" class="form-control" />
+                        <span asp-validation-for="NuevoProducto.Cantidad" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.FechaVencimiento" class="form-label"></label>
+                        <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" />
+                        <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.MedicamentosId" class="form-label">Tipo de Medicamento</label>
+                        <select asp-for="NuevoProducto.MedicamentosId" class="form-select"
+                                asp-items="@(ViewData["MedicamentosId"] as SelectList)">
+                            <option value="">-- Seleccione un medicamento --</option>
+                        </select>
+                        <span asp-validation-for="NuevoProducto.MedicamentosId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NuevoProducto.Estado" class="form-label">Estado</label>
+                        <select asp-for="NuevoProducto.Estado" class="form-select">
+                            <option value="">-- Seleccione un estado --</option>
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                        <span asp-validation-for="NuevoProducto.Estado" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-2"></i> Guardar
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-x-circle me-2"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="NuevoProducto.Lote" class="control-label"></label>
-        <input asp-for="NuevoProducto.Lote" class="form-control" />
-        <span asp-validation-for="NuevoProducto.Lote" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NuevoProducto.PrecioCompra" class="control-label"></label>
-        <input asp-for="NuevoProducto.PrecioCompra" class="form-control" />
-        <span asp-validation-for="NuevoProducto.PrecioCompra" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NuevoProducto.Cantidad" class="control-label"></label>
-        <input asp-for="NuevoProducto.Cantidad" class="form-control" />
-        <span asp-validation-for="NuevoProducto.Cantidad" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NuevoProducto.FechaVencimiento" class="control-label"></label>
-        <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" />
-        <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NuevoProducto.MedicamentosId" class="control-label"></label>
-        <select asp-for="NuevoProducto.MedicamentosId" class="form-control"
-                asp-items="@(ViewData["MedicamentosId"] as SelectList)">
-            <option value="">-- Seleccione un medicamento --</option>
-        </select>
-        <span asp-validation-for="NuevoProducto.MedicamentosId" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NuevoProducto.Estado" class="form-label">Estado</label>
-        <select asp-for="NuevoProducto.Estado" class="form-select">
-            <option value="">-- Seleccione un estado --</option>
-            <option value="true">Activo</option>
-            <option value="false">Inactivo</option>
-        </select>
-        <span asp-validation-for="NuevoProducto.Estado" class="text-danger"></span>
-    </div>
-
-    <br />
-    <div class="form-group">
-        <input type="submit" value="Guardar" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -2,29 +2,100 @@
     ViewData["Title"] = "Inicio de Sesión";
 }
 
-<h2 class="text-center mb-4">Iniciar Sesión</h2>
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger text-center mb-4">@ViewBag.Error</div>
-}
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding-top: 30px;
+    }
 
-<form asp-action="IniciarSesion" asp-controller="Login" method="post" class="w-50 mx-auto">
-    <div class="mb-3">
-        <label for="NombreUsuario" class="form-label">Usuario</label>
-        <input type="text" class="form-control" name="NombreUsuario" required />
+    .form-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        border: 2px solid #c43f48;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    h2 {
+        color: #1b3488;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #1b3488;
+    }
+
+    .form-control {
+        border: 1px solid #7583a0;
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        background-color: #1b3488;
+        border-color: #1b3488;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #7583a0;
+            border-color: #7583a0;
+        }
+
+    .btn-link {
+        color: #25a152;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+            color: #8ba22e;
+        }
+
+    .alert-danger {
+        background-color: #e77b85;
+        border-color: #c43f48;
+        color: white;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="main-container">
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="IniciarSesion" asp-controller="Login" method="post">
+            <div class="mb-3">
+                <label for="NombreUsuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="NombreUsuario" required />
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Ingresar</button>
+
+            <div class="text-center">
+                <a href="@Url.Action("ForgotPassword", "Account")" class="btn btn-link p-0">¿Olvidaste tu contraseña?</a>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="Password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" name="Password" required />
-    </div>
-    <button type="submit" class="btn btn-primary w-100 mb-3">Ingresar</button>
-
-    <!-- Botón de recuperación de contraseña -->
-    <div class="text-center">
-        <a href="@Url.Action("ForgotPassword", "Account")" class="btn btn-link p-0">¿Olvidaste tu contraseña?</a>
-    </div>
-
-</form>
-
-
+</div>

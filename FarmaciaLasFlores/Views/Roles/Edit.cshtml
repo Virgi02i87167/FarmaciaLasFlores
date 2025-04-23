@@ -1,14 +1,14 @@
 ﻿@model FarmaciaLasFlores.Models.Roles
 
 @{
-	ViewData["Title"] = "Editar Rol";
+    ViewData["Title"] = "Editar Rol";
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg">
-                <div class="card-header bg-warning text-dark text-center">
+            <div class="card shadow-lg border-light">
+                <div class="card-header bg-custom-primary text-white text-center">
                     <h4 class="mb-0">Editar Rol</h4>
                 </div>
                 <div class="card-body">
@@ -22,10 +22,10 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-custom-success">
                                 <i class="bi bi-save me-1"></i> Guardar Cambios
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">
+                            <a asp-action="Index" class="btn btn-outline-custom-secondary">
                                 <i class="bi bi-arrow-left me-1"></i> Volver al Listado
                             </a>
                         </div>
@@ -35,3 +35,71 @@
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        background-color: #ede6e9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #171d18;
+        margin: 0;
+    }
+
+    /* Paleta de colores personalizada */
+    :root {
+        --primary-color: #1b3488; /* Color principal */
+        --secondary-color: #7583a0; /* Color secundario */
+        --danger-color: #c43f48; /* Color de error o peligro */
+        --success-color: #25a152; /* Color de éxito */
+        --info-color: #17a2b8; /* Color de info */
+        --warning-color: #e77b85; /* Color de advertencia */
+    }
+
+    /* Estilo de la tarjeta */
+    .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    /* Botones personalizados */
+    .btn-custom-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: white;
+    }
+
+        .btn-custom-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .btn-outline-custom-secondary {
+        color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+        .btn-outline-custom-secondary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+    /* Estilo del formulario */
+    .form-label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Espaciado entre los botones */
+    .d-flex {
+        gap: 1rem;
+    }
+</style>
