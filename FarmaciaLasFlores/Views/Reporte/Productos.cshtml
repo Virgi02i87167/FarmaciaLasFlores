@@ -1,0 +1,32 @@
+﻿@model FarmaciaLasFlores.Models.FiltroFechasViewModel
+
+@{
+    ViewData["Title"] = "Reporte Produto";
+}
+
+<!-- Formulario para generar PDF con filtros -->
+<h2 class="text-center mb-4">Generar Reporte Producto</h2>
+<!-- Botón para generar el PDF con los filtros aplicados -->
+<form asp-controller="Reporte" asp-action="GenerarPDFProductos" method="get" id="pdfForm">
+    <!-- Filtros de fechas -->
+    <div class="form-group">
+        <label for="FechaInicio">Fecha de Inicio</label>
+        <input type="date" name="FechaInicio" id="FechaInicio" class="form-control" value="@Model.FechaInicio?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="form-group">
+        <label for="FechaFin">Fecha de Fin</label>
+        <input type="date" name="FechaFin" id="FechaFin" class="form-control" value="@Model.FechaFin?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <button type="submit" class="btn btn-info mt-3">Generar Reporte</button>
+</form>
+
+<script>
+    // Sincroniza los valores de los filtros con el formulario de generación de PDF
+    document.getElementById("filterForm").addEventListener("submit", function () {
+        // Sincroniza los valores de los filtros de fechas
+        document.getElementById("pdfFechaInicio").value = document.getElementById("FechaInicio") ? document.getElementById("FechaInicio").value : '';
+        document.getElementById("pdfFechaFin").value = document.getElementById("FechaFin") ? document.getElementById("FechaFin").value : '';
+    });
+</script>

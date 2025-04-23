@@ -49,6 +49,9 @@ namespace FarmaciaLasFlores.Controllers
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
+                    // Guardar el UsuarioId en la sesión
+                    HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
+
                     return RedirectToAction("Index", "Home");  // Redirige al Home si las credenciales son correctas
                 }
                 else

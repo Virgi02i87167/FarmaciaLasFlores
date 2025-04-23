@@ -24,20 +24,21 @@
             <input type="date" class="form-control" id="fechaFin" name="fechaFin">
         </div>
 
-        <!-- Campo Producto -->
+        <!-- Campo Usuario -->
         <div class="col-md-3">
-            <label for="productoId" class="form-label">Producto</label>
-            <select class="form-control" id="productoId" name="productoId">
-                <option value="">Seleccionar Producto</option>
-                @if (ViewBag.Productos != null)
+            <label for="usuarioId" class="form-label">Producto</label>
+            <select class="form-control" id="usuarioId" name="usuarioId">
+                <option value="">Seleccionar Usuario</option>
+                @if (Model.ListaUsuarios != null)
                 {
-                    foreach (var producto in ViewBag.Productos)
+                    foreach (var usuario in Model.ListaUsuarios)
                     {
-                        <option value="@producto.Id">@producto.Nombre</option>
+                        <option value="@usuario.Id">@usuario.NombreUsuario</option>
                     }
                 }
             </select>
         </div>
+
 
         <!-- Botón de Buscar -->
         <div class="col-md-3 d-flex align-items-end">
@@ -56,7 +57,7 @@
                 <th>Fecha de la Venta</th>
                 <th>Usuario</th>
                 <th>Total</th>
-                <th>Detalles</th>
+                <th>Codigo de Venta</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -67,16 +68,10 @@
             {
                 <tr>
                     <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
-                    <td>@venta.Usuario</td>
+                    <td>@venta.Usuario.NombreUsuario</td>
                     <td>@venta.Total</td>
-                    <td>
-                        @foreach (var detalle in venta.Detalles)
-                        {
-                            <div>@detalle.Producto?.Nombre (x@detalle.Cantidad)</div>
-                        }
-                    </td>
-
-                    <td>@venta.Estado</td>
+                    <td>@venta.Id</td>
+                    <td>@(venta.Estado ? "Activo" : "Inactivo")</td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
                         

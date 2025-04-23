@@ -9,6 +9,8 @@
         public List<Ventas> ListaVentas { get; set; } = new List<Ventas>(); // Lista de ventas realizadas
 
         public List<ItemCarrito> ListaCarrito { get; set; } = new List<ItemCarrito>();
+
+        public List<Usuarios> ListaUsuarios { get; set; }
     }
 }
 

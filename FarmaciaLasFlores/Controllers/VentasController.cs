@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -27,18 +28,22 @@ namespace FarmaciaLasFlores.Controllers
         // Acción para mostrar la vista de productos disponibles
         public async Task<IActionResult> Index()
         {
+            var ventas = await _context.Ventas
+        .Include(v => v.Detalles)
+            .ThenInclude(d => d.Producto)
+        .Include(v => v.Usuario)
+        .OrderByDescending(v => v.FechaVenta)
+        .ToListAsync();
+
+            var usuarios = await _context.Usuarios.OrderBy(u => u.NombreUsuario).ToListAsync();
+
             var viewModel = new VentasViewModel
             {
-                ListaVentas = await _context.Ventas
-            .Include(v => v.Detalles)
-                .ThenInclude(d => d.Producto)
-            .Include(v => v.Usuario)
-            .OrderByDescending(v => v.FechaVenta)
-            .ToListAsync()
+                ListaVentas = ventas,
+                ListaUsuarios = usuarios
             };
 
-            // Cargar los productos para el filtro (si los necesitas en el ViewBag)
-            ViewBag.Productos = await _context.Productos.ToListAsync();
+            ViewBag.Productos = await _context.Productos.ToListAsync(); // opcional
 
             return View(viewModel);
         }
@@ -60,9 +65,11 @@ namespace FarmaciaLasFlores.Controllers
         }
 
         // Acción para buscar ventas
-        public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin)
+        public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? usuarioId)
         {
-            var ventasQuery = _context.Ventas.Include(v => v.Detalles).AsQueryable();
+            var ventasQuery = _context.Ventas
+                .Include(v => v.Detalles)
+                .AsQueryable();
 
             if (fechaInicio.HasValue)
             {
@@ -74,18 +81,25 @@ namespace FarmaciaLasFlores.Controllers
                 ventasQuery = ventasQuery.Where(v => v.FechaVenta <= fechaFin.Value);
             }
 
+            if (usuarioId.HasValue && usuarioId > 0)
+            {
+                ventasQuery = ventasQuery.Where(v => v.UsuarioId == usuarioId.Value);
+            }
+
             var ventas = await ventasQuery.ToListAsync();
-            var productos = await _context.Productos.OrderBy(p => p.FechaRegistro).ToListAsync() ?? new List<Productos>();
+            var usuarios = await _context.Usuarios.OrderBy(p => p.NombreUsuario).ToListAsync();
+
+            // Usar ViewBag para popular el dropdown
+            ViewBag.Usuarios = usuarios;
 
             var viewModel = new VentasViewModel
             {
-                ListaProductos = productos,
-                ListaVentas = ventas
+                ListaVentas = ventas,
+                ListaUsuarios = usuarios
             };
 
             return View("Index", viewModel);
         }
-
 
         // Acción para ver el carrito
         public IActionResult Carrito()
@@ -182,70 +196,69 @@ namespace FarmaciaLasFlores.Controllers
         // Acción para finalizar la venta
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> FinalizarVenta(VentasViewModel viewModel)
+        public IActionResult FinalizarVenta()
         {
             try
             {
-                // Verificar si el carrito está vacío
-                if (!carrito.Any())
+                var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito");
+
+                if (carrito == null || !carrito.Any())
                 {
-                    ModelState.AddModelError("", "El carrito está vacío.");
-                    return View("Carrito", viewModel);
+                    TempData["ErrorMessage"] = "El carrito está vacío.";
+                    return RedirectToAction("Carrito");
                 }
 
-                var ventasARegistrar = new List<Ventas>();
+                // Obtener el UsuarioId desde la sesión
+                int usuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
 
-                // Iterar sobre los productos en el carrito
-                foreach (var producto in carrito)
+                if (usuarioId == 0)
                 {
-                    // Obtener cantidad y precio desde el formulario
-                    var cantidad = Request.Form["cantidad[" + producto.Id + "]"].FirstOrDefault();
-                    var precioVenta = Request.Form["precioVenta[" + producto.Id + "]"].FirstOrDefault();
-
-                    // Validar que la cantidad sea válida
-                    if (!int.TryParse(cantidad, out int cantidadValor) || cantidadValor < 1)
-                    {
-                        ModelState.AddModelError("", $"La cantidad del producto {producto.Nombre} no es válida.");
-                        return View("Carrito", viewModel);
-                    }
-
-                    // Validar que el precio sea válido
-                    if (!decimal.TryParse(precioVenta, out decimal precioValor) || precioValor <= 0)
-                    {
-                        ModelState.AddModelError("", $"El precio del producto {producto.Nombre} no es válido.");
-                        return View("Carrito", viewModel);
-                    }
-
-                    // Verificar si el producto tiene suficiente stock
-                    var productoInventario = await _context.Productos.FirstOrDefaultAsync(p => p.Id == producto.Id);
-                    if (productoInventario == null || productoInventario.Cantidad < cantidadValor)
-                    {
-                        ModelState.AddModelError("", $"No hay suficiente stock para el producto {producto.Nombre}.");
-                        return View("Carrito", viewModel);
-                    }
-
-                    // Restar la cantidad vendida del inventario
-                    productoInventario.Cantidad -= cantidadValor;
-                    _context.Update(productoInventario); // Actualizar el inventario
+                    TempData["ErrorMessage"] = "Sesión expirada. Por favor, inicie sesión nuevamente.";
+                    return RedirectToAction("Index", "Login"); // Ajusta el controlador si es necesario
                 }
 
-                // Guardar todas las ventas en la base de datos
-                await _context.Ventas.AddRangeAsync(ventasARegistrar);
+                decimal total = carrito.Sum(item => item.PrecioVenta * item.Cantidad);
 
-                // Guardar los cambios en la base de datos
-                int cambios = await _context.SaveChangesAsync();
-                Console.WriteLine($"Filas afectadas en la BD: {cambios}");
+                var nuevaVenta = new Ventas
+                {
+                    FechaVenta = DateTime.Now,
+                    UsuarioId = usuarioId,
+                    Total = total,
+                    Estado = true,
+                    Detalles = new List<DetalleVenta>()
+                };
 
-                carrito.Clear(); // Limpiar el carrito después de la venta
-                TempData["SuccessMessage"] = "Venta registrada exitosamente."; // Mensaje de éxito de la venta
+                foreach (var item in carrito)
+                {
+                    nuevaVenta.Detalles.Add(new DetalleVenta
+                    {
+                        ProductoId = item.ProductoId,
+                        Cantidad = item.Cantidad,
+                        PrecioVenta = item.PrecioVenta,
+                        Subtotal = item.PrecioVenta * item.Cantidad // Más seguro recalcular
+                    });
+                }
+
+                _context.Ventas.Add(nuevaVenta);
+                _context.SaveChanges();
+
+                HttpContext.Session.Remove("Carrito");
+
+                TempData["SuccessMessage"] = $"Venta #{nuevaVenta.Id} realizada correctamente el {nuevaVenta.FechaVenta:dd/MM/yyyy HH:mm}.";
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error en FinalizarVenta: {ex.Message}");
-                ModelState.AddModelError("", "Error al registrar la venta.");
-                return View("Carrito", viewModel);
+                TempData["ErrorMessage"] = "Ocurrió un error al procesar la venta: " + ex.Message;
+                return RedirectToAction("Carrito");
             }
+        }
+
+
+        int ObtenerUsuarioId()
+        {
+            return HttpContext.Session.GetInt32("UsuarioId") ?? 0;
         }
     }
 }

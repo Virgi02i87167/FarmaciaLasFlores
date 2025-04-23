@@ -1,7 +1,9 @@
 using FarmaciaLasFlores.Db;
 using FarmaciaLasFlores.Models;
+using FarmaciaLasFlores.Servicios;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddSession();
 
+builder.Services.AddScoped<VentasService>();
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Ahora construimos la aplicación
 var app = builder.Build();

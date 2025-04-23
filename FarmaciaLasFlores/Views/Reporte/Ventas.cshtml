@@ -1,0 +1,56 @@
+﻿@model ReporteVentasViewModel
+
+@{
+    ViewBag.Title = "Generar Reportes de Ventas";
+}
+
+<h2>Reportes de Ventas</h2>
+
+<hr />
+
+<h4>📄 Generar PDF por Venta</h4>
+<form asp-action="DescargarPDFVenta" method="get">
+    <div class="form-group">
+        <label for="id">ID de Venta:</label>
+        <input type="number" name="id" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Descargar PDF</button>
+</form>
+
+<hr />
+
+<h4>📆 Generar Reporte Mensual</h4>
+<form asp-action="DescargarReporteMensual" method="get">
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="mes">Mes:</label>
+            <select name="mes" class="form-control">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    <option value="@i">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="anio">Año:</label>
+            <input type="number" name="anio" value="@DateTime.Now.Year" class="form-control" required />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Descargar PDF</button>
+</form>
+
+<hr />
+
+<h4>👤 Generar Reporte por Usuario</h4>
+<form asp-action="DescargarReporteUsuario" method="get">
+    <div class="form-group">
+        <label for="usuarioId">Seleccionar Usuario:</label>
+        <select name="usuarioId" class="form-control">
+            @foreach (var usuario in Model.Usuarios)
+            {
+                <option value="@usuario.Id">@usuario.Nombre</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-info mt-2">Descargar PDF</button>
+</form>

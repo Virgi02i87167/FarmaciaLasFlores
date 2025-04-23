@@ -18,6 +18,7 @@
 @if (Model.ListaCarrito.Any())
 {
     <form method="post" asp-action="FinalizarVenta">
+        @Html.AntiForgeryToken()
         <table class="table table-bordered table-striped table-hover shadow-sm">
             <thead class="table-light">
                 <tr>
