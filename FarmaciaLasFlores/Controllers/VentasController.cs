@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -261,6 +262,98 @@ namespace FarmaciaLasFlores.Controllers
             return HttpContext.Session.GetInt32("UsuarioId") ?? 0;
         }
 
-        
+        public ActionResult Editar(int id)
+        {
+            var venta = _context.Ventas
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .FirstOrDefault(v => v.Id == id);
+
+            if (venta == null)
+                return HttpNotFound();
+
+            var model = new EditarVentaViewModel
+            {
+                VentaId = venta.Id,
+                Detalles = venta.Detalles.Select(d => new DetalleVentaViewModel
+                {
+                    DetalleId = d.Id,
+                    ProductoId = d.ProductoId,
+                    NombreProducto = d.Producto.Nombre,
+                    Cantidad = d.Cantidad,
+                    PrecioVenta = d.PrecioVenta
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarCambiosVenta(EditarVentaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Console.WriteLine("Si llegas");
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                TempData["ErrorMessage"] = "Errores de validación: " + string.Join(", ", errors);
+                return View("Editar", model);
+            }
+
+            var venta = _context.Ventas
+                .Include(v => v.Detalles)
+                .FirstOrDefault(v => v.Id == model.VentaId);
+
+            if (venta == null)
+            {
+                TempData["ErrorMessage"] = $"No se encontró la venta con ID {model.VentaId}.";
+                return RedirectToAction("Index");
+            }
+
+            if (model.Detalles == null || !model.Detalles.Any())
+            {
+                TempData["ErrorMessage"] = "No se recibieron detalles de la venta.";
+                return View("Editar", model);
+            }
+
+            foreach (var detalleVM in model.Detalles)
+            {
+                if (detalleVM.PrecioVenta <= 0 || detalleVM.Cantidad <= 0)
+                {
+                    TempData["ErrorMessage"] = "El precio y la cantidad deben ser mayores que cero.";
+                    return View("Editar", model);
+                }
+
+                var detalleOriginal = venta.Detalles.FirstOrDefault(d => d.Id == detalleVM.DetalleId);
+                if (detalleOriginal == null)
+                {
+                    TempData["ErrorMessage"] = $"Detalle con ID {detalleVM.DetalleId} no encontrado.";
+                    return View("Editar", model);
+                }
+
+                detalleOriginal.PrecioVenta = detalleVM.PrecioVenta;
+                detalleOriginal.Cantidad = detalleVM.Cantidad;
+                detalleOriginal.Subtotal = detalleOriginal.PrecioVenta * detalleVM.Cantidad;
+            }
+
+            venta.Total = venta.Detalles.Sum(d => d.Subtotal);
+
+            try
+            {
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Cambios guardados exitosamente.";
+                return RedirectToAction("Index", "Ventas");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error al guardar los cambios: {ex.Message}";
+                return View("Editar", model);
+            }
+        }
+
+        private ActionResult HttpNotFound()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

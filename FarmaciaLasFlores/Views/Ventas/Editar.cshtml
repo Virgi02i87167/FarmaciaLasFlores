@@ -1,49 +1,103 @@
-﻿@model FarmaciaLasFlores.Models.VentasViewModel
+﻿@model FarmaciaLasFlores.Models.EditarVentaViewModel
 
-<h2 class="text-center mb-4">Editar Venta</h2>
-<!--a
-<form asp-action="Editar" method="post">
-    <input type="hidden" asp-for="NuevaVenta.Id" />
-    <input type="hidden" asp-for="NuevaVenta.Total" id="hiddenTotal" />
+<h2>Editar Venta</h2>
 
-    <div class="mb-3">
-        <label class="form-label">Producto</label>
-        <select asp-for="NuevaVenta.ProductoId" class="form-control" asp-items="@(new SelectList(Model.ListaProductos, "Id", "Nombre"))"></select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Cantidad</label>
-        <input type="number" asp-for="NuevaVenta.Cantidad" class="form-control" min="1" />
-        <span asp-validation-for="NuevaVenta.Cantidad" class="text-danger"></span>
-    </div>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="mb-3">
-        <label class="form-label">Precio Venta</label>
-        <input type="number" asp-for="NuevaVenta.PrecioVenta" class="form-control" step="0.01" />
-        <span asp-validation-for="NuevaVenta.PrecioVenta" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Total</label>
-        <input type="text" class="form-control" id="totalDisplay" value="(Model.NuevaVenta * Model.NuevaVenta)" readonly />
-    </div>
+<form asp-action="GuardarCambiosVenta" method="post">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.VentaId)
 
-    <button type="submit" class="btn btn-success w-100">
-        Actualizar Venta
-    </button>
+    <table class="table table-bordered table-striped table-hover shadow-sm" aria-label="Editar detalles de la venta">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                decimal totalGeneral = 0;
+            }
+            @for (int i = 0; i < Model.Detalles.Count; i++)
+            {
+                var producto = Model.Detalles[i];
+                var subtotal = producto.PrecioVenta * producto.Cantidad;
+                totalGeneral += subtotal;
+                <tr id="fila-@i">
+                    <td>@producto.NombreProducto</td>
+                    <td>
+                        <input type="number" asp-for="Detalles[i].Cantidad" id="cantidad-@i" class="form-control cantidad-input" data-index="@i" min="1" />
+                        <span asp-validation-for="Detalles[i].Cantidad" class="text-danger"></span>
+                    </td>
+                    <td>
+                        @producto.PrecioVenta.ToString("0.00")
+                        <input type="hidden" asp-for="Detalles[i].PrecioVenta" id="precio-@i" />
+                        <input type="hidden" asp-for="Detalles[i].DetalleId" />
+                    </td>
+                    <td>
+                        <span id="subtotal-@i">@subtotal.ToString("0.00")</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-end"><strong>Total a Pagar:</strong></td>
+                <td><strong id="total-general">@totalGeneral.ToString("0.00")</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2 mt-3">
+        <button type="submit" class="btn btn-success">Actualizar Venta</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
 </form>
--->
-<script>
-    function calcularTotal() {
-        const cantidad = parseFloat(document.querySelector('[name="NuevaVenta.Cantidad"]').value) || 0;
-        const precio = parseFloat(document.querySelector('[name="NuevaVenta.PrecioVenta"]').value) || 0;
-        const total = cantidad * precio;
 
-        document.getElementById("hiddenTotal").value = total.toFixed(2);
-        document.getElementById("totalDisplay").value = total.toFixed(2);
-    }
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function actualizarSubtotal(index) {
+                var cantidadInput = document.getElementById('cantidad-' + index);
+                var precioInput = document.getElementById('precio-' + index);
+                var subtotalSpan = document.getElementById('subtotal-' + index);
+                var cantidad = parseFloat(cantidadInput.value);
+                var precio = parseFloat(precioInput.value);
+                if (!isNaN(cantidad) && !isNaN(precio) && cantidad > 0) {
+                    var subtotal = cantidad * precio;
+                    subtotalSpan.textContent = subtotal.toFixed(2);
+                } else {
+                    subtotalSpan.textContent = '0.00';
+                }
+            }
 
-    document.querySelector('[name="NuevaVenta.Cantidad"]').addEventListener("input", calcularTotal);
-    document.querySelector('[name="NuevaVenta.PrecioVenta"]').addEventListener("input", calcularTotal);
+            function actualizarTotalGeneral() {
+                let total = 0;
+                document.querySelectorAll('.cantidad-input').forEach(input => {
+                    let index = input.dataset.index;
+                    let cantidad = parseFloat(input.value);
+                    let precio = parseFloat(document.getElementById('precio-' + index).value);
+                    if (!isNaN(cantidad) && !isNaN(precio) && cantidad > 0) {
+                        total += cantidad * precio;
+                    }
+                });
+                document.getElementById('total-general').textContent = total.toFixed(2);
+            }
 
-    // Calcular al cargar
-    calcularTotal();
-</script>
+            document.querySelectorAll('.cantidad-input').forEach(input => {
+                input.addEventListener('input', () => {
+                    let index = input.dataset.index;
+                    actualizarSubtotal(index);
+                    actualizarTotalGeneral();
+                });
+            });
+
+            actualizarTotalGeneral(); // Ejecutar al cargar
+        });
+    </script>
+}
