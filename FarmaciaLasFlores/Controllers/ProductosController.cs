@@ -180,8 +180,8 @@ namespace FarmaciaLasFlores.Controllers
                 producto.FechaVencimiento = viewModel.NuevoProducto.FechaVencimiento;
                 producto.Lote = viewModel.NuevoProducto.Lote;
                 producto.MedicamentosId = viewModel.NuevoProducto.MedicamentosId;
-
                 producto.PrecioVenta = producto.PrecioCompra * 1.30m;
+                producto.Estado = viewModel.NuevoProducto.Estado;
 
                 _context.Update(producto);
                 await _context.SaveChangesAsync();
@@ -227,7 +227,7 @@ namespace FarmaciaLasFlores.Controllers
 
             producto.Estado = false;
             _context.SaveChanges();
-            TempData["Mensaje"] = "Producto eliminado correctamente.";
+            TempData["Mensaje"] = "Producto desactivado correctamente.";
             return RedirectToAction("Index");
         }
     }
