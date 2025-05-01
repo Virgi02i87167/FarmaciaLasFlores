@@ -9,11 +9,9 @@
     <a asp-action="Details" class="btn btn-secondary">Agregar más productos</a>
 </div>
 
-@if (TempData["SuccessMessage"] != null)
+@if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
 @if (Model.ListaCarrito.Any())

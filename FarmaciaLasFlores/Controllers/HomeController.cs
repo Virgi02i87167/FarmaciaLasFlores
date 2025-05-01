@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -15,6 +16,10 @@ namespace FarmaciaLasFlores.Controllers
 
         public IActionResult Index()
         {
+            if (!HttpContext.Session.GetInt32("UsuarioId").HasValue)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 

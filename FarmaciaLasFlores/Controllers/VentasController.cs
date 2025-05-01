@@ -153,7 +153,8 @@ namespace FarmaciaLasFlores.Controllers
                     {
                         ProductoId = producto.Id,
                         Nombre = producto.Nombre,
-                        PrecioVenta = producto.PrecioVenta
+                        PrecioVenta = producto.PrecioVenta,
+                        Cantidad = 1
                     });
                     TempData["SuccessMessage"] = "Producto agregado al carrito.";
                 }
@@ -197,11 +198,11 @@ namespace FarmaciaLasFlores.Controllers
         // Acción para finalizar la venta
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FinalizarVenta()
+        public IActionResult FinalizarVenta(Dictionary<int, int> cantidad, Dictionary<int, decimal> precioVenta)
         {
             try
             {
-                var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito");
+                var carrito = HttpContext.Session.GetObjectFromJson<List<ItemCarrito>>("Carrito") ?? new List<ItemCarrito>();
 
                 if (carrito == null || !carrito.Any())
                 {
@@ -215,7 +216,16 @@ namespace FarmaciaLasFlores.Controllers
                 if (usuarioId == 0)
                 {
                     TempData["ErrorMessage"] = "Sesión expirada. Por favor, inicie sesión nuevamente.";
-                    return RedirectToAction("Index", "Login"); // Ajusta el controlador si es necesario
+                    return RedirectToAction("Index", "Login");
+                }
+
+                // Actualizar las cantidades en el carrito según lo enviado por el formulario
+                foreach (var item in carrito)
+                {
+                    if (cantidad.ContainsKey(item.ProductoId))
+                    {
+                        item.Cantidad = cantidad[item.ProductoId];
+                    }
                 }
 
                 decimal total = carrito.Sum(item => item.PrecioVenta * item.Cantidad);
@@ -231,13 +241,31 @@ namespace FarmaciaLasFlores.Controllers
 
                 foreach (var item in carrito)
                 {
+                    var producto = _context.Productos.FirstOrDefault(p => p.Id == item.ProductoId);
+                    if (producto == null)
+                    {
+                        TempData["ErrorMessage"] = $"El producto con ID {item.ProductoId} no existe.";
+                        return RedirectToAction("Carrito");
+                    }
+
+                    if (producto.Cantidad < item.Cantidad)
+                    {
+                        TempData["ErrorMessage"] = $"No hay suficiente inventario para el producto '{producto.Nombre}'. Disponible: {producto.Cantidad}, Solicitado: {item.Cantidad}.";
+                        return RedirectToAction("Carrito");
+                    }
+
+                    // Disminuir la cantidad del inventario
+                    producto.Cantidad -= item.Cantidad;
+
                     nuevaVenta.Detalles.Add(new DetalleVenta
                     {
                         ProductoId = item.ProductoId,
                         Cantidad = item.Cantidad,
                         PrecioVenta = item.PrecioVenta,
-                        Subtotal = item.PrecioVenta * item.Cantidad // Más seguro recalcular
+                        Subtotal = item.PrecioVenta * item.Cantidad
                     });
+
+                    _context.Productos.Update(producto);
                 }
 
                 _context.Ventas.Add(nuevaVenta);
@@ -255,7 +283,6 @@ namespace FarmaciaLasFlores.Controllers
                 return RedirectToAction("Carrito");
             }
         }
-
 
         int ObtenerUsuarioId()
         {
@@ -331,9 +358,32 @@ namespace FarmaciaLasFlores.Controllers
                     return View("Editar", model);
                 }
 
-                detalleOriginal.PrecioVenta = detalleVM.PrecioVenta;
+                // Obtener producto actual
+                var producto = _context.Productos.FirstOrDefault(p => p.Id == detalleOriginal.ProductoId);
+                if (producto == null)
+                {
+                    TempData["ErrorMessage"] = $"Producto con ID {detalleOriginal.ProductoId} no encontrado.";
+                    return View("Editar", model);
+                }
+
+                // Restaurar al stock la cantidad anterior
+                producto.Cantidad += detalleOriginal.Cantidad;
+
+                // Verificar si hay suficiente stock para la nueva cantidad
+                if (producto.Cantidad < detalleVM.Cantidad)
+                {
+                    TempData["ErrorMessage"] = $"No hay suficiente stock disponible para el producto '{producto.Nombre}'. Disponible: {producto.Cantidad}, solicitado: {detalleVM.Cantidad}.";
+                    return View("Editar", model);
+                }
+
+                // Aplicar nueva cantidad y precio
+                producto.Cantidad -= detalleVM.Cantidad;
                 detalleOriginal.Cantidad = detalleVM.Cantidad;
-                detalleOriginal.Subtotal = detalleOriginal.PrecioVenta * detalleVM.Cantidad;
+                detalleOriginal.PrecioVenta = detalleVM.PrecioVenta;
+                detalleOriginal.Subtotal = detalleVM.PrecioVenta * detalleVM.Cantidad;
+
+                // Actualizar el producto en el contexto
+                _context.Productos.Update(producto);
             }
 
             venta.Total = venta.Detalles.Sum(d => d.Subtotal);

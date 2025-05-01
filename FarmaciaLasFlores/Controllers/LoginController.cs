@@ -19,7 +19,6 @@ namespace FarmaciaLasFlores.Controllers
         }
 
         [HttpGet]
-        //Si quieren crear una vista de un controlador facilmente, solo denle click derecho a Index y seleccionen "Add View"
         public IActionResult Index()
         {
             return View();
@@ -85,6 +84,7 @@ namespace FarmaciaLasFlores.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Login");
         }
     }
