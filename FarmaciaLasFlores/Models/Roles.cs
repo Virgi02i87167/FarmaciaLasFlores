@@ -8,8 +8,8 @@ namespace FarmaciaLasFlores.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         //validacion de longitud
+        [Required(ErrorMessage = "Debe agregar un rol.")]
         [StringLength(50, ErrorMessage = "El nombre del rol no puede exceder los 50 caracteres.")]
         public string NombreRoles { get; set; }
         public bool Activo { get; set; } = true; // Estado de rol activo o inactivo

@@ -126,7 +126,7 @@
 
                 <div class="form-group">
                     <label asp-for="NuevoProducto.FechaVencimiento" class="form-label">Fecha Vencimiento</label>
-                    <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" />
+                    <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
                 </div>
 
@@ -142,7 +142,6 @@
                     <label asp-for="NuevoProducto.Estado" class="form-label">Estado</label>
                     <select asp-for="NuevoProducto.Estado" class="form-select">
                         <option value="true">Activo</option>
-                        <option value="false">Inactivo</option>
                     </select>
                     <span asp-validation-for="NuevoProducto.Estado" class="text-danger"></span>
                 </div>

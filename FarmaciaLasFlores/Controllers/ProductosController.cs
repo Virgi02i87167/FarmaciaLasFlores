@@ -47,8 +47,13 @@ namespace FarmaciaLasFlores.Controllers
 
         private void CargarListasDesplegables()
         {
-            // Cargar la lista de medicamentos en el ViewData para la lista desplegable
-            ViewData["MedicamentosId"] = new SelectList(_context.Medicamentos, "Id", "TipoMedicamento");
+            // Cargar solo los medicamentos activos
+            var medicamentosActivos = _context.Medicamentos
+                .Where(m => m.Estado)
+                .ToList();
+
+            // Usar la lista filtrada en el ViewData
+            ViewData["MedicamentosId"] = new SelectList(medicamentosActivos, "Id", "TipoMedicamento");
         }
 
         public IActionResult Create()

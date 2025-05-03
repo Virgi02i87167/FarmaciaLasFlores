@@ -92,7 +92,7 @@
 
                     <div class="mb-3">
                         <label asp-for="NuevoProducto.FechaVencimiento" class="form-label"></label>
-                        <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" />
+                        <input asp-for="NuevoProducto.FechaVencimiento" class="form-control" type="date" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
                         <span asp-validation-for="NuevoProducto.FechaVencimiento" class="text-danger"></span>
                     </div>
 

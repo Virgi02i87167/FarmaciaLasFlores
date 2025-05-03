@@ -112,9 +112,12 @@ namespace FarmaciaLasFlores.Controllers
         public IActionResult DescargarPDFVenta(int id)
         {
             var venta = _ventasService.ObtenerVentaConDetalles(id);
-            if (venta == null)
-                return NotFound();
 
+            if (venta == null)
+            {
+                TempData["Mensaje"] = "No hay ventas con ese código de factura.";
+                return RedirectToAction("Ventas"); // Cambia "Ventas" si tu acción se llama diferente
+            }
 
             try
             {
@@ -134,7 +137,10 @@ namespace FarmaciaLasFlores.Controllers
         {
             var ventas = _ventasService.ObtenerVentasPorMes(mes, anio);
             if (!ventas.Any())
-                return NotFound("No hay ventas en ese mes");
+            {
+                TempData["Mensaje"] = "No hay ventas en ese mes";
+                return RedirectToAction("Ventas");
+            }
 
             var documento = new ReporteVentasPdf(ventas, $"Reporte de Ventas - {mes}/{anio}");
             var pdf = documento.GeneratePdf();
@@ -146,7 +152,10 @@ namespace FarmaciaLasFlores.Controllers
         {
             var ventas = _ventasService.ObtenerVentasPorUsuario(usuarioId);
             if (!ventas.Any())
-                return NotFound("No hay ventas para este usuario");
+            {
+                TempData["Mensaje"] = "No hay ventas de este usuario";
+                return RedirectToAction("Ventas");
+            }
 
             var nombre = ventas.First().Usuario.Nombre;
             var documento = new ReporteVentasPdf(ventas, $"Reporte de Ventas - Usuario: {nombre}");

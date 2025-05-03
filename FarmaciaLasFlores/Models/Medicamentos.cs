@@ -7,7 +7,7 @@ namespace FarmaciaLasFlores.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe agregar un TipoMedicamento.")]
         [StringLength(100)]
         public string TipoMedicamento { get; set; }
 

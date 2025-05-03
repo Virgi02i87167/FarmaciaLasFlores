@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\reporte\\ventas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\reporte\\ventas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\ventas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\ventas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\reporte\\productos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\reporte\\productos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\views\\ventas\\carrito.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\ventas\\carrito.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\alfar\\source\\repos\\farmacialasflores\\farmacialasflores\\controllers\\reportecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\reportecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,41 +66,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Carrito.cshtml",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Ventas\\Carrito.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Ventas\\Carrito.cshtml",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Ventas\\Carrito.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Ventas\\Carrito.cshtml",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAAH4AAAAuAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Productos.cshtml",
+              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Reporte\\Productos.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Reporte\\Productos.cshtml",
+              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Reporte\\Productos.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Reporte\\Productos.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-01T03:27:00.651Z",
+              "WhenOpened": "2025-05-03T21:03:30.02Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Ventas\\Details.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Ventas\\Details.cshtml",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Ventas\\Details.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Ventas\\Details.cshtml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-01T03:24:58.55Z",
+              "DocumentIndex": 2,
+              "Title": "ReporteController.cs",
+              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ReporteController.cs",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\ReporteController.cs",
+              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\ReporteController.cs",
+              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\ReporteController.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAowHcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T20:59:28.405Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "VentasController.cs",
-              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\VentasController.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\VentasController.cs",
-              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\VentasController.cs*",
-              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\VentasController.cs*",
-              "ViewState": "AgIAAGUBAAAAAAAAAAAAAIEBAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-01T03:14:26.143Z",
+              "Title": "Ventas.cshtml",
+              "DocumentMoniker": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Reporte\\Ventas.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Reporte\\Ventas.cshtml",
+              "ToolTip": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Reporte\\Ventas.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Reporte\\Ventas.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-03T20:58:56.816Z",
               "EditorCaption": ""
             }
           ]

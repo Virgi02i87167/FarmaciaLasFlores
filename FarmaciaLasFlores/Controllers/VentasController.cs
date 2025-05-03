@@ -54,6 +54,7 @@ namespace FarmaciaLasFlores.Controllers
         {
             var productos = await _context.Productos
                 .Include(p => p.Medicamentos)
+                .Where(p => p.Cantidad > 0 && p.FechaVencimiento >= DateTime.Today.AddDays(1))
                 .OrderBy(p => p.FechaRegistro)
                 .ToListAsync();
 

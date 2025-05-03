@@ -33,7 +33,11 @@ namespace FarmaciaLasFlores.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new UsuariosViewModel();
-            model.ListaRoles = await _context.Roles.ToListAsync();
+
+            // Filtra los roles activos
+            model.ListaRoles = await _context.Roles
+                .Where(r => r.Activo)
+                .ToListAsync();
 
             // Llenar la lista de SelectListItem para el dropdown
             model.ListaRolesSelectList = model.ListaRoles.Select(r => new SelectListItem
@@ -94,7 +98,10 @@ namespace FarmaciaLasFlores.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var roles = _context.Roles.ToList(); // Obtén los roles desde la base de datos
+            // Obtener solo los roles activos
+            var roles = await _context.Roles
+                .Where(r => r.Activo)
+                .ToListAsync();
 
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
