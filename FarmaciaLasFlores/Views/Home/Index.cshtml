@@ -103,39 +103,90 @@
     }
 </style>
 
+@{
+    var rolUsuario = Context.Session.GetString("RolUsuario");
+}
+
 <div class="container py-5">
     <h1 class="display-4 text-center mb-5">Bienvenido</h1>
 
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-primary" asp-controller="Users" asp-action="Index">
-                <i class="bi bi-people-fill me-2"></i> Ver Usuarios
-            </a>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-success" asp-controller="Productos" asp-action="Index">
-                <i class="bi bi-box-seam me-2"></i> Ver Productos
-            </a>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-warning" asp-controller="Ventas" asp-action="Index">
-                <i class="bi bi-cart-fill me-2"></i> Ver Ventas
-            </a>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-info" asp-controller="Roles" asp-action="Index">
-                <i class="bi bi-person-badge-fill me-2"></i> Ver Rol
-            </a>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-secondary" asp-controller="Medicamentos" asp-action="Index">
-                <i class="bi bi-capsule-pill me-2"></i> Ver Tipo Medicamentos
-            </a>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <a class="btn btn-secondary" asp-controller="Reporte" asp-action="Index">
-                <i class="bi bi-file-earmark-text me-2"></i> Ver Reportes
-            </a>
-        </div>
+
+        @* Solo Administrador ve Usuarios, Productos, Roles, Medicamentos, Reportes *@
+        @if (rolUsuario == "Administrador")
+        {
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-primary" asp-controller="Users" asp-action="Index">
+                    <i class="bi bi-people-fill me-2"></i> Ver Usuarios
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-success" asp-controller="Productos" asp-action="Index">
+                    <i class="bi bi-box-seam me-2"></i> Ver Productos
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-info" asp-controller="Roles" asp-action="Index">
+                    <i class="bi bi-person-badge-fill me-2"></i> Ver Rol
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-secondary" asp-controller="Medicamentos" asp-action="Index">
+                    <i class="bi bi-capsule-pill me-2"></i> Ver Tipo Medicamentos
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-secondary" asp-controller="Reporte" asp-action="Index">
+                    <i class="bi bi-file-earmark-text me-2"></i> Ver Reportes
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-warning" asp-controller="Ventas" asp-action="Index">
+                    <i class="bi bi-cart-fill me-2"></i> Ver Ventas
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-dark" asp-controller="Roles" asp-action="Index">
+                    <i class="bi bi-shield-lock me-2"></i> Asignar Permisos a Roles
+                </a>
+            </div>
+
+        }
+
+        @* Vendedor solo acceso a Ventas *@
+        @if (rolUsuario == "Vendedor")
+        {
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-warning" asp-controller="Ventas" asp-action="Index">
+                    <i class="bi bi-cart-fill me-2"></i> Ver Ventas
+                </a>
+            </div>
+        }
+
+        @* Supervisor acceso a Ventas, Productos y Reporte *@
+        @if (rolUsuario == "Supervisor")
+        {
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-warning" asp-controller="Ventas" asp-action="Index">
+                    <i class="bi bi-cart-fill me-2"></i> Ver Ventas
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-success" asp-controller="Productos" asp-action="Index">
+                    <i class="bi bi-box-seam me-2"></i> Ver Productos
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a class="btn btn-secondary" asp-controller="Reporte" asp-action="Index">
+                    <i class="bi bi-file-earmark-text me-2"></i> Ver Reportes
+                </a>
+            </div>
+        }
     </div>
 </div>

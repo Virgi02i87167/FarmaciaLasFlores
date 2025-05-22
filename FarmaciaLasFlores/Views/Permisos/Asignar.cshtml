@@ -1,0 +1,29 @@
+﻿@model FarmaciaLasFlores.Models.PermisoAsignarViewModel
+@{
+    ViewData["Title"] = "Asignar Permisos";
+}
+
+<h2>Asignar Permisos al Rol: @ViewBag.NombreRol</h2>
+
+<form asp-action="Asignar" method="post">
+    <input type="hidden" asp-for="RolId" />
+
+    <div class="form-group">
+        @foreach (var permiso in Model.Permisos)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       name="Permisos[@Model.Permisos.IndexOf(permiso)].Seleccionado"
+                       value="true"
+                @(permiso.Seleccionado ? "checked=\"checked\"" : "") />
+
+                <input type="hidden" name="Permisos[@Model.Permisos.IndexOf(permiso)].PermisoId" value="@permiso.PermisoId" />
+                <input type="hidden" name="Permisos[@Model.Permisos.IndexOf(permiso)].Nombre" value="@permiso.Nombre" />
+                <label class="form-check-label">@permiso.Nombre</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar Permisos</button>
+    <a asp-controller="Roles" asp-action="Index" class="btn btn-secondary mt-3">Cancelar</a>
+</form>

@@ -140,6 +140,26 @@ namespace FarmaciaLasFlores.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Activo = true,
+                            NombreRoles = "Administrador"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Activo = true,
+                            NombreRoles = "Vendedor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Activo = true,
+                            NombreRoles = "Supervisor"
+                        });
                 });
 
             modelBuilder.Entity("FarmaciaLasFlores.Models.Usuarios", b =>
@@ -225,6 +245,28 @@ namespace FarmaciaLasFlores.Migrations
                     b.ToTable("Ventas");
                 });
 
+            modelBuilder.Entity("Permiso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RolId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RolId");
+
+                    b.ToTable("Permisos");
+                });
+
             modelBuilder.Entity("FarmaciaLasFlores.Models.DetalleVenta", b =>
                 {
                     b.HasOne("FarmaciaLasFlores.Models.Productos", "Producto")
@@ -275,6 +317,17 @@ namespace FarmaciaLasFlores.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Permiso", b =>
+                {
+                    b.HasOne("FarmaciaLasFlores.Models.Roles", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("FarmaciaLasFlores.Models.Medicamentos", b =>

@@ -66,6 +66,10 @@
                                     <button type="submit" class="btn btn-sm @(rol.Activo ? "btn-custom-danger" : "btn-custom-success")">
                                         @(rol.Activo ? "Desactivar" : "Activar")
                                     </button>
+                            <td>
+                                <a asp-controller="Permisos" asp-action="Asignar" asp-route-rolId="@rol.Id" class="btn btn-sm btn-warning">Asignar Permisos</a>
+                            </td>
+
                                 </form>
                             </td>
                         </tr>

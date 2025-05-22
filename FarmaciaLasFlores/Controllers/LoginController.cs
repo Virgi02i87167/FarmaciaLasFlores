@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -28,30 +29,29 @@ namespace FarmaciaLasFlores.Controllers
         public async Task<IActionResult> IniciarSesionAsync(string NombreUsuario, string Password)
         {
             var hashedPassword = HashPassword(Password);
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
-            
+
+            var usuario = _context.Usuarios
+                .Include(u => u.Rol)  // <-- incluir el rol
+                .FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
+
             if (usuario != null)
             {
                 if (usuario.Estado == true)
                 {
-                    // Crear los claims para el usuario autenticado
+                    HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
+                    HttpContext.Session.SetString("RolUsuario", usuario.Rol.NombreRoles);  // <-- guardar rol en sesión
+
                     var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                    // Puedes agregar más claims si es necesario
-                };
+            {
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Role, usuario.Rol.NombreRoles) // <-- Agregar claim de rol
+            };
 
-                    // Crear el identity de la cookie
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    // Establecer la autenticación
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                    // Guardar el UsuarioId en la sesión
-                    HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
-
-                    return RedirectToAction("Index", "Home");  // Redirige al Home si las credenciales son correctas
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -65,6 +65,7 @@ namespace FarmaciaLasFlores.Controllers
                 return View("Index");
             }
         }
+
 
         private string HashPassword(string password)
         {

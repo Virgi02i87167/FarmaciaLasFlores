@@ -1,4 +1,5 @@
 ﻿using FarmaciaLasFlores.Models;
+using FarmaciaLasFlores.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Db
@@ -12,6 +13,8 @@ namespace FarmaciaLasFlores.Db
         public DbSet<Ventas> Ventas { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Medicamentos> Medicamentos {  get; set; }
+        public DbSet<Permiso> Permisos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +33,15 @@ namespace FarmaciaLasFlores.Db
             modelBuilder.Entity<DetalleVenta>()
                 .Property(p => p.PrecioVenta)
                 .HasColumnType("decimal(18,2)");  // Especificamos precisión y escala para 'Precio'
+
+
+            //Datos roles del sistema
+            modelBuilder.Entity<Roles>().HasData(
+                new Roles { Id = 1, NombreRoles = RolesSistema.Administrador, Activo = true },
+                new Roles { Id = 2, NombreRoles = RolesSistema.Vendedor, Activo = true },
+                new Roles { Id = 3, NombreRoles = RolesSistema.Supervisor, Activo = true }
+            );
+
         }
     }
 }

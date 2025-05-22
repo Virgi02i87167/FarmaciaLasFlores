@@ -1,10 +1,12 @@
 ﻿using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [AuthorizeRoles("Administrador")]
     public class RolesController : Controller
     {
         private readonly ApplicationDbContext _context;

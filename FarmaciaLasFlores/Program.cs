@@ -1,5 +1,4 @@
 using FarmaciaLasFlores.Db;
-using FarmaciaLasFlores.Models;
 using FarmaciaLasFlores.Servicios;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -7,32 +6,50 @@ using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar servicios de autenticación con cookies antes de construir la aplicación
+// Agregar servicios de autenticación con cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Login/Index";  // Página de inicio de sesión
-        options.LogoutPath = "/Login/"; // Página de cierre de sesión
+        options.LoginPath = "/Login/Index";  // Página de login
+        options.LogoutPath = "/Login/";      // Página de logout
+       // options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
     });
 
-// Agregar servicios de controladores con vistas
+// Agregar servicios de sesión con configuración opcional
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Agregar controladores con vistas
 builder.Services.AddControllersWithViews();
 
-// Aquí se configura la conexión a la base de datos (DbContext)
+// Configurar conexión a base de datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSession();
-
+// Servicios adicionales
 builder.Services.AddScoped<VentasService>();
 
+// Configurar licencia QuestPDF
 QuestPDF.Settings.License = LicenseType.Community;
 
-// Ahora construimos la aplicación
+// Construir la app
 var app = builder.Build();
 
-// Configurar el pipeline de HTTP
+// Migrar base de datos automáticamente al arrancar la app
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+}
 
+// Configurar pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -45,27 +62,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Activar la autenticación y autorización
-app.UseAuthentication();  // Agregar la autenticación antes de UseAuthorization
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Bloque para migrar la base de datos y crear roles si es necesario
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
-
-    if (!context.Roles.Any())
-    {
-        context.Roles.AddRange(
-            new Roles { NombreRoles = "Administrador" },
-            new Roles { NombreRoles = "Empleado" }
-        );
-        context.SaveChanges();
-    }
-}
-
-// Mapear las rutas
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");

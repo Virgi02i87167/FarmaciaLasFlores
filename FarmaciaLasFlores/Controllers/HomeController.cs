@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -33,5 +34,12 @@ namespace FarmaciaLasFlores.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        //Asignar que niega el acceso a la vista
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }

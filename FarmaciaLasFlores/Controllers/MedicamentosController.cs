@@ -1,4 +1,5 @@
 ﻿using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [AuthorizeRoles("Administrador")]//para dar acceso a un rol a parte sistema 
     public class MedicamentosController : Controller
     {
         private readonly ApplicationDbContext _context;

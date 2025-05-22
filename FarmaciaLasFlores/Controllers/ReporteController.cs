@@ -11,10 +11,12 @@ using FarmaciaLasFlores.Servicios;
 using QuestPDF.Fluent;
 using iTextDocument = iTextSharp.text.Document;
 using QuestPDF.Infrastructure;
+using FarmaciaLasFlores.Helpers;
 
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [AuthorizeRoles("Administrador","Supervisor")]
     public class ReporteController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -13,7 +13,8 @@ using System.Security.Claims;
 using static iTextSharp.text.pdf.AcroFields;
 
 namespace FarmaciaLasFlores.Controllers
-{
+{ 
+   
     public class VentasController : Controller
     {
         private readonly ApplicationDbContext _context;

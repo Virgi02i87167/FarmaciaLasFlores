@@ -1,4 +1,5 @@
 ﻿using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [AuthorizeRoles("Administrador")]// Esto es para dar acceso a un rol al sistema el unico que puede crear usuarios y
+                                     // asignarle roles es el usuario registrado con el rol ADMINISTRADOR y este nuevo usuario
+                                     // solo accedera a las vistas que ya estan definidas por el admi en el sistema
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using FarmaciaLasFlores.Helpers;
 
 namespace FarmaciaLasFlores.Controllers
 {
+    [AuthorizeRoles("Administrador", "Supervisor")]
     public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
