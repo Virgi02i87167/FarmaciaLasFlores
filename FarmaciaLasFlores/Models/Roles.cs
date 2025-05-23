@@ -13,5 +13,7 @@ namespace FarmaciaLasFlores.Models
         [StringLength(50, ErrorMessage = "El nombre del rol no puede exceder los 50 caracteres.")]
         public string NombreRoles { get; set; }
         public bool Activo { get; set; } = true; // Estado de rol activo o inactivo
+
+        public ICollection<Permiso> Permisos { get; set; }
     }
 }

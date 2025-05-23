@@ -14,6 +14,14 @@
         }
     </div>
 }
+<!-- Mensaje de éxito -->
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -69,8 +77,11 @@
                             <td>
                                 <a asp-controller="Permisos" asp-action="Asignar" asp-route-rolId="@rol.Id" class="btn btn-sm btn-warning">Asignar Permisos</a>
                             </td>
-
-                                </form>
+                            <!-- En la tabla donde listás los roles o usuarios con su rol -->
+                            <td>
+                                <a asp-controller="Permisos" asp-action="Asignar" asp-route-rolId="@rol.Id" class="btn btn-sm btn-primary">Editar Permisos</a>
+                            </td>
+                            </form>
                             </td>
                         </tr>
                     }

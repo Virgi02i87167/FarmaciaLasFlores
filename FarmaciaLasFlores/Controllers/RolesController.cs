@@ -133,6 +133,51 @@ namespace FarmaciaLasFlores.Controllers
         {
             return _context.Roles.Any(e => e.Id == id);
         }
+
+        //Como administrador, quiero quitar permiso de los
+        //usuarios, para mantener segura la informacion del sistema.
+        //POST: Roles/Asignar
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Asignar(PermisoAsignarViewModel model)
+        {
+            if (!await _context.Roles.AnyAsync(r => r.Id == model.RolId))
+            {
+                return NotFound("El rol no exite.");
+            }
+            var permisosExistentes = await _context.Permisos.Where(p => p.RolId == model.RolId).ToListAsync();
+            _context.Permisos.RemoveRange(permisosExistentes); //Elimina permisos actuales
+
+            var permisosSeleccionados = model.Permisos
+                .Where(p => p.Seleccionado)
+                .Select(p => new Permiso
+                {
+                    RolId = model.RolId,
+                    Nombre = p.Nombre,
+                });
+            await _context.Permisos.AddRangeAsync(permisosSeleccionados); //Asigna nuevos
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Permisos actualizados correctamente.";
+
+            return RedirectToAction("Index", "Roles");
+        }
+
+        //Metodo que devuelve la listade permisos posibles
+        private List<string> ObtenerListaDePermisosDisponibles()
+        {
+            //Aqui defines todos los permisos posibles que puede tener un rol
+
+            return new List<string>
+            {
+                "CrearUsuario",
+                "EditarUsuario",
+                "EliminarUsuario",
+                "VerReportes",
+                "GestionarRoles",
+                "AsignarPermisos"
+            };
+        }
     }
 }
 
