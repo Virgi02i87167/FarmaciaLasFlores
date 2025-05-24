@@ -17,137 +17,137 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FarmaciaLasFlores
 build_property.RootNamespace = FarmaciaLasFlores
-build_property.ProjectDir = C:\Users\ferna\Source\Repos\FarmaciaLasFlores\FarmaciaLasFlores\
+build_property.ProjectDir = C:\Users\alfar\Source\Repos\FarmaciaLasFlores\FarmaciaLasFlores\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ferna\Source\Repos\FarmaciaLasFlores\FarmaciaLasFlores
+build_property.MSBuildProjectDirectory = C:\Users\alfar\Source\Repos\FarmaciaLasFlores\FarmaciaLasFlores
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Account/ForgotPassword.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Account/ResetPassword.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Account/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Home/AccessDenied.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Home/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Home/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Login/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Create.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Edit.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Medicamentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbWVudG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Permisos/Asignar.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Permisos/Asignar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVybWlzb3NcQXNpZ25hci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Create.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Delete.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Edit.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Productos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Productos.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Productos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZVxQcm9kdWN0b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Ventas.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Reporte/Ventas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZVxWZW50YXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Roles/Edit.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Roles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Roles/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Roles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/Error.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Create.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Delete.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Edit.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Carrito.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Carrito.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXENhcnJpdG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Details.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Editar.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Index.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Ventas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/_ViewImports.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/_ViewStart.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ferna/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/_Layout.cshtml]
+[C:/Users/alfar/Source/Repos/FarmaciaLasFlores/FarmaciaLasFlores/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-lfbzmrzv3x

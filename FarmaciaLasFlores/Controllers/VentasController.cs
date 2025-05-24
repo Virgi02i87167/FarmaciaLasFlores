@@ -51,21 +51,29 @@ namespace FarmaciaLasFlores.Controllers
         }
 
         // Acción para ver los detalles de productos disponibles
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(VentasViewModel filtro)
         {
-            var productos = await _context.Productos
+            var productosQuery = _context.Productos
                 .Include(p => p.Medicamentos)
                 .Where(p => p.Cantidad > 0 && p.FechaVencimiento >= DateTime.Today.AddDays(1))
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filtro.SearchString))
+            {
+                var search = filtro.SearchString.Trim().ToLower();
+                productosQuery = productosQuery
+                    .Where(p =>
+                        p.Nombre.ToLower().Contains(search) ||
+                        p.Medicamentos.TipoMedicamento.ToLower().Contains(search));
+            }
+
+            filtro.ListaProductos = await productosQuery
                 .OrderBy(p => p.FechaRegistro)
                 .ToListAsync();
 
-            var modelo = new VentasViewModel
-            {
-                ListaProductos = productos ?? new List<Productos>()
-            };
-
-            return View(modelo);
+            return View(filtro);
         }
+
 
         // Acción para buscar ventas
         public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? usuarioId)
@@ -316,7 +324,7 @@ namespace FarmaciaLasFlores.Controllers
 
             return View(model);
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult GuardarCambiosVenta(EditarVentaViewModel model)
