@@ -11,6 +11,14 @@
 
 <h2 class="text-center mb-4 text-custom-primary">Productos Disponibles</h2>
 
+<form asp-action="Details" method="get" class="mb-4">
+    <div class="input-group">
+        <input asp-for="SearchString" class="form-control" placeholder="Buscar por nombre o tipo de medicamento..." />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a href="@Url.Action("Details")" class="btn btn-outline-secondary">Limpiar</a>
+    </div>
+</form>
+
 <!-- Mostrar Productos -->
 <table class="table table-bordered table-striped table-hover shadow-sm">
     <thead class="bg-custom-primary text-white">

@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -21,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\permisos\\asignar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\permisos\\asignar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|c:\\users\\xyz\\onedrive - universidad de oriente\\documentos\\github\\farmacialasflores\\farmacialasflores\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{30574249-FDA8-4D51-B833-4D02DBCE0C03}|FarmaciaLasFlores\\FarmaciaLasFlores.csproj|solutionrelative:farmacialasflores\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,59 +46,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Roles\\Index.cshtml",
               "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Roles\\Index.cshtml",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Roles\\Index.cshtml*",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Roles\\Index.cshtml*",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAcwMsAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Roles\\Index.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Roles\\Index.cshtml",
+              "ViewState": "AgIAADcAAAAAAAAAAAAAAFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-05-22T02:37:15.763Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-23T06:25:24.72Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-23T06:25:04.778Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Asignar.cshtml",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
-              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-23T06:06:27.501Z",
               "EditorCaption": ""
             },
             {
@@ -123,29 +96,102 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Roles.cs",
-              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Roles.cs",
-              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Models\\Roles.cs",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Roles.cs*",
-              "RelativeToolTip": "FarmaciaLasFlores\\Models\\Roles.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T21:23:27.141Z",
+              "DocumentIndex": 1,
+              "Title": "FarmaciaLasFlores.AssemblyInfoInputs.cache",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache",
+              "RelativeToolTip": "FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfoInputs.cache",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002368|",
+              "WhenOpened": "2025-05-24T15:21:41.184Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "FarmaciaLasFlores.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs",
+              "RelativeToolTip": "FarmaciaLasFlores\\obj\\Debug\\net8.0\\FarmaciaLasFlores.AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T15:21:34.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAAAKkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T06:30:08.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACcAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T06:29:16.816Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Login\\Index.cshtml",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T06:25:04.778Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Asignar.cshtml",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
+              "RelativeToolTip": "FarmaciaLasFlores\\Views\\Permisos\\Asignar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-23T06:06:27.501Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Roles.cs",
+              "RelativeDocumentMoniker": "FarmaciaLasFlores\\Models\\Roles.cs",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Models\\Roles.cs",
+              "RelativeToolTip": "FarmaciaLasFlores\\Models\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T21:23:27.141Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "RolesController.cs",
               "DocumentMoniker": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\RolesController.cs",
               "RelativeDocumentMoniker": "FarmaciaLasFlores\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\RolesController.cs*",
-              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\RolesController.cs*",
+              "ToolTip": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\Controllers\\RolesController.cs",
+              "RelativeToolTip": "FarmaciaLasFlores\\Controllers\\RolesController.cs",
               "ViewState": "AgIAAJUAAAAAAAAAAAAcwKYAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T13:07:59.835Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-21T13:07:59.835Z"
             }
           ]
         },

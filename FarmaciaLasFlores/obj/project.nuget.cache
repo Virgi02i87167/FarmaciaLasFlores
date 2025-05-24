@@ -225,5 +225,15 @@
     "C:\\Users\\xyz\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\xyz\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problema al leer el archivo de caché C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\xyz\\OneDrive - Universidad de Oriente\\Documentos\\GitHub\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

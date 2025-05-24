@@ -2,6 +2,9 @@
 {
     public class VentasViewModel
     {
+        public string SearchString { get; set; } = string.Empty;
+
+
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
         public Ventas NuevaVenta { get; set; } = new Ventas(); // Venta actual que se está registrando

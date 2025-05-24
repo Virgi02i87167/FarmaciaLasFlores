@@ -3,7 +3,7 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
-<h2 class="text-center mb-4 text-custom-primary">Crear Usuario</h2>
+<h2 class="text-center mb-4 text-custom-primary">Registrar Usuario</h2>
 
 <!-- Resumen de validación -->
 <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
@@ -11,7 +11,7 @@
 <!-- Formulario de creación de usuario -->
 <form asp-action="Create" method="post" class="w-50 mx-auto">
     <div class="mb-3">
-        <label asp-for="NuevoUsuario.Nombre" class="form-label text-custom-primary">Nombre</label>
+        <label asp-for="NuevoUsuario.Nombre" class="form-label text-custom-primary">Nombre Completo</label>
         <input asp-for="NuevoUsuario.Nombre" class="form-control" required />
         <span asp-validation-for="NuevoUsuario.Nombre" class="text-danger"></span>
     </div>

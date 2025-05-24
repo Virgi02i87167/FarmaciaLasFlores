@@ -14,7 +14,7 @@
         }
     </div>
 }
-<!-- Mensaje de éxito -->
+<!-- Mensaje de éxito  Lisseth-->
 @if (TempData["Mensaje"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -28,7 +28,7 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-lg border-light">
                 <div class="card-header bg-custom-primary text-white text-center">
-                    <h4 class="mb-0">Crear Nuevo Rol</h4>
+                    <h4 class="mb-0">Registrar Nuevo Rol</h4>
                 </div>
                 <div class="card-body">
                     <!-- Validaciones -->
@@ -77,7 +77,7 @@
                             <td>
                                 <a asp-controller="Permisos" asp-action="Asignar" asp-route-rolId="@rol.Id" class="btn btn-sm btn-warning">Asignar Permisos</a>
                             </td>
-                            <!-- En la tabla donde listás los roles o usuarios con su rol -->
+                            <!-- En la tabla donde listás los roles o usuarios con su rol Lisseth -->
                             <td>
                                 <a asp-controller="Permisos" asp-action="Asignar" asp-route-rolId="@rol.Id" class="btn btn-sm btn-primary">Editar Permisos</a>
                             </td>
