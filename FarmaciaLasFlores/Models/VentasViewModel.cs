@@ -1,4 +1,6 @@
-﻿namespace FarmaciaLasFlores.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace FarmaciaLasFlores.Models
 {
     public class VentasViewModel
     {
@@ -11,6 +13,7 @@
         public List<ItemCarrito> ListaCarrito { get; set; } = new List<ItemCarrito>();
 
         public List<Usuarios> ListaUsuarios { get; set; }
+        public List<SelectListItem> ListaTiposMedicamento { get; internal set; }
     }
 
     public class EditarVentaViewModel

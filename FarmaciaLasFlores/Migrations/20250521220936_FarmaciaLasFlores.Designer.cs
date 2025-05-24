@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250419052535_MigracionInicial")]
-    partial class MigracionInicial
+    [Migration("20250521220936_FarmaciaLasFlores")]
+    partial class FarmaciaLasFlores
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

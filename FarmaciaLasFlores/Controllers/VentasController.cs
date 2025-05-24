@@ -1,15 +1,16 @@
-﻿using FarmaciaLasFlores.Db;
-using FarmaciaLasFlores.Helpers;
-using FarmaciaLasFlores.Models;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using FarmaciaLasFlores.Db;
+using FarmaciaLasFlores.Helpers;
+using FarmaciaLasFlores.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using static iTextSharp.text.pdf.AcroFields;
 
 namespace FarmaciaLasFlores.Controllers
@@ -51,20 +52,30 @@ namespace FarmaciaLasFlores.Controllers
 
         // Acción para ver los detalles de productos disponibles
         public async Task<IActionResult> Details()
+{
+    var productos = await _context.Productos
+        .Include(p => p.Medicamentos)
+        .Where(p => p.Cantidad > 0 && p.FechaVencimiento >= DateTime.Today.AddDays(1))
+        .OrderBy(p => p.FechaRegistro)
+        .ToListAsync();
+
+    var tiposMedicamento = await _context.Medicamentos
+        .Where(m => m.Estado)
+        .OrderBy(m => m.TipoMedicamento)
+        .ToListAsync();
+
+    var modelo = new VentasViewModel
+    {
+        ListaProductos = productos ?? new List<Productos>(),
+        ListaTiposMedicamento = tiposMedicamento.Select(t => new SelectListItem
         {
-            var productos = await _context.Productos
-                .Include(p => p.Medicamentos)
-                .Where(p => p.Cantidad > 0 && p.FechaVencimiento >= DateTime.Today.AddDays(1))
-                .OrderBy(p => p.FechaRegistro)
-                .ToListAsync();
+            Value = t.Id.ToString(),
+            Text = t.TipoMedicamento
+        }).ToList()
+    };
 
-            var modelo = new VentasViewModel
-            {
-                ListaProductos = productos ?? new List<Productos>()
-            };
-
-            return View(modelo);
-        }
+    return View(modelo);
+}
 
         // Acción para buscar ventas
         public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? usuarioId)
@@ -405,6 +416,53 @@ namespace FarmaciaLasFlores.Controllers
         private ActionResult HttpNotFound()
         {
             throw new NotImplementedException();
+        }
+
+        // Acción para buscar productos disponibles
+        [HttpGet]
+        public async Task<IActionResult> BuscarProductos(string searchTerm, int? tipoMedicamentoId)
+        {
+            try
+            {
+                var productosQuery = _context.Productos
+                    .Include(p => p.Medicamentos)
+                    .Where(p => p.Estado && p.Cantidad > 0 && p.FechaVencimiento > DateTime.Now);
+
+                if (!string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    var search = searchTerm.Trim().ToLower();
+                    productosQuery = productosQuery.Where(p =>
+                        p.Nombre.ToLower().Contains(search) ||
+                        (p.Medicamentos != null && p.Medicamentos.TipoMedicamento.ToLower().Contains(search)) ||
+                        p.Lote.ToLower().Contains(search));
+                }
+
+                if (tipoMedicamentoId.HasValue && tipoMedicamentoId > 0)
+                {
+                    productosQuery = productosQuery.Where(p => p.MedicamentosId == tipoMedicamentoId.Value);
+                }
+
+                var productos = await productosQuery
+                    .OrderBy(p => p.Nombre)
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Nombre,
+                        p.PrecioVenta,
+                        p.Cantidad,
+                        TipoMedicamento = p.Medicamentos.TipoMedicamento,
+                        p.Lote,
+                        FechaVencimiento = p.FechaVencimiento.ToString("dd/MM/yyyy")
+                    })
+                    .ToListAsync();
+
+                return Json(new { success = true, data = productos });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al buscar productos");
+                return Json(new { success = false, message = "Error al buscar productos" });
+            }
         }
     }
 }

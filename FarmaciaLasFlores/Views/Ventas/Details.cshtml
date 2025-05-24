@@ -4,44 +4,90 @@
     ViewData["Title"] = "Productos Disponibles";
 }
 
-<div class="d-flex justify-content-between mb-4">
-    <a asp-action="Index" class="btn btn-custom-secondary">Regresar</a>
-    <a asp-action="Carrito" class="btn btn-custom-secondary">Ver Carrito</a>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <a asp-action="Index" class="btn btn-custom-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Regresar
+        </a>
+        <a asp-action="Carrito" class="btn btn-custom-secondary">
+            <i class="fas fa-shopping-cart me-2"></i>Ver Carrito
+            <span class="badge bg-danger ms-2" id="cartCount">
+                @(Model.ListaCarrito?.Count ?? 0)
+            </span>
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-custom-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-search me-2"></i>Buscar Productos</h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" id="searchInput" class="form-control"
+                           placeholder="Buscar por nombre, lote o tipo...">
+                </div>
+                <div class="col-md-2">
+                    <button id="searchButton" class="btn btn-custom-primary w-100">
+                        <i class="fas fa-search me-1"></i>Buscar
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <select id="tipoMedicamentoFilter" class="form-select">
+                        <option value="">Todos los tipos</option>
+                        @foreach (var tipo in Model.ListaTiposMedicamento ?? new List<SelectListItem>())
+                        {
+                            <option value="@tipo.Value">@tipo.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button id="clearSearch" class="btn btn-outline-secondary w-100">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover shadow-sm" id="productosTable">
+            <thead class="bg-custom-primary text-white">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio Venta</th>
+                    <th>Tipo Medicamento</th>
+                    <th>Lote</th>
+                    <th>Vencimiento</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var producto in Model.ListaProductos ?? new List<Productos>())
+                {
+                    <tr class="@(producto.FechaVencimiento < DateTime.Now ? "table-danger" : "")">
+                        <td>@producto.Nombre</td>
+                        <td class="@(producto.Cantidad < 5 ? "text-danger fw-bold" : "")">@producto.Cantidad</td>
+                        <td>@producto.PrecioVenta.ToString("C")</td>
+                        <td>@producto.Medicamentos?.TipoMedicamento</td>
+                        <td>@producto.Lote</td>
+                        <td>@producto.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <form method="post" asp-action="AddToCart" class="d-inline">
+                                <input type="hidden" name="ProductoId" value="@producto.Id" />
+                                <button type="submit" class="btn btn-custom-success btn-sm"
+                                        @(producto.Cantidad <= 0 ? "disabled" : "")>
+                                    <i class="fas fa-cart-plus me-1"></i>Agregar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<h2 class="text-center mb-4 text-custom-primary">Productos Disponibles</h2>
-
-<!-- Mostrar Productos -->
-<table class="table table-bordered table-striped table-hover shadow-sm">
-    <thead class="bg-custom-primary text-white">
-        <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio Venta</th>
-            <th>Tipo Medicamento</th>
-            <th>Fecha Registro</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var producto in Model.ListaProductos)
-        {
-            <tr>
-                <td>@producto.Nombre</td>
-                <td>@producto.Cantidad</td>
-                <td>@producto.PrecioVenta</td>
-                <td>@producto.Medicamentos.TipoMedicamento</td>
-                <td>@producto.FechaRegistro.ToString("dd/MM/yyyy")</td>
-                <td>
-                    <form method="post" asp-action="AddToCart">
-                        <input type="hidden" name="ProductoId" value="@producto.Id" />
-                        <button type="submit" class="btn btn-custom-success">Agregar al Carrito</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 <!-- Estilos personalizados -->
 <style>
@@ -81,4 +127,109 @@
     .text-custom-primary {
         color: #1b3488;
     }
+
+    /* Estilos para la tabla */
+    .table-responsive {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .table th {
+        white-space: nowrap;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    /* Estilos para el buscador */
+    #searchInput {
+        border-radius: 0.25rem;
+    }
+
+    /* Estilos para elementos deshabilitados */
+    .btn:disabled {
+        opacity: 0.6;
+    }
 </style>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script>
+        $(document).ready(function() {
+            // Función para buscar productos
+            function buscarProductos() {
+                const searchTerm = $('#searchInput').val();
+                const tipoId = $('#tipoMedicamentoFilter').val();
+
+                $.get('@Url.Action("BuscarProductos", "Ventas")', {
+                    searchTerm: searchTerm,
+                    tipoMedicamentoId: tipoId
+                }, function(data) {
+                    if (data.success) {
+                        const tbody = $('#productosTable tbody');
+                        tbody.empty();
+
+                        data.data.forEach(function(producto) {
+                            const disabled = producto.Cantidad <= 0 ? 'disabled' : '';
+                            const vencido = new Date(producto.FechaVencimiento.split('/').reverse().join('-')) < new Date();
+                            const rowClass = vencido ? 'table-danger' : '';
+                            const cantidadClass = producto.Cantidad < 5 ? 'text-danger fw-bold' : '';
+
+                            tbody.append(`
+                                <tr class="${rowClass}">
+                                    <td>${producto.Nombre}</td>
+                                    <td class="${cantidadClass}">${producto.Cantidad}</td>
+                                    <td>${producto.PrecioVenta.toLocaleString('es-SV', {style: 'currency', currency: 'USD'})}</td>
+                                    <td>${producto.TipoMedicamento}</td>
+                                    <td>${producto.Lote}</td>
+                                    <td>${producto.FechaVencimiento}</td>
+                                    <td>
+                                        <form method="post" action="@Url.Action("AddToCart", "Ventas")" class="d-inline">
+                                            <input type="hidden" name="ProductoId" value="${producto.Id}" />
+                                            <button type="submit" class="btn btn-custom-success btn-sm" ${disabled}>
+                                                <i class="fas fa-cart-plus me-1"></i>Agregar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            }
+
+            // Eventos
+            $('#searchInput').keyup(debounce(buscarProductos, 300));
+            $('#tipoMedicamentoFilter').change(buscarProductos);
+            $('#clearSearch').click(function() {
+                $('#searchInput').val('');
+                $('#tipoMedicamentoFilter').val('');
+                buscarProductos();
+            });
+
+            // Función debounce para mejorar rendimiento
+            function debounce(func, wait) {
+                let timeout;
+                return function() {
+                    const context = this, args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), wait);
+                };
+            }
+
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                $.get('@Url.Action("GetCartCount", "Ventas")', function(count) {
+                    $('#cartCount').text(count);
+                });
+            }
+
+            // Actualizar cada 5 segundos
+            setInterval(updateCartCount, 5000);
+            updateCartCount();
+        });
+    </script>
+}
