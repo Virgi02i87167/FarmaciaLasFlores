@@ -72,6 +72,10 @@
                     <td>@(venta.Estado ? "Activo" : "Inactivo")</td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@venta.Id" class="btn btn-warning">Editar</a>
+                        @if (venta.Estado)
+                        {
+                            <a asp-action="Anular" asp-route-id="@venta.Id" class="btn btn-danger">Anular</a>
+                        }
                     </td>
                 </tr>
             }

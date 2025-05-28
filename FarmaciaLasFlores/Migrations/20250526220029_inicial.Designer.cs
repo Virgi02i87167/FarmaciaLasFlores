@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaLasFlores.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250521233344_Permisos")]
-    partial class Permisos
+    [Migration("20250526220029_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,8 +232,14 @@ namespace FarmaciaLasFlores.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("FechaVenta")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdVenta")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");

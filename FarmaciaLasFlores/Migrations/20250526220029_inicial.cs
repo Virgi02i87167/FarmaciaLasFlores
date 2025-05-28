@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace FarmaciaLasFlores.Migrations
 {
     /// <inheritdoc />
-    public partial class actualizaciones : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,6 +69,26 @@ namespace FarmaciaLasFlores.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Permisos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RolId = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permisos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Permisos_Roles_RolId",
+                        column: x => x.RolId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -102,7 +124,9 @@ namespace FarmaciaLasFlores.Migrations
                     FechaVenta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Estado = table.Column<bool>(type: "bit", nullable: false)
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
+                    IdVenta = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,6 +168,16 @@ namespace FarmaciaLasFlores.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Activo", "NombreRoles" },
+                values: new object[,]
+                {
+                    { 1, true, "Administrador" },
+                    { 2, true, "Vendedor" },
+                    { 3, true, "Supervisor" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DetalleVenta_ProductoId",
                 table: "DetalleVenta",
@@ -153,6 +187,11 @@ namespace FarmaciaLasFlores.Migrations
                 name: "IX_DetalleVenta_VentaId",
                 table: "DetalleVenta",
                 column: "VentaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permisos_RolId",
+                table: "Permisos",
+                column: "RolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_MedicamentosId",
@@ -187,6 +226,9 @@ namespace FarmaciaLasFlores.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DetalleVenta");
+
+            migrationBuilder.DropTable(
+                name: "Permisos");
 
             migrationBuilder.DropTable(
                 name: "Productos");

@@ -1,0 +1,113 @@
+﻿@model FarmaciaLasFlores.Models.VentasViewModel
+
+@{
+    ViewData["Title"] = "Ventas Anuladas";
+}
+
+<h2 class="text-center mb-4 text-custom-primary">Ventas Anuladas</h2>
+@if (Model.ListaVentas.Any())
+{
+    <table class="table table-bordered table-striped table-hover shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Fecha de la Venta</th>
+                <th>Usuario</th>
+                <th>Total Pagado</th>
+                <th>Numero de Factura</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var venta in Model.ListaVentas.OrderByDescending(v => v.FechaVenta))
+            {
+                <tr>
+                    <td>@venta.FechaVenta.ToString("dd/MM/yyyy")</td>
+                    <td>@venta.Usuario.NombreUsuario</td>
+                    <td>@venta.Total</td>
+                    <td>@venta.Id</td>
+                    <td>@(venta.Estado ? "Activo" : "Inactivo")</td>
+                    <td>
+                        <a asp-action="DetallesVenta" asp-route-id="@venta.Id" class="btn btn-info">Detalles</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay ventas anuladas.</p>
+}
+
+<style>
+    
+    :root {
+        --primary-color: #1b3488;  
+        --secondary-color: #7583a0; 
+        --danger-color: #c43f48; 
+        --success-color: #25a152;  
+        --warning-color: #e77b85;  
+        --background-color: #ede6e9;  
+    }
+
+    
+    body {
+        background-color: var(--background-color);
+        color: #171d18;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+    }
+
+    .form-label {
+        color: var(--primary-color);
+    }
+
+     
+    .form-control, .form-select {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(27, 52, 136, 0.4);
+        }
+ 
+    .btn-custom-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+        .btn-custom-primary:hover {
+            background-color: #162b6f;
+            border-color: #1a2e7b;
+        }
+
+    .btn-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #d4686f;
+            border-color: #c25760;
+        }
+
+   
+    .bg-custom-danger {
+        background-color: var(--danger-color);
+    }
+
+    .text-custom-primary {
+        color: var(--primary-color);
+    }
+</style>

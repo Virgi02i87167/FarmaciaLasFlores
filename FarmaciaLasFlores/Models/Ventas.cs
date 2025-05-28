@@ -27,6 +27,8 @@ namespace FarmaciaLasFlores.Models
 
         // Relación con los detalles de venta
         public ICollection<DetalleVenta> Detalles { get; set; }
+        public int IdVenta { get; internal set; }
+        public DateTime Fecha { get; internal set; }
     }
 }
 

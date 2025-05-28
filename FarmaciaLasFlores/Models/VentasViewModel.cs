@@ -35,4 +35,3 @@
         public decimal Subtotal => Cantidad * PrecioVenta;
     }
 }
-

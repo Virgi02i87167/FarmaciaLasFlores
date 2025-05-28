@@ -1,0 +1,78 @@
+﻿@model FarmaciaLasFlores.Models.Ventas
+
+<h1>Anular Venta</h1>
+
+<div>
+    <h4>Detalles de la Venta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaVenta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaVenta)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Usuario.NombreUsuario)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Usuario.NombreUsuario)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+    </dl>
+</div>
+
+<h2>Productos Vendidos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalles.First().Producto.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalles.First().Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalles.First().PrecioVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalles.First().Subtotal)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Detalles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subtotal)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-action="ConfirmarAnular" asp-route-id="@Model.Id" method="post">
+    <div class="form-group">
+        <label>
+            ¿Estás seguro de que deseas anular esta venta?
+        </label>
+    </div>
+    <button type="submit" class="btn btn-danger">Confirmar Anulación</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+

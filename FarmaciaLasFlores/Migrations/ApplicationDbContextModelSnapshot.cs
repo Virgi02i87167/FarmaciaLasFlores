@@ -229,8 +229,14 @@ namespace FarmaciaLasFlores.Migrations
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("FechaVenta")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdVenta")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");

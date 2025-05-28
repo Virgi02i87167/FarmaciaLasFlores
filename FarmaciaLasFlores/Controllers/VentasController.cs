@@ -13,8 +13,7 @@ using System.Security.Claims;
 using static iTextSharp.text.pdf.AcroFields;
 
 namespace FarmaciaLasFlores.Controllers
-{ 
-   
+{
     public class VentasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -31,11 +30,11 @@ namespace FarmaciaLasFlores.Controllers
         public async Task<IActionResult> Index()
         {
             var ventas = await _context.Ventas
-        .Include(v => v.Detalles)
-            .ThenInclude(d => d.Producto)
-        .Include(v => v.Usuario)
-        .OrderByDescending(v => v.FechaVenta)
-        .ToListAsync();
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .Include(v => v.Usuario)
+                .OrderByDescending(v => v.FechaVenta)
+                .ToListAsync();
 
             var usuarios = await _context.Usuarios.OrderBy(u => u.NombreUsuario).ToListAsync();
 
@@ -73,7 +72,6 @@ namespace FarmaciaLasFlores.Controllers
 
             return View(filtro);
         }
-
 
         // Acción para buscar ventas
         public async Task<IActionResult> BuscarVentas(DateTime? fechaInicio, DateTime? fechaFin, int? usuarioId)
@@ -324,7 +322,7 @@ namespace FarmaciaLasFlores.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult GuardarCambiosVenta(EditarVentaViewModel model)
@@ -414,6 +412,150 @@ namespace FarmaciaLasFlores.Controllers
         private ActionResult HttpNotFound()
         {
             throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AnularVenta(int ventaId)
+        {
+            try
+            {
+                var venta = _context.Ventas
+                    .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                    .FirstOrDefault(v => v.Id == ventaId);
+
+                if (venta == null)
+                {
+                    TempData["ErrorMessage"] = "Venta no encontrada.";
+                    return RedirectToAction("Index");
+                }
+
+                // Validar si la venta tiene más de 3 días
+                if (venta.FechaVenta.AddDays(3) < DateTime.Now)
+                {
+                    TempData["ErrorMessage"] = "No se puede anular una venta que tiene más de 3 días.";
+                    return RedirectToAction("Index");
+                }
+
+                // Devolver los productos al inventario
+                foreach (var detalle in venta.Detalles)
+                {
+                    var producto = detalle.Producto;
+                    if (producto != null)
+                    {
+                        producto.Cantidad += detalle.Cantidad;
+                        _context.Productos.Update(producto);
+                    }
+                }
+
+                // Cambiar el estado de la venta
+                venta.Estado = false;
+                _context.Ventas.Update(venta);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Venta anulada correctamente.";
+                return RedirectToAction("IndexAnuladas");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Ocurrió un error al anular la venta: " + ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public async Task<IActionResult> IndexAnuladas()
+        {
+            var ventas = await _context.Ventas
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .Include(v => v.Usuario)
+                .Where(v => v.Estado == false)
+                .OrderByDescending(v => v.FechaVenta)
+                .ToListAsync();
+
+            var usuarios = await _context.Usuarios.OrderBy(u => u.NombreUsuario).ToListAsync();
+
+            var viewModel = new VentasViewModel
+            {
+                ListaVentas = ventas,
+                ListaUsuarios = usuarios
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> DetallesVenta(int id)
+        {
+            var venta = await _context.Ventas
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .Include(v => v.Usuario)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (venta == null)
+            {
+                return NotFound();
+            }
+
+            return View(venta);
+        }
+
+        public async Task<IActionResult> Anular(int id)
+        {
+            var venta = await _context.Ventas
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .Include(v => v.Usuario)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (venta == null)
+            {
+                return NotFound();
+            }
+
+            return View(venta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmarAnular(int id)
+        {
+            var venta = await _context.Ventas
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .FirstOrDefaultAsync(v => v.Id == id);
+
+            if (venta == null)
+            {
+                return NotFound();
+            }
+
+            // Validar si la venta tiene más de 3 días
+            if (venta.FechaVenta.AddDays(3) < DateTime.Now)
+            {
+                TempData["ErrorMessage"] = "No se puede anular una venta que tiene más de 3 días.";
+                return RedirectToAction("Index");
+            }
+
+            // Devolver los productos al inventario
+            foreach (var detalle in venta.Detalles)
+            {
+                var producto = detalle.Producto;
+                if (producto != null)
+                {
+                    producto.Cantidad += detalle.Cantidad;
+                    _context.Productos.Update(producto);
+                }
+            }
+
+            // Cambiar el estado de la venta
+            venta.Estado = false;
+            _context.Ventas.Update(venta);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Venta anulada correctamente.";
+            return RedirectToAction("IndexAnuladas");
         }
     }
 }
