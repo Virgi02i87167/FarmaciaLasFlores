@@ -5,6 +5,7 @@ using FarmaciaLasFlores.Helpers;
 using FarmaciaLasFlores.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace FarmaciaLasFlores.Controllers
 {
@@ -21,8 +22,7 @@ namespace FarmaciaLasFlores.Controllers
 
         public IActionResult Index()
         {
-            var totalUsuarios = _context.Usuarios.Count(); // Asegúrate que `Users` sea tu DbSet de usuarios
-
+            var totalUsuarios = _context.Usuarios.Count(); 
             ViewBag.TotalUsuarios = totalUsuarios;
 
             var fechaActual = DateTime.Today;
@@ -34,10 +34,32 @@ namespace FarmaciaLasFlores.Controllers
 
             ViewBag.ProductosPorVencer = productosPorVencer.Count;
 
-            if (!HttpContext.Session.GetInt32("UsuarioId").HasValue)
+            var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+            if (!usuarioId.HasValue)
             {
                 return RedirectToAction("Index", "Login");
             }
+
+            var usuario = _context.Usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefault(u => u.Id == usuarioId.Value);
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            ViewBag.RolUsuario = usuario.Rol.NombreRoles;
+
+            // Obtener permisos asociados al rol del usuario
+            var permisos = _context.Permisos
+    .Where(p => p.RolId == usuario.RolId)
+    .Select(p => p.Nombre) // O lo que necesites del permiso
+    .ToList();
+
+            ViewBag.Permisos = permisos;
+
             return View();
         }
 

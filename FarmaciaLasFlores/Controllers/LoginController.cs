@@ -28,14 +28,11 @@ namespace FarmaciaLasFlores.Controllers
         [HttpPost]
         public async Task<IActionResult> IniciarSesionAsync(string NombreUsuario, string Password)
         {
-            //var hashedPassword = HashPassword(Password);
+           var hashedPassword = HashPassword(Password);
 
-            //var usuario = _context.Usuarios
-            //.Include(u => u.Rol)  // <-- incluir el rol
-            //.FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
             var usuario = _context.Usuarios
-          .Include(u => u.Rol)  // <-- incluir el rol
-          .FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == Password);
+            .Include(u => u.Rol)  // <-- incluir el rol
+            .FirstOrDefault(u => u.NombreUsuario == NombreUsuario && u.Password == hashedPassword);
 
             if (usuario != null)
             {

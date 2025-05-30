@@ -11662,23 +11662,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\": {},
+    "C:\\Users\\alfar\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JAVIER MARTINEZ\\Downloads\\Proyecto6Jonathan\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "projectUniqueName": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
       "projectName": "FarmaciaLasFlores",
-      "projectPath": "C:\\Users\\JAVIER MARTINEZ\\Downloads\\Proyecto6Jonathan\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
-      "packagesPath": "C:\\Users\\JAVIER MARTINEZ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JAVIER MARTINEZ\\Downloads\\Proyecto6Jonathan\\FarmaciaLasFlores\\obj\\",
+      "projectPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\FarmaciaLasFlores.csproj",
+      "packagesPath": "C:\\Users\\alfar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alfar\\source\\repos\\FarmaciaLasFlores\\FarmaciaLasFlores\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\JAVIER MARTINEZ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alfar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11687,6 +11687,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11769,7 +11770,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

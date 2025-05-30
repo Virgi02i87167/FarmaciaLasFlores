@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FarmaciaLasFlores.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class migracionInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

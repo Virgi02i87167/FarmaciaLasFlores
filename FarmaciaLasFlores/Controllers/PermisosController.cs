@@ -19,7 +19,7 @@ namespace FarmaciaLasFlores.Controllers
         [HttpGet]
         public async Task<IActionResult> Asignar(int rolId)
         {
-            var permisosDisponibles = new List<string> { "Usuarios", "Productos", "Roles", "Medicamentos", "Ventas", "Reportes" };
+            var permisosDisponibles = new List<string> { "VerUsuarios", "VerProductos", "VerRoles", "VerTipoMedicamentos", "VerReportes", "VerVentas", "AsignarPermisos" };
 
             var permisosActuales = await _context.Permisos
                 .Where(p => p.RolId == rolId)
